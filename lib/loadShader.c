@@ -3,14 +3,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../glad/glad.h" // https://glad.dav1d.de/
-#include "../headers/load_shaders.h"
+/* **************************************************************************************************** */
+
+#include "../glad/glad.h"
+#include "../headers/loadShader.h"
+
+/* **************************************************************************************************** */
 
 #define _DEBUG
 
 /* **************************************************************************************************** */
 
-static const GLchar* read_shader(const char* filename){
+static const GLchar* readShader(const char* filename){
     #ifdef WIN32
         FILE* infile;
         fopen_s(&infile, filename, "rb");
@@ -20,7 +24,7 @@ static const GLchar* read_shader(const char* filename){
 
     if (!infile) {
         #ifdef _DEBUG
-                fprintf(stderr, "Unable to open file %s.\n", filename);
+            fprintf(stderr, "Unable to open file %s.\n", filename);
         #endif /* DEBUG */
         return NULL;
     }
@@ -41,21 +45,20 @@ static const GLchar* read_shader(const char* filename){
 
 /* **************************************************************************************************** */
 
-GLuint load_shaders(ShaderInfo* shaders){
+GLuint loadShader(struct shaderInfo* shaders){
     if (shaders == NULL){ 
         return 0; 
     }
 
     GLuint program = glCreateProgram();
-
-    ShaderInfo* entry = shaders;
+    struct shaderInfo* entry = shaders;
 
     while (entry->type != GL_NONE) {
         GLuint shader = glCreateShader(entry->type);
 
         entry->shader = shader;
 
-        const GLchar* source = read_shader(entry->filename);
+        const GLchar* source = readShader(entry->filename);
 
         if (source == NULL) {
             for (entry = shaders; entry->type != GL_NONE; ++entry) {

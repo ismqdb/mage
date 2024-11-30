@@ -2,6 +2,7 @@
     "files.associations": {
         "setup.h": "c",
         "init.h": "c",
-        "load_shaders.h": "c"
+        "load_shaders.h": "c",
+        "glad.h": "c"
     }
 }

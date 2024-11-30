@@ -1,21 +1,25 @@
 /* **************************************************************************************************** */
 
-#ifndef HELPER_FUNCS_H
-#define HELPER_FUNCS_H
+#pragma once
 
 /* **************************************************************************************************** */
 
-#include "../glad/glad.h" // https://glad.dav1d.de/
-#include <stdio.h>
-#include <stdlib.h>
+#include <GL/gl.h>
+
+#include "../glad/glad.h"
+#include <GLFW/glfw3.h>
 
 /* **************************************************************************************************** */
 
-const char* read_shader_from_file(char*);
-void check_shader_compilation(int*);
+struct shaderInfo {
+    GLenum       type;
+    const char*  filename;
+    GLuint       shader;
+};
 
 /* **************************************************************************************************** */
 
-#endif
+GLuint loadShader(struct shaderInfo*);
+static const GLchar* readShader(const char*);
 
 /* **************************************************************************************************** */

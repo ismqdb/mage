@@ -11,15 +11,15 @@
 
 /* **************************************************************************************************** */
 
-struct shaderInfo {
+struct shader {
     GLenum       type;
-    const char*  filename;
-    GLuint       shader;
+    const char*  path;
+    GLuint       name;
 };
 
 /* **************************************************************************************************** */
 
-GLuint loadShader(struct shaderInfo*);
+GLuint loadShader(struct shader*);
 static const GLchar* readShader(const char*);
 
 /* **************************************************************************************************** */

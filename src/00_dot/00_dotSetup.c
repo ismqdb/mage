@@ -49,7 +49,7 @@ void startup(){
     glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
 
-    struct shaderInfo shaders[] = {
+    struct shader shaders[] = {
         {GL_VERTEX_SHADER, "../shaders/00_dot/dot.vert"},
         {GL_FRAGMENT_SHADER, "../shaders/00_dot/dot.frag"},
         {GL_NONE, NULL}

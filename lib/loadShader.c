@@ -14,17 +14,17 @@
 
 /* **************************************************************************************************** */
 
-static const GLchar* readShader(const char* filename){
+static const GLchar* readShader(const char* path){
     #ifdef WIN32
         FILE* infile;
-        fopen_s(&infile, filename, "rb");
+        fopen_s(&infile, path, "rb");
     #else
-        FILE* infile = fopen(filename, "rb");
+        FILE* infile = fopen(path, "rb");
     #endif // WIN32
 
     if (!infile) {
         #ifdef _DEBUG
-            fprintf(stderr, "Unable to open file %s.\n", filename);
+            fprintf(stderr, "Unable to open file %s.\n", path);
         #endif /* DEBUG */
         return NULL;
     }
@@ -45,25 +45,25 @@ static const GLchar* readShader(const char* filename){
 
 /* **************************************************************************************************** */
 
-GLuint loadShader(struct shaderInfo* shaders){
+GLuint loadShader(struct shader* shaders){
     if (shaders == NULL){ 
         return 0; 
     }
 
     GLuint program = glCreateProgram();
-    struct shaderInfo* entry = shaders;
+    struct shader* entry = shaders;
 
     while (entry->type != GL_NONE) {
         GLuint shader = glCreateShader(entry->type);
 
-        entry->shader = shader;
+        entry->name = shader;
 
-        const GLchar* source = readShader(entry->filename);
+        const GLchar* source = readShader(entry->path);
 
         if (source == NULL) {
             for (entry = shaders; entry->type != GL_NONE; ++entry) {
-                glDeleteShader(entry->shader);
-                entry->shader = 0;
+                glDeleteShader(entry->name);
+                entry->name = 0;
             }
             return 0;
         }
@@ -109,8 +109,8 @@ GLuint loadShader(struct shaderInfo* shaders){
         #endif
 
         for (entry = shaders; entry->type != GL_NONE; ++entry) {
-            glDeleteShader(entry->shader);
-            entry->shader = 0;
+            glDeleteShader(entry->name);
+            entry->name = 0;
         }
         
         return 0;

@@ -1,11 +1,11 @@
 /* **************************************************************************************************** */
 
-#include "../headers/init.h"
-#include "../headers/setup.h"
+#include "../headers/init.hpp"
+#include "../headers/setup.hpp"
 
 /* **************************************************************************************************** */
 
-struct appInfo info;
+appInfo info;
 GLFWwindow* window;
 
 /* **************************************************************************************************** */
@@ -48,7 +48,7 @@ void init(){
     info.windowHeight = 600;
 
     const char title[] = "MAGE";
-    memcpy(info.title, title, sizeof(title));
+    info.title = title;
     
     #ifdef __APPLE__
         info.majorVersion = 3;
@@ -71,7 +71,7 @@ void init(){
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    window = glfwCreateWindow(info.windowWidth, info.windowHeight, info.title, 
+    window = glfwCreateWindow(info.windowWidth, info.windowHeight, info.title.c_str(), 
         info.flags.fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
 
     glfwMakeContextCurrent(window);

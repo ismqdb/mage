@@ -1,6 +1,6 @@
 /* **************************************************************************************************** */
 
-#include "../../headers/setup.h"
+#include "../../headers/setup.hpp"
 
 /* **************************************************************************************************** */
 
@@ -13,7 +13,7 @@ enum Attrib_IDs {vPosition = 0};
 GLuint VAOs[NumVAOs];
 GLuint Buffers[NumBuffers];
 
-const GLuint NumVertices = 10;
+const GLuint NumVertices = 4;
 
 /* **************************************************************************************************** */
 
@@ -22,16 +22,7 @@ void startup(){
     glBindVertexArray(VAOs[Triangles]);
 
     GLfloat vertices[][2] = {
-        {+0.00f, +1.00f}, 
-        {-0.25f, +0.40f},
-        {-1.00f, +0.40f}, 
-        {-0.50f, -0.25f}, 
-        {-1.00f, -1.00f},
-        {+0.00f, -0.50f},
-        {+1.00f, -1.00f},
-        {+0.50f, -0.25f},
-        {+1.00f, +0.40f},
-        {+0.25f, +0.40f}
+        {-0.9f, 0.9f}, {-0.9f, -0.9f}, {0.9f, -0.9f}, {0.9f, 0.9f}
     };
 
     glCreateBuffers(NumBuffers, Buffers);
@@ -39,8 +30,8 @@ void startup(){
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
 
     struct shader shaders[] = {
-        {GL_VERTEX_SHADER, "../shaders/03_star/star.vert"},
-        {GL_FRAGMENT_SHADER, "../shaders/03_star/star.frag"},
+        {GL_VERTEX_SHADER, "../shaders/02_cube/cube.vert"},
+        {GL_FRAGMENT_SHADER, "../shaders/02_cube/cube.frag"},
         {GL_NONE, NULL}
     };
 
@@ -59,7 +50,7 @@ void render(double currentTime){
     glClearBufferfv(GL_COLOR, 0, black);
 
     glBindVertexArray(VAOs[Triangles]);
-    glDrawArrays(GL_LINE_LOOP, 0, NumVertices);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, NumVertices);
 }
 
 /* **************************************************************************************************** */

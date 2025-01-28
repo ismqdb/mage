@@ -1,12 +1,11 @@
 /* **************************************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <iostream>
 
 /* **************************************************************************************************** */
 
 #include "../glad/glad.h"
-#include "../headers/loadShader.h"
+#include "../headers/loadShader.hpp"
 
 /* **************************************************************************************************** */
 
@@ -22,54 +21,54 @@ static const GLchar* readShader(const char* path){
         FILE* infile = fopen(path, "rb");
     #endif // WIN32
 
-    if (!infile) {
-        #ifdef _DEBUG
-            fprintf(stderr, "Unable to open file %s.\n", path);
-        #endif /* DEBUG */
-        return NULL;
-    }
+        if (!infile) {
+    #ifdef _DEBUG
+            std::cerr << "Unable to open file '" << path << "'" << std::endl;
+    #endif /* DEBUG */
+            return NULL;
+        }
 
     fseek(infile, 0, SEEK_END);
     int len = ftell(infile);
     fseek(infile, 0, SEEK_SET);
 
-    GLchar* source = (GLchar*)malloc(sizeof(GLchar)*(len+1));
+    GLchar* source = new GLchar[len+1];
 
     fread(source, 1, len, infile);
     fclose(infile);
 
     source[len] = 0;
 
-    return (const GLchar*)(source);
+    return const_cast<const GLchar*>(source);
 }
 
 /* **************************************************************************************************** */
 
 GLuint loadShader(struct shader* shaders){
-    if (shaders == NULL){ 
+    if (shaders == NULL) { 
         return 0; 
     }
 
     GLuint program = glCreateProgram();
-    struct shader* entry = shaders;
 
+    shader* entry = shaders;
     while (entry->type != GL_NONE) {
         GLuint shader = glCreateShader(entry->type);
 
         entry->name = shader;
 
         const GLchar* source = readShader(entry->path);
-
         if (source == NULL) {
             for (entry = shaders; entry->type != GL_NONE; ++entry) {
                 glDeleteShader(entry->name);
                 entry->name = 0;
             }
+
             return 0;
         }
 
         glShaderSource(shader, 1, &source, NULL);
-        free((void*)source);
+        delete [] source;
 
         glCompileShader(shader);
 
@@ -77,19 +76,21 @@ GLuint loadShader(struct shader* shaders){
         glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
 
         if (!compiled) {
-            #ifdef _DEBUG
-                GLsizei len;
-                glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
+        #ifdef _DEBUG
+            GLsizei len;
+            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
 
-                GLchar* log[len+1];
-                glGetShaderInfoLog(shader, len, &len, *log);
-                fprintf(stderr, "Shader compilation failed: %s.\n", log);
-            #endif
+            GLchar* log = new GLchar[len+1];
+            glGetShaderInfoLog(shader, len, &len, log);
+            std::cerr << "Shader compilation failed: " << log << std::endl;
+            delete [] log;
+        #endif /* DEBUG */
 
             return 0;
         }
 
         glAttachShader(program, shader);
+        
         ++entry;
     }
 
@@ -103,10 +104,11 @@ GLuint loadShader(struct shader* shaders){
             GLsizei len;
             glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
 
-            GLchar* log[len+1];
-            glGetProgramInfoLog(program, len, &len, *log);
-            fprintf(stderr, "Shader linking failed: %s.\n", log);
-        #endif
+            GLchar* log = new GLchar[len+1];
+            glGetProgramInfoLog(program, len, &len, log);
+            std::cerr << "Shader linking failed: " << log << std::endl;
+            delete [] log;
+        #endif /* DEBUG */
 
         for (entry = shaders; entry->type != GL_NONE; ++entry) {
             glDeleteShader(entry->name);

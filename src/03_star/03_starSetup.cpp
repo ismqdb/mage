@@ -1,19 +1,19 @@
 /* **************************************************************************************************** */
 
-#include "../../headers/setup.h"
+#include "../../headers/setup.hpp"
 
 /* **************************************************************************************************** */
 
 #define BUFFER_OFFSET(a) ((void*)(a))
 
-enum VAO_IDs {Triangles, NumVAOs};
-enum Buffer_IDs {ArrayBuffer, NumBuffers};
+enum VAO_IDs {Triangles, NumVAOs = 1};
+enum Buffer_IDs {ArrayBuffer, NumBuffers = 1};
 enum Attrib_IDs {vPosition = 0};
 
 GLuint VAOs[NumVAOs];
 GLuint Buffers[NumBuffers];
 
-const GLuint NumVertices = 6;
+const GLuint NumVertices = 10;
 
 /* **************************************************************************************************** */
 
@@ -22,8 +22,16 @@ void startup(){
     glBindVertexArray(VAOs[Triangles]);
 
     GLfloat vertices[][2] = {
-        {-0.90f, -0.90f}, { 0.85f, -0.90f}, {-0.90f,  0.85f},  // Triangle 1
-        { 0.90f, -0.85f}, { 0.90f,  0.90f}, {-0.85f,  0.90f}   // Triangle 2
+        {+0.00f, +1.00f}, 
+        {-0.25f, +0.40f},
+        {-1.00f, +0.40f}, 
+        {-0.50f, -0.25f}, 
+        {-1.00f, -1.00f},
+        {+0.00f, -0.50f},
+        {+1.00f, -1.00f},
+        {+0.50f, -0.25f},
+        {+1.00f, +0.40f},
+        {+0.25f, +0.40f}
     };
 
     glCreateBuffers(NumBuffers, Buffers);
@@ -31,8 +39,8 @@ void startup(){
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
 
     struct shader shaders[] = {
-        {GL_VERTEX_SHADER, "../shaders/01_triangles/triangles.vert"},
-        {GL_FRAGMENT_SHADER, "../shaders/01_triangles/triangles.frag"},
+        {GL_VERTEX_SHADER, "../shaders/03_star/star.vert"},
+        {GL_FRAGMENT_SHADER, "../shaders/03_star/star.frag"},
         {GL_NONE, NULL}
     };
 
@@ -51,7 +59,7 @@ void render(double currentTime){
     glClearBufferfv(GL_COLOR, 0, black);
 
     glBindVertexArray(VAOs[Triangles]);
-    glDrawArrays(GL_TRIANGLES, 0, NumVertices);
+    glDrawArrays(GL_LINE_LOOP, 0, NumVertices);
 }
 
 /* **************************************************************************************************** */
@@ -74,6 +82,8 @@ int run(){
         running &= (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);
         running &= (glfwWindowShouldClose(window) != GL_TRUE);
    }
+
+   return 1;
 }
 
 /* **************************************************************************************************** */

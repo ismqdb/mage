@@ -1,4 +1,4 @@
-#include "../../headers/setup.h"
+#include "../../headers/setup.hpp"
 
 int main(){
     init();

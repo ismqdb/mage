@@ -4,29 +4,30 @@
 
 /* **************************************************************************************************** */
 
-#define BUFFER_OFFSET(a) ((void*)(a))
+const int triangles = 0;
+const int numVAOs = 1;
 
-enum VAO_IDs {Triangles, NumVAOs = 1};
-enum Buffer_IDs {ArrayBuffer, NumBuffers = 1};
-enum Attrib_IDs {vPosition = 0};
+const int arrayBuffer = 0;
+const int numBuffers = 1;
+const int vPosition = 0;
 
-GLuint VAOs[NumVAOs];
-GLuint Buffers[NumBuffers];
+GLuint VAOs[numVAOs];
+GLuint buffers[numBuffers];
 
-const GLuint NumVertices = 4;
+GLuint numVertices = 0;
 
 /* **************************************************************************************************** */
 
 void startup(){
-    glGenVertexArrays(NumVAOs, VAOs);
-    glBindVertexArray(VAOs[Triangles]);
+    glGenVertexArrays(numVAOs, VAOs);
+    glBindVertexArray(VAOs[triangles]);
 
     GLfloat vertices[][2] = {
         {-0.9f, 0.9f}, {-0.9f, -0.9f}, {0.9f, -0.9f}, {0.9f, 0.9f}
     };
 
-    glCreateBuffers(NumBuffers, Buffers);
-    glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+    glCreateBuffers(numBuffers, buffers);
+    glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
 
     struct shader shaders[] = {
@@ -49,8 +50,8 @@ void render(double currentTime){
 
     glClearBufferfv(GL_COLOR, 0, black);
 
-    glBindVertexArray(VAOs[Triangles]);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, NumVertices);
+    glBindVertexArray(VAOs[triangles]);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, numVertices);
 }
 
 /* **************************************************************************************************** */

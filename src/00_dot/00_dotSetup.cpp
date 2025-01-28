@@ -4,22 +4,23 @@
 
 /* **************************************************************************************************** */
 
-#define BUFFER_OFFSET(a) ((void*)(a))
+const int triangles = 0;
+const int numVAOs = 1;
 
-enum VAO_IDs {Triangles, NumVAOs = 1};
-enum Buffer_IDs {ArrayBuffer, NumBuffers = 1};
-enum Attrib_IDs {vPosition = 0};
+const int arrayBuffer = 0;
+const int numBuffers = 1;
+const int vPosition = 0;
 
-GLuint VAOs[NumVAOs];
-GLuint Buffers[NumBuffers];
+GLuint VAOs[numVAOs];
+GLuint buffers[numBuffers];
 
-GLuint NumVertices = 0;
+GLuint numVertices = 0;
 
 /* **************************************************************************************************** */
 
 void startup(){
-    glGenVertexArrays(NumVAOs, VAOs);
-    glBindVertexArray(VAOs[Triangles]);
+    glGenVertexArrays(numVAOs, VAOs);
+    glBindVertexArray(VAOs[triangles]);
 
     GLfloat vertices[][2] = {
         {+0.25f, +0.40f},   // 1
@@ -43,10 +44,10 @@ void startup(){
         {+0.25f, +0.40f},   // 1
     };
 
-    NumVertices = sizeof(vertices)/sizeof(GLfloat);
+    numVertices = sizeof(vertices)/sizeof(GLfloat);
 
-    glCreateBuffers(NumBuffers, Buffers);
-    glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+    glCreateBuffers(numBuffers, buffers);
+    glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
 
     struct shader shaders[] = {
@@ -69,11 +70,11 @@ void render(double currentTime){
 
     glClearBufferfv(GL_COLOR, 0, black);
 
-    glBindVertexArray(VAOs[Triangles]);
+    glBindVertexArray(VAOs[triangles]);
 
     glPointSize(5);
 
-    glDrawArrays(GL_POINTS, 0, NumVertices);        // Points
+    glDrawArrays(GL_POINTS, 0, numVertices);        // Points
     //glDrawArrays(GL_TRIANGLE_FAN, 0, NumVertices);  // Filled star
 }
 

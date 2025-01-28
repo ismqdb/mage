@@ -6,28 +6,33 @@
 
 #define BUFFER_OFFSET(a) ((void*)(a))
 
-enum VAO_IDs {Triangles, NumVAOs};
-enum Buffer_IDs {ArrayBuffer, NumBuffers};
-enum Attrib_IDs {vPosition = 0};
+/* **************************************************************************************************** */
 
-GLuint VAOs[NumVAOs];
-GLuint Buffers[NumBuffers];
+const int triangles = 0;
+const int numVAOs = 1;
 
-const GLuint NumVertices = 6;
+const int arrayBuffer = 0;
+const int numBuffers = 1;
+const int vPosition = 0;
+
+GLuint VAOs[numVAOs];
+GLuint buffers[numBuffers];
+
+GLuint numVertices = 0;
 
 /* **************************************************************************************************** */
 
 void startup(){
-    glGenVertexArrays(NumVAOs, VAOs);
-    glBindVertexArray(VAOs[Triangles]);
+    glGenVertexArrays(numVAOs, VAOs);
+    glBindVertexArray(VAOs[triangles]);
 
     GLfloat vertices[][2] = {
         {-0.90f, -0.90f}, { 0.85f, -0.90f}, {-0.90f,  0.85f},  // Triangle 1
         { 0.90f, -0.85f}, { 0.90f,  0.90f}, {-0.85f,  0.90f}   // Triangle 2
     };
 
-    glCreateBuffers(NumBuffers, Buffers);
-    glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+    glCreateBuffers(numBuffers, buffers);
+    glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
 
     struct shader shaders[] = {
@@ -50,8 +55,8 @@ void render(double currentTime){
 
     glClearBufferfv(GL_COLOR, 0, black);
 
-    glBindVertexArray(VAOs[Triangles]);
-    glDrawArrays(GL_TRIANGLES, 0, NumVertices);
+    glBindVertexArray(VAOs[triangles]);
+    glDrawArrays(GL_TRIANGLES, 0, numVertices);
 }
 
 /* **************************************************************************************************** */

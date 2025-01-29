@@ -31,7 +31,7 @@ void startup(){
     glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
 
-    struct shader shaders[] = {
+    shader shaders[] = {
         {GL_VERTEX_SHADER, "../shaders/01_triangles/triangles.vert"},
         {GL_FRAGMENT_SHADER, "../shaders/01_triangles/triangles.frag"},
         {GL_NONE, NULL}
@@ -75,6 +75,8 @@ int run(){
         running &= (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);
         running &= (glfwWindowShouldClose(window) != GL_TRUE);
    }
+
+   return 1;
 }
 
 /* **************************************************************************************************** */

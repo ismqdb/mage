@@ -44,7 +44,7 @@ static const GLchar* readShader(const char* path){
 
 /* **************************************************************************************************** */
 
-GLuint loadShader(struct shader* shaders){
+GLuint loadShader(shader* shaders){
     if (shaders == NULL) { 
         return 0; 
     }

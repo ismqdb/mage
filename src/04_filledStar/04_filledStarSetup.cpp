@@ -62,7 +62,7 @@ void startup(){
     glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
 
-    struct shader shaders[] = {
+    shader shaders[] = {
         {GL_VERTEX_SHADER, "../shaders/04_filledStar/filledStar.vert"},
         {GL_FRAGMENT_SHADER, "../shaders/04_filledStar/filledStar.frag"},
         {GL_NONE, NULL}

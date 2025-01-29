@@ -4,10 +4,6 @@
 
 /* **************************************************************************************************** */
 
-#define BUFFER_OFFSET(a) ((void*)(a))
-
-/* **************************************************************************************************** */
-
 const int triangles = 0;
 const int numVAOs = 1;
 
@@ -44,7 +40,7 @@ void startup(){
     GLuint program = loadShader(shaders);
     glUseProgram(program);
 
-    glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+    glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, 0, (void*)(0));
     glEnableVertexAttribArray(vPosition);
 }
 

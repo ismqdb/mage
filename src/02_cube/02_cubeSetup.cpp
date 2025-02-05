@@ -26,6 +26,8 @@ void startup(){
         {-0.9f, 0.9f}, {-0.9f, -0.9f}, {0.9f, -0.9f}, {0.9f, 0.9f}
     };
 
+    numVertices = sizeof(vertices)/sizeof(GLfloat);
+
     glCreateBuffers(numBuffers, buffers);
     glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);

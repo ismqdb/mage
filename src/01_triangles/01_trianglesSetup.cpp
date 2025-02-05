@@ -27,6 +27,8 @@ void startup(){
         { 0.90f, -0.85f}, { 0.90f,  0.90f}, {-0.85f,  0.90f}   // Triangle 2
     };
 
+    numVertices = sizeof(vertices)/sizeof(GLfloat);
+
     glCreateBuffers(numBuffers, buffers);
     glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);

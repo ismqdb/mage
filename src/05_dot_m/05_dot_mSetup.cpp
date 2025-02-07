@@ -16,35 +16,17 @@ GLuint buffers[numBuffers];
 
 GLuint numVertices = 0;
 
+GLfloat vertices[][2] = {
+    {+0.25f, +0.40f},   // 1
+};
+
 /* **************************************************************************************************** */
 
 void startup(){
     glGenVertexArrays(numVAOs, VAOs);
     glBindVertexArray(VAOs[triangles]);
 
-    GLfloat vertices[][2] = {
-        {+0.25f, +0.40f},   // 1
-        {+0.00f, +1.00f},   // 2
-        {-0.25f, +0.40f},   // 3
-
-        {-0.25f, +0.40f},   // 3
-        {-1.00f, +0.40f},   // 4
-        {-0.50f, -0.25f},   // 5
-
-        {-0.50f, -0.25f},   // 5
-        {-1.00f, -1.00f},   // 6
-        {+0.00f, -0.50f},   // 7
-
-        {+0.00f, -0.50f},   // 7
-        {+1.00f, -1.00f},   // 8
-        {+0.50f, -0.25f},   // 9
-
-        {+0.50f, -0.25f},   // 9
-        {+1.00f, +0.40f},   // 10
-        {+0.25f, +0.40f},   // 1
-    };
-
-    numVertices = sizeof(vertices)/sizeof(GLfloat);
+    numVertices = sizeof(vertices[0])/sizeof(GLfloat) / 2;
 
     glCreateBuffers(numBuffers, buffers);
     glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
@@ -74,8 +56,7 @@ void render(double currentTime){
 
     glPointSize(5);
 
-    glDrawArrays(GL_POINTS, 0, numVertices);        // Points
-    //glDrawArrays(GL_TRIANGLE_FAN, 0, NumVertices);  // Filled star
+    glDrawArrays(GL_POINTS, 0, numVertices);
 }
 
 /* **************************************************************************************************** */

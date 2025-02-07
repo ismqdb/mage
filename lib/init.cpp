@@ -17,7 +17,18 @@ void onResize(GLFWwindow* window, int w, int h){
 
 /* **************************************************************************************************** */
 
-void onKey(GLFWwindow* window, int key, int scancode, int action, int mods){}
+void onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
+    if(key == GLFW_KEY_LEFT){
+        
+    }
+
+    if(key == GLFW_KEY_RIGHT){
+
+    }
+}
+
+/* **************************************************************************************************** */
+
 void onMouseButton(GLFWwindow* window, int button, int action, int mods){}
 void onMouseMove(GLFWwindow* window, double x, double y){}
 void onMouseWheel(GLFWwindow* window, double xoffset, double yoffset){}

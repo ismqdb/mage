@@ -25,6 +25,13 @@ dotApp::dotApp() : app(){
 
     numVertices = 0;
 
+    vertices[0][0] = 0.25f;
+    vertices[0][1] = 0.40f;
+
+    numVertices = sizeof(vertices[0])/sizeof(GLfloat) / 2;
+
+    memset(this->pressed, 0, GLFW_KEY_LAST);
+
     init();
 }
 
@@ -37,12 +44,6 @@ dotApp::~dotApp() {
 void dotApp::startup(){
     glGenVertexArrays(numVAOs, VAOs);
     glBindVertexArray(VAOs[triangles]);
-
-    GLfloat vertices[][2] = {
-        {+0.25f, +0.40f},   // 1
-    };
-
-    numVertices = sizeof(vertices[0])/sizeof(GLfloat) / 2;
 
     glCreateBuffers(numBuffers, buffers);
     glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
@@ -178,13 +179,46 @@ void dotApp::onKey(GLFWwindow* window, int key, int scancode, int action, int mo
 }
 
 void dotApp::keyPress(int key, int scancode, int action, int mods){
-    if(key == GLFW_KEY_LEFT){
-        
+    if(key == GLFW_KEY_UNKNOWN)
+        return;
+
+    if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) 
+        glfwSetWindowShouldClose(window, true);
+    
+    for(int i = 0; i < GLFW_KEY_LAST; i++)
+        if(action == GLFW_PRESS && i == key)
+            pressed[key] = true;
+
+    for(int i = 0; i < GLFW_KEY_LAST; i++){
+        if(!pressed[i])
+            continue;
+
+        switch(i){
+            case GLFW_KEY_LEFT:
+                this->vertices[0][0] -= 0.01;
+                this->startup();
+                break;
+
+            case GLFW_KEY_RIGHT:
+                this->vertices[0][0] += 0.01;
+                this->startup();
+                break;
+
+            case GLFW_KEY_UP:
+                this->vertices[0][1] += 0.01;
+                this->startup();
+                break;
+
+            case GLFW_KEY_DOWN:
+                this->vertices[0][1] -= 0.01;
+                this->startup();
+                break;
+        }
     }
 
-    if(key == GLFW_KEY_RIGHT){
-
-    }
+    for(int i = 0; i < GLFW_KEY_LAST; i++)
+        if(action == GLFW_RELEASE && i == key)
+            pressed[key] = false;
 }
 
 /* **************************************************************************************************** */

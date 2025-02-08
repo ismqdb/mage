@@ -2,6 +2,8 @@
 
 #include "../../headers/app.hpp"
 
+#include <cstring>
+
 /* **************************************************************************************************** */
 
 class dotApp : public app {
@@ -54,6 +56,9 @@ class dotApp : public app {
         GLuint buffers[1];
 
         GLuint numVertices = 0;
+        GLfloat vertices[1][2];
+
+        bool pressed[GLFW_KEY_LAST];
 };
 
 /* *****************************************************************************************************/

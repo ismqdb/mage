@@ -1,23 +1,17 @@
 /* **************************************************************************************************** */
 
-#include "../../headers/init.hpp"
-#include "../../headers/setup.hpp"
+#include "../headers/app.hpp"
 
 /* **************************************************************************************************** */
 
-appInfo info;
-GLFWwindow* window;
-
-/* **************************************************************************************************** */
-
-void onResize(GLFWwindow* window, int w, int h){
+void app::onResize(GLFWwindow* window, int w, int h){
     info.windowWidth = w;
     info.windowHeight = h;
 }
 
 /* **************************************************************************************************** */
 
-void onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
+void app::onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
     if(key == GLFW_KEY_LEFT){
         
     }
@@ -29,20 +23,20 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
 
 /* **************************************************************************************************** */
 
-void onMouseButton(GLFWwindow* window, int button, int action, int mods){}
-void onMouseMove(GLFWwindow* window, double x, double y){}
-void onMouseWheel(GLFWwindow* window, double xoffset, double yoffset){}
+void app::onMouseButton(GLFWwindow* window, int button, int action, int mods){}
+void app::onMouseMove(GLFWwindow* window, double x, double y){}
+void app::onMouseWheel(GLFWwindow* window, double xoffset, double yoffset){}
 
 /* **************************************************************************************************** */
 
-void setVsync(int enable){
+void app::setVsync(int enable){
     info.flags.vsync = enable ? 1 : 0;
     glfwSwapInterval((int)info.flags.vsync);
 }
 
 /* **************************************************************************************************** */
 
-void getMousePosition(int *x, int *y){
+void app::getMousePosition(int *x, int *y){
     double dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
@@ -52,7 +46,7 @@ void getMousePosition(int *x, int *y){
 
 /* **************************************************************************************************** */
 
-void init(){
+void app::init(){
     glfwInit();
 
     info.windowWidth = 800;
@@ -85,7 +79,7 @@ void init(){
     window = glfwCreateWindow(info.windowWidth, info.windowHeight, info.title.c_str(), 
         info.flags.fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
 
-    glfwMakeContextCurrent(window);
+    glfwSetWindowUserPointer(window, this);
 
     glfwSetWindowSizeCallback(window, onResize);
     glfwSetKeyCallback(window, onKey);
@@ -93,14 +87,17 @@ void init(){
     glfwSetCursorPosCallback(window, onMouseMove);
     glfwSetScrollCallback(window, onMouseWheel);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    glfwSetKeyCallback(window, onKey);
+
+    glfwMakeContextCurrent(window);
 
     startup();
-    glfwSetKeyCallback(window, onKey);
+    
 }
 
 /* **************************************************************************************************** */
 
-void deinit(){
+void app::deinit(){
     shutdown();
 
     glfwDestroyWindow(window);

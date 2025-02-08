@@ -45,23 +45,34 @@ struct appInfo {
 
 class app {
     public:
-        virtual void startup();
-        virtual void shutdown();
-        virtual void render();
-        virtual void run();
-        virtual void init();
-        virtual void deinit();
+        virtual ~app();
 
-        void onResize(GLFWwindow*, int, int);
-        void onKey(GLFWwindow*, int, int, int, int);
-        void onMouseButton(GLFWwindow*, int, int, int);
-        void onMouseMove(GLFWwindow*, double, double);
-        void onMouseWheel(GLFWwindow*, double, double);
+        virtual void startup() = 0;
+        virtual void shutdown() = 0;
+        virtual void render() = 0;
+        virtual void run() = 0;
+        virtual void init() = 0;
+        virtual void deinit() = 0;
+
+        static void onResize(GLFWwindow*, int, int);
+        virtual void resizeWindow(int, int);
+
+        static void onKey(GLFWwindow*, int, int, int, int);
+        virtual void keyPress(int, int, int, int);
+
+        static void onMouseButton(GLFWwindow*, int, int, int);
+        virtual void mouseClick(int, int, int);
+
+        static void onMouseMove(GLFWwindow*, double, double);
+        virtual void mouseMove(double, double);
+
+        static void onMouseWheel(GLFWwindow*, double, double);
+        virtual void mouseWheel(double, double);
 
         void setVsync(int);
         void getMousePosition(int*, int*);
 
-    private:
+    protected:
         appInfo info;
         GLFWwindow *window;
 };

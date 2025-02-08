@@ -261,10 +261,3 @@ void dotApp::getMousePosition(int *x, int *y){
 }
 
 /* **************************************************************************************************** */
-
-void dotApp::segfaultAction(int signal, siginfo_t *si, void *arg) {
-    std::cout << "Caught segfault at address " << si->si_addr;
-    exit(0);
-}
-
-/* **************************************************************************************************** */

@@ -35,8 +35,6 @@ class dotApp : public app {
         void getMousePosition(int*, int*);
 
     private:
-        static void segfaultAction(int, siginfo_t*, void*);
-
         int triangles;
         int numVAOs = 1;
 

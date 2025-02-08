@@ -35,12 +35,14 @@ class dotApp : public app {
         void getMousePosition(int*, int*);
 
     private:
-        const int triangles = 0;
-        const int numVAOs = 1;
+        static void segfaultAction(int, siginfo_t*, void*);
 
-        const int arrayBuffer = 0;
-        const int numBuffers = 1;
-        const int vPosition = 0;
+        int triangles;
+        int numVAOs = 1;
+
+        int arrayBuffer = 0;
+        int numBuffers = 1;
+        int vPosition = 0;
 
         GLuint VAOs[1];
         GLuint buffers[1];

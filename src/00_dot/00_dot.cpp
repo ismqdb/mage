@@ -5,7 +5,7 @@
 /* **************************************************************************************************** */
 
 int main(){
-    dotApp dotApp{};
+    dotApp dotApp;
 
     dotApp.run();
 }
@@ -13,6 +13,18 @@ int main(){
 /* **************************************************************************************************** */
 
 dotApp::dotApp() : app(){
+    triangles = 0;
+    numVAOs = 1;
+
+    arrayBuffer = 0;
+    numBuffers = 1;
+    vPosition = 0;
+
+    VAOs[0] = {0};
+    buffers[0] = {0};
+
+    numVertices = 0;
+
     init();
 }
 
@@ -72,13 +84,19 @@ void dotApp::startup(){
 void dotApp::render(){
     static const float black[] = {0.0f, 0.0f, 0.0f, 0.0f};
 
-    glClearBufferfv(GL_COLOR, 0, black);
+    try {
+        glClearBufferfv(GL_COLOR, 0, black);
+    }
 
-    glBindVertexArray(VAOs[triangles]);
+    catch(...){
+        std::cout << glGetError() << '\n';
+    }
 
-    glPointSize(5);
+    //glBindVertexArray(VAOs[triangles]);
 
-    glDrawArrays(GL_POINTS, 0, numVertices);        // Points
+    //glPointSize(5);
+
+    //glDrawArrays(GL_POINTS, 0, numVertices);        // Points
 }
 
 /* **************************************************************************************************** */
@@ -240,6 +258,13 @@ void dotApp::getMousePosition(int *x, int *y){
 
     *x = (int)(floor(dx));
     *y = (int)(floor(dy));
+}
+
+/* **************************************************************************************************** */
+
+void dotApp::segfaultAction(int signal, siginfo_t *si, void *arg) {
+    std::cout << "Caught segfault at address " << si->si_addr;
+    exit(0);
 }
 
 /* **************************************************************************************************** */

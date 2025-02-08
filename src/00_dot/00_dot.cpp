@@ -5,14 +5,14 @@
 /* **************************************************************************************************** */
 
 int main(){
-    dotApp app{};
+    dotApp dotApp{};
 
-    app.run();
+    dotApp.run();
 }
 
 /* **************************************************************************************************** */
 
-dotApp::dotApp(){
+dotApp::dotApp() : app(){
     init();
 }
 
@@ -161,6 +161,85 @@ void dotApp::deinit(){
 
     glfwDestroyWindow(window);
     glfwTerminate();
+}
+
+/* **************************************************************************************************** */
+
+void dotApp::onResize(GLFWwindow* window, int w, int h){
+    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+    pThis->resizeWindow(w, h);
+}
+
+void dotApp::resizeWindow(int x, int y){
+    info.windowWidth = x;
+    info.windowHeight = y;
+}
+
+/* **************************************************************************************************** */
+
+void dotApp::onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
+    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+    pThis->keyPress(key, scancode, action, mods);
+}
+
+void dotApp::keyPress(int key, int scancode, int action, int mods){
+    if(key == GLFW_KEY_LEFT){
+        
+    }
+
+    if(key == GLFW_KEY_RIGHT){
+
+    }
+}
+
+/* **************************************************************************************************** */
+
+void dotApp::onMouseButton(GLFWwindow* window, int button, int action, int mods){
+    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+    pThis->mouseClick(button, action, mods);
+}
+
+void dotApp::mouseClick(int button, int action, int mods){
+
+}
+
+/* **************************************************************************************************** */
+
+void dotApp::onMouseMove(GLFWwindow* window, double x, double y){
+    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+    pThis->mouseMove(x, y);
+}
+
+void dotApp::mouseMove(double x, double y){
+
+}
+
+/* **************************************************************************************************** */
+
+void dotApp::onMouseWheel(GLFWwindow* window, double xoffset, double yoffset){
+    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+    pThis->mouseWheel(xoffset, yoffset);
+}
+
+void dotApp::mouseWheel(double xoffset, double yoffset){
+
+}
+
+/* **************************************************************************************************** */
+
+void dotApp::setVsync(int enable){
+    info.flags.vsync = enable ? 1 : 0;
+    glfwSwapInterval((int)info.flags.vsync);
+}
+
+/* **************************************************************************************************** */
+
+void dotApp::getMousePosition(int *x, int *y){
+    double dx, dy;
+    glfwGetCursorPos(window, &dx, &dy);
+
+    *x = (int)(floor(dx));
+    *y = (int)(floor(dy));
 }
 
 /* **************************************************************************************************** */

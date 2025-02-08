@@ -6,7 +6,6 @@ set(CMAKE_EXE_LINKER_FLAGS "-lglfw -lm")
 set(SOURCE_FILES 
     ./glad/glad.c
     lib/loadShader.cpp
-    lib/app.cpp
 )
 
 find_package(glm REQUIRED)

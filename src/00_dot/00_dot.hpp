@@ -15,6 +15,25 @@ class dotApp : public app {
         void run() override;
         void init() override;
         void deinit() override;
+
+        static void onResize(GLFWwindow*, int, int);
+        virtual void resizeWindow(int, int);
+
+        static void onKey(GLFWwindow*, int, int, int, int);
+        virtual void keyPress(int, int, int, int);
+
+        static void onMouseButton(GLFWwindow*, int, int, int);
+        virtual void mouseClick(int, int, int);
+
+        static void onMouseMove(GLFWwindow*, double, double);
+        virtual void mouseMove(double, double);
+
+        static void onMouseWheel(GLFWwindow*, double, double);
+        virtual void mouseWheel(double, double);
+
+        void setVsync(int);
+        void getMousePosition(int*, int*);
+
     private:
         const int triangles = 0;
         const int numVAOs = 1;
@@ -29,4 +48,4 @@ class dotApp : public app {
         GLuint numVertices = 0;
 };
 
-/* **************************************************************************************************** */
+/* *****************************************************************************************************/

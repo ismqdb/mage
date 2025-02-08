@@ -34,6 +34,14 @@ class dotApp : public app {
         void setVsync(int);
         void getMousePosition(int*, int*);
 
+        static void GLAPIENTRY MessageCallback(GLenum,
+            GLenum,
+            GLuint,
+            GLenum,
+            GLsizei,
+            const GLchar*,
+            const void*);
+
     private:
         int triangles;
         int numVAOs = 1;

@@ -40,27 +40,9 @@ void dotApp::startup(){
 
     GLfloat vertices[][2] = {
         {+0.25f, +0.40f},   // 1
-        {+0.00f, +1.00f},   // 2
-        {-0.25f, +0.40f},   // 3
-
-        {-0.25f, +0.40f},   // 3
-        {-1.00f, +0.40f},   // 4
-        {-0.50f, -0.25f},   // 5
-
-        {-0.50f, -0.25f},   // 5
-        {-1.00f, -1.00f},   // 6
-        {+0.00f, -0.50f},   // 7
-
-        {+0.00f, -0.50f},   // 7
-        {+1.00f, -1.00f},   // 8
-        {+0.50f, -0.25f},   // 9
-
-        {+0.50f, -0.25f},   // 9
-        {+1.00f, +0.40f},   // 10
-        {+0.25f, +0.40f},   // 1
     };
 
-    numVertices = sizeof(vertices)/sizeof(GLfloat);
+    numVertices = sizeof(vertices[0])/sizeof(GLfloat) / 2;
 
     glCreateBuffers(numBuffers, buffers);
     glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
@@ -84,19 +66,11 @@ void dotApp::startup(){
 void dotApp::render(){
     static const float black[] = {0.0f, 0.0f, 0.0f, 0.0f};
 
-    try {
-        glClearBufferfv(GL_COLOR, 0, black);
-    }
+    glClearBufferfv(GL_COLOR, 0, black);
 
-    catch(...){
-        std::cout << glGetError() << '\n';
-    }
-
-    //glBindVertexArray(VAOs[triangles]);
-
-    //glPointSize(5);
-
-    //glDrawArrays(GL_POINTS, 0, numVertices);        // Points
+    glBindVertexArray(VAOs[triangles]);
+    glPointSize(5);
+    glDrawArrays(GL_POINTS, 0, numVertices);        // Points
 }
 
 /* **************************************************************************************************** */
@@ -152,9 +126,12 @@ void dotApp::init(){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
     window = glfwCreateWindow(info.windowWidth, info.windowHeight, info.title.c_str(), 
         info.flags.fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+
+    glfwMakeContextCurrent(window);
 
     glfwSetWindowUserPointer(window, this);
 
@@ -166,10 +143,10 @@ void dotApp::init(){
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     glfwSetKeyCallback(window, onKey);
 
-    glfwMakeContextCurrent(window);
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(MessageCallback, 0);
 
     startup();
-    
 }
 
 /* **************************************************************************************************** */
@@ -261,3 +238,17 @@ void dotApp::getMousePosition(int *x, int *y){
 }
 
 /* **************************************************************************************************** */
+
+void GLAPIENTRY
+dotApp::MessageCallback( GLenum source,
+                 GLenum type,
+                 GLuint id,
+                 GLenum severity,
+                 GLsizei length,
+                 const GLchar* message,
+                 const void* userParam )
+{
+  fprintf( stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
+            type, severity, message );
+}

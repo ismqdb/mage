@@ -188,6 +188,9 @@ void dotApp::keyPress(int key, int scancode, int action, int mods){
     for(int i = 0; i < GLFW_KEY_LAST; i++)
         if(action == GLFW_PRESS && i == key)
             pressed[key] = true;
+        else
+            if(action == GLFW_RELEASE && i == key)
+                pressed[key] = false;
 
     for(int i = 0; i < GLFW_KEY_LAST; i++){
         if(!pressed[i])
@@ -215,10 +218,6 @@ void dotApp::keyPress(int key, int scancode, int action, int mods){
                 break;
         }
     }
-
-    for(int i = 0; i < GLFW_KEY_LAST; i++)
-        if(action == GLFW_RELEASE && i == key)
-            pressed[key] = false;
 }
 
 /* **************************************************************************************************** */
@@ -274,15 +273,14 @@ void dotApp::getMousePosition(int *x, int *y){
 /* **************************************************************************************************** */
 
 void GLAPIENTRY
-dotApp::MessageCallback( GLenum source,
+dotApp::MessageCallback(GLenum source,
                  GLenum type,
                  GLuint id,
                  GLenum severity,
                  GLsizei length,
                  const GLchar* message,
-                 const void* userParam )
-{
-  fprintf( stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
-           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
-            type, severity, message );
+                 const void* userParam){
+  fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+           (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+            type, severity, message);
 }

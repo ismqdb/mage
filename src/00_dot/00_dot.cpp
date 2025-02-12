@@ -184,40 +184,36 @@ void dotApp::keyPress(int key, int scancode, int action, int mods){
 
     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) 
         glfwSetWindowShouldClose(window, true);
+
+    double deltaX = 0.0f;
     
-    for(int i = 0; i < GLFW_KEY_LAST; i++)
-        if(action == GLFW_PRESS && i == key)
-            pressed[key] = true;
-        else
-            if(action == GLFW_RELEASE && i == key)
-                pressed[key] = false;
-
-    for(int i = 0; i < GLFW_KEY_LAST; i++){
-        if(!pressed[i])
-            continue;
-
-        switch(i){
-            case GLFW_KEY_LEFT:
-                this->vertices[0][0] -= 0.01;
-                this->startup();
-                break;
-
-            case GLFW_KEY_RIGHT:
-                this->vertices[0][0] += 0.01;
-                this->startup();
-                break;
-
-            case GLFW_KEY_UP:
-                this->vertices[0][1] += 0.01;
-                this->startup();
-                break;
-
-            case GLFW_KEY_DOWN:
-                this->vertices[0][1] -= 0.01;
-                this->startup();
-                break;
+    if(key == GLFW_KEY_LEFT){
+        if(action == GLFW_PRESS){
+            this->pressed[GLFW_KEY_LEFT] = true;
         }
+        else 
+            if(action == GLFW_RELEASE)
+                this->pressed[GLFW_KEY_LEFT] = false;
+
+    } else
+
+    if(key == GLFW_KEY_RIGHT){
+        if(action == GLFW_PRESS){
+            this->pressed[GLFW_KEY_RIGHT] = true;
+        }
+        else 
+            if(action == GLFW_RELEASE)
+                this->pressed[GLFW_KEY_RIGHT] = false;
     }
+
+    if(this->pressed[GLFW_KEY_LEFT])
+        deltaX -= 0.01f;
+    
+    if(this->pressed[GLFW_KEY_RIGHT])
+        deltaX += 0.01f;
+
+    this->vertices[0][0] += deltaX;
+    this->startup();
 }
 
 /* **************************************************************************************************** */

@@ -179,6 +179,8 @@ void dotApp::onKey(GLFWwindow* window, int key, int scancode, int action, int mo
 }
 
 void dotApp::keyPress(int key, int scancode, int action, int mods){
+    std::cout << "Key: " << key << ", action: " << action << ".\n";
+
     if(key == GLFW_KEY_UNKNOWN)
         return;
 
@@ -276,7 +278,5 @@ dotApp::MessageCallback(GLenum source,
                  GLsizei length,
                  const GLchar* message,
                  const void* userParam){
-  fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
-           (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
-            type, severity, message);
+
 }

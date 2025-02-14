@@ -17,6 +17,7 @@ class dotApp : public app {
         void run() override;
         void init() override;
         void deinit() override;
+        void update() override;
 
         static void onResize(GLFWwindow*, int, int);
         virtual void resizeWindow(int, int);

@@ -70,7 +70,7 @@ void dotApp::render(){
     glClearBufferfv(GL_COLOR, 0, black);
 
     glBindVertexArray(VAOs[triangles]);
-    glPointSize(5);
+    glPointSize(this->pointSize);
     glDrawArrays(GL_POINTS, 0, numVertices);        // Points
 }
 
@@ -260,8 +260,6 @@ dotApp::MessageCallback(GLenum source,
 /* **************************************************************************************************** */
 
 void dotApp::update(){
-    double deltaX = 0.0f;
-
     for(int i = 0; i < GLFW_KEY_LAST; i++){
         if(!pressed[i])
             continue;
@@ -269,27 +267,30 @@ void dotApp::update(){
         switch(i){
             case GLFW_KEY_LEFT:
                 this->vertices[0][0] -= 0.01;
-                this->startup();
                 break;
 
             case GLFW_KEY_RIGHT:
                 this->vertices[0][0] += 0.01;
-                this->startup();
                 break;
 
             case GLFW_KEY_UP:
                 this->vertices[0][1] += 0.01;
-                this->startup();
                 break;
 
             case GLFW_KEY_DOWN:
                 this->vertices[0][1] -= 0.01;
-                this->startup();
+                break;
+
+            case GLFW_KEY_A:
+                this->pointSize++;
+                break;
+            
+            case GLFW_KEY_D:
+                this->pointSize--;
                 break;
         }
     }
 
-    this->vertices[0][0] += deltaX;
     this->startup();
 }
 

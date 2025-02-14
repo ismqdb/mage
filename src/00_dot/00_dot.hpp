@@ -59,6 +59,8 @@ class dotApp : public app {
         GLuint numVertices = 0;
         GLfloat vertices[1][2];
 
+        int pointSize = 5;
+
         bool pressed[GLFW_KEY_LAST];
 };
 

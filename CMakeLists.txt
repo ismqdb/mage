@@ -13,3 +13,4 @@ add_executable(01_triangles ${SOURCE_FILES} src/01_triangles/01_triangles.c src/
 add_executable(02_cube ${SOURCE_FILES} src/02_cube/02_cube.c src/02_cube/02_cubeSetup.c src/02_cube/02_cubeInit.c)
 add_executable(03_star ${SOURCE_FILES} src/03_star/03_star.c src/03_star/03_starSetup.c src/03_star/03_starInit.c)
 add_executable(04_filledStar ${SOURCE_FILES} src/04_filledStar/04_filledStar.c src/04_filledStar/04_filledStarSetup.c src/04_filledStar/04_filledStarInit.c)
+add_executable(05_moving ${SOURCE_FILES} src/05_moving/05_moving.c src/05_moving/05_movingSetup.c src/05_moving/05_movingInit.c)

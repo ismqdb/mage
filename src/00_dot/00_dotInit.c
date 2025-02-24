@@ -1,7 +1,7 @@
 /* **************************************************************************************************** */
 
-#include "../headers/init.h"
-#include "../headers/setup.h"
+#include "../../headers/init.h"
+#include "../../headers/setup.h"
 
 /* **************************************************************************************************** */
 
@@ -78,13 +78,13 @@ void init(){
 
     glfwSetWindowSizeCallback(window, onResize);
     glfwSetKeyCallback(window, onKey);
+    glfwSetKeyCallback(window, onKey);
     glfwSetMouseButtonCallback(window, onMouseButton);
     glfwSetCursorPosCallback(window, onMouseMove);
     glfwSetScrollCallback(window, onMouseWheel);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
     startup();
-    glfwSetKeyCallback(window, onKey);
 }
 
 /* **************************************************************************************************** */

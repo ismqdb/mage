@@ -13,13 +13,8 @@ find_package(glm REQUIRED)
 add_executable(00_dot ${SOURCE_FILES} 
     src/00_dot/00_dot.cpp)
 
-target_compile_options(00_dot PRIVATE 
-    -O0
-    -g
-    #-Wall 
-    #-Werror 
-    #-pedantic 
-    -std=c++20
-)
+add_executable(01_triangle ${SOURCE_FILES} 
+    src/01_triangle/01_triangle.cpp)  
 
 target_link_libraries(00_dot glm::glm)
+target_link_libraries(01_triangle glm::glm)

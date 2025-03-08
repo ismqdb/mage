@@ -27,18 +27,19 @@ dotApp::~dotApp() {
 /* **************************************************************************************************** */
 
 void dotApp::startup(){
-    glGenBuffers(1, &ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vertexIndices), vertexIndices, GL_STATIC_DRAW);
 
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
 
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions) + sizeof(vertexColors), NULL, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertexPositions), vertexPositions);
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertexPositions), sizeof(vertexColors), vertexColors);
+    shader shaders[] = {
+        {GL_VERTEX_SHADER, "../shaders/01_triangle/dot.vert"},
+        {GL_FRAGMENT_SHADER, "../shaders/01_triangle/dot.frag"},
+        {GL_NONE, NULL}
+    };
+
+    GLuint program = loadShader(shaders);
+    glUseProgram(program);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)(0));
+    glEnableVertexAttribArray(0);
 }
 
 /* **************************************************************************************************** */
@@ -48,9 +49,7 @@ void dotApp::render(){
 
     glClearBufferfv(GL_COLOR, 0, black);
 
-    glm::mat4 modelMatrix(1);
-    modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.3f, 0.0f, -5.0f));
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    
 }
 
 /* **************************************************************************************************** */

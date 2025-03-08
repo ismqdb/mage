@@ -48,24 +48,6 @@ class dotApp : public app {
             const void*);
 
     private:
-        const GLfloat vertexPositions[16] = {
-            -1.0f, -1.0f, 0.0f, 1.0f,
-            1.0f, -1.0f, 0.0f, 1.0f,
-            -1.0f, 1.0f, 0.0f, 1.0f,
-            -1.0f, -1.0f, 0.0f, 1.0f
-        };
-        
-        const GLfloat vertexColors[16] = {
-            1.0f, 1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f, 0.0f, 1.0f,
-            1.0f, 0.0f, 1.0f, 1.0f,
-            0.0f, 1.0f, 1.0f, 1.0f
-        };
-        
-        const GLushort vertexIndices[16] = {
-            0, 1, 2
-        };
-
         bool pressed[GLFW_KEY_LAST];
         GLuint ebo, vbo, vao;
 };

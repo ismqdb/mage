@@ -7,7 +7,7 @@
 int main(){
     dotApp dotApp;
 
-    dotApp.run();
+    dotApp.gameLoop();
 }
 
 /* **************************************************************************************************** */
@@ -17,16 +17,16 @@ dotApp::dotApp() : app(){
 
     memset(this->pressed, 0, GLFW_KEY_LAST);
 
-    init();
+    glfwSetup();
 }
 
 dotApp::~dotApp() {
-    deinit();
+    glfwTeardown();
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::startup(){
+void dotApp::openglSetup(){
 
 
     shader shaders[] = {
@@ -54,13 +54,13 @@ void dotApp::render(){
 
 /* **************************************************************************************************** */
 
-void dotApp::shutdown(){
+void dotApp::openglTeardown(){
 
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::run(){
+void dotApp::gameLoop(){
     int running = 1;
 
     while (running) {
@@ -78,7 +78,7 @@ void dotApp::run(){
 
 /* **************************************************************************************************** */
 
-void dotApp::init(){
+void dotApp::glfwSetup(){
     glfwInit();
 
     info.windowWidth = 800;
@@ -127,13 +127,13 @@ void dotApp::init(){
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, 0);
 
-    startup();
+    openglSetup();
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::deinit(){
-    shutdown();
+void dotApp::glfwTeardown(){
+    openglTeardown();
 
     glfwDestroyWindow(window);
     glfwTerminate();

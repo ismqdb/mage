@@ -7,7 +7,7 @@
 int main(){
     dotApp dotApp;
 
-    dotApp.run();
+    dotApp.gameLoop();
 }
 
 /* **************************************************************************************************** */
@@ -32,31 +32,22 @@ dotApp::dotApp() : app(){
 
     memset(this->pressed, 0, GLFW_KEY_LAST);
 
-    init();
+    glfwSetup();
 }
 
 dotApp::~dotApp() {
-    deinit();
+    glfwTeardown();
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::startup(){
+void dotApp::openglSetup(){
     glGenVertexArrays(numVAOs, VAOs);
     glBindVertexArray(VAOs[triangles]);
 
     glCreateBuffers(numBuffers, buffers);
     glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
-
-    shader shaders[] = {
-        {GL_VERTEX_SHADER, "../shaders/00_dot/dot.vert"},
-        {GL_FRAGMENT_SHADER, "../shaders/00_dot/dot.frag"},
-        {GL_NONE, NULL}
-    };
-
-    GLuint program = loadShader(shaders);
-    glUseProgram(program);
 
     glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, 0, (void*)(0));
     glEnableVertexAttribArray(vPosition);
@@ -76,14 +67,23 @@ void dotApp::render(){
 
 /* **************************************************************************************************** */
 
-void dotApp::shutdown(){
+void dotApp::openglTeardown(){
 
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::run(){
+void dotApp::gameLoop(){
     int running = 1;
+
+    shader shaders[] = {
+        {GL_VERTEX_SHADER, "../shaders/00_dot/dot.vert"},
+        {GL_FRAGMENT_SHADER, "../shaders/00_dot/dot.frag"},
+        {GL_NONE, NULL}
+    };
+
+    GLuint program = loadShader(shaders);
+    glUseProgram(program);
 
     while (running) {
         render();
@@ -100,7 +100,7 @@ void dotApp::run(){
 
 /* **************************************************************************************************** */
 
-void dotApp::init(){
+void dotApp::glfwSetup(){
     glfwInit();
 
     info.windowWidth = 800;
@@ -149,13 +149,13 @@ void dotApp::init(){
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, 0);
 
-    startup();
+    openglSetup();
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::deinit(){
-    shutdown();
+void dotApp::glfwTeardown(){
+    openglTeardown();
 
     glfwDestroyWindow(window);
     glfwTerminate();
@@ -291,7 +291,7 @@ void dotApp::update(){
         }
     }
 
-    this->startup();
+    this->openglSetup();
 }
 
 /* **************************************************************************************************** */

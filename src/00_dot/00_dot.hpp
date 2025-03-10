@@ -11,12 +11,12 @@ class dotApp : public app {
         dotApp();
         ~dotApp() override;
 
-        void startup() override;
-        void shutdown() override;
+        void openglSetup() override;
+        void openglTeardown() override;
         void render() override;
-        void run() override;
-        void init() override;
-        void deinit() override;
+        void gameLoop() override;
+        void glfwSetup() override;
+        void glfwTeardown() override;
         void update() override;
 
         static void onResize(GLFWwindow*, int, int);

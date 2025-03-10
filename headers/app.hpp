@@ -47,12 +47,12 @@ class app {
     public:
         virtual ~app(){}
 
-        virtual void startup() = 0;
-        virtual void shutdown() = 0;
+        virtual void openglSetup() = 0;
+        virtual void openglTeardown() = 0;
         virtual void render() = 0;
-        virtual void run() = 0;
-        virtual void init() = 0;
-        virtual void deinit() = 0;
+        virtual void gameLoop() = 0;
+        virtual void glfwSetup() = 0;
+        virtual void glfwTeardown() = 0;
         virtual void update() = 0;
 
     protected:

@@ -46,12 +46,8 @@ class dotApp : public app {
             const void*);
 
     private:
-        int triangles;
         int numVAOs = 1;
-
-        int arrayBuffer = 0;
         int numBuffers = 1;
-        int vPosition = 0;
 
         GLuint VAOs[1];
         GLuint buffers[1];

@@ -13,12 +13,8 @@ int main(){
 /* **************************************************************************************************** */
 
 dotApp::dotApp() : app(){
-    triangles = 0;
     numVAOs = 1;
-
-    arrayBuffer = 0;
     numBuffers = 1;
-    vPosition = 0;
 
     VAOs[0] = {0};
     buffers[0] = {0};
@@ -43,14 +39,14 @@ dotApp::~dotApp() {
 
 void dotApp::openglSetup(){
     glGenVertexArrays(numVAOs, VAOs);
-    glBindVertexArray(VAOs[triangles]);
+    glBindVertexArray(VAOs[0]);
 
     glCreateBuffers(numBuffers, buffers);
-    glBindBuffer(GL_ARRAY_BUFFER, buffers[arrayBuffer]);
+    glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
     glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
 
-    glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, 0, (void*)(0));
-    glEnableVertexAttribArray(vPosition);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)(0));
+    glEnableVertexAttribArray(0);
 }
 
 /* **************************************************************************************************** */
@@ -60,7 +56,7 @@ void dotApp::render(){
 
     glClearBufferfv(GL_COLOR, 0, black);
 
-    glBindVertexArray(VAOs[triangles]);
+    glBindVertexArray(VAOs[0]);
     glPointSize(this->pointSize);
     glDrawArrays(GL_POINTS, 0, numVertices);        // Points
 }

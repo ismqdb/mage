@@ -30,8 +30,8 @@ void dotApp::openglSetup(){
 
 
     shader shaders[] = {
-        {GL_VERTEX_SHADER, "../shaders/01_triangle/dot.vert"},
-        {GL_FRAGMENT_SHADER, "../shaders/01_triangle/dot.frag"},
+        {GL_VERTEX_SHADER, "../shaders/01_triangle/01_triangle.vert"},
+        {GL_FRAGMENT_SHADER, "../shaders/01_triangle/01_triangle.frag"},
         {GL_NONE, NULL}
     };
 

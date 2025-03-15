@@ -5,29 +5,62 @@
 /* **************************************************************************************************** */
 
 int main(){
-    dotApp dotApp;
+    triangleApp triangleApp;
 
-    dotApp.gameLoop();
+    triangleApp.gameLoop();
 }
 
 /* **************************************************************************************************** */
 
-dotApp::dotApp() : app(){
-    
-
+triangleApp::triangleApp() : app(){
     memset(this->pressed, 0, GLFW_KEY_LAST);
 
     glfwSetup();
 }
 
-dotApp::~dotApp() {
+triangleApp::~triangleApp() {
     glfwTeardown();
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::openglSetup(){
+void triangleApp::openglSetup(){
+    glGenVertexArrays(1, vao);
+    glBindVertexArray(vao[0]);
 
+    glCreateBuffers(1, vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+    glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, 0);
+
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glEnableVertexAttribArray(0);
+}
+
+/* **************************************************************************************************** */
+
+void triangleApp::render(){
+    static const float black[] = {0.0f, 0.0f, 0.0f, 0.0f};
+
+    glClearBufferfv(GL_COLOR, 0, black);
+
+    glBindVertexArray(vao[0]);
+    glPointSize(5);
+    glDrawArrays(GL_TRIANGLES, 0, 3);      
+}
+
+/* **************************************************************************************************** */
+
+void triangleApp::openglTeardown(){
+    glUseProgram(0);
+    glDeleteProgram(program);
+    glDeleteVertexArrays(1, vao);
+    glDeleteBuffers(1, vbo);
+}
+
+/* **************************************************************************************************** */
+
+void triangleApp::gameLoop(){
+    int running = 1;
 
     shader shaders[] = {
         {GL_VERTEX_SHADER, "../shaders/01_triangle/01_triangle.vert"},
@@ -35,33 +68,8 @@ void dotApp::openglSetup(){
         {GL_NONE, NULL}
     };
 
-    GLuint program = loadShader(shaders);
+    program = loadShader(shaders); 
     glUseProgram(program);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)(0));
-    glEnableVertexAttribArray(0);
-}
-
-/* **************************************************************************************************** */
-
-void dotApp::render(){
-    static const float black[] = {0.0f, 0.0f, 0.0f, 0.0f};
-
-    glClearBufferfv(GL_COLOR, 0, black);
-
-    
-}
-
-/* **************************************************************************************************** */
-
-void dotApp::openglTeardown(){
-
-}
-
-/* **************************************************************************************************** */
-
-void dotApp::gameLoop(){
-    int running = 1;
 
     while (running) {
         render();
@@ -78,7 +86,7 @@ void dotApp::gameLoop(){
 
 /* **************************************************************************************************** */
 
-void dotApp::glfwSetup(){
+void triangleApp::glfwSetup(){
     glfwInit();
 
     info.windowWidth = 800;
@@ -132,7 +140,7 @@ void dotApp::glfwSetup(){
 
 /* **************************************************************************************************** */
 
-void dotApp::glfwTeardown(){
+void triangleApp::glfwTeardown(){
     openglTeardown();
 
     glfwDestroyWindow(window);
@@ -141,24 +149,24 @@ void dotApp::glfwTeardown(){
 
 /* **************************************************************************************************** */
 
-void dotApp::onResize(GLFWwindow* window, int w, int h){
-    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
-    pThis->resizeWindow(w, h);
+void triangleApp::onResize(GLFWwindow* window, int width, int height){
+    triangleApp *pThis = (triangleApp*)glfwGetWindowUserPointer(window);
+    pThis->resizeWindow(width, height);
 }
 
-void dotApp::resizeWindow(int x, int y){
-    info.windowWidth = x;
-    info.windowHeight = y;
+void triangleApp::resizeWindow(int width, int height){
+    glViewport(0, 0, width, height);
+    aspectRatio = float(width)/float(height);
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
-    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+void triangleApp::onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
+    triangleApp *pThis = (triangleApp*)glfwGetWindowUserPointer(window);
     pThis->keyPress(key, scancode, action, mods);
 }
 
-void dotApp::keyPress(int key, int scancode, int action, int mods){
+void triangleApp::keyPress(int key, int scancode, int action, int mods){
     if(key == GLFW_KEY_UNKNOWN)
         return;
 
@@ -174,47 +182,47 @@ void dotApp::keyPress(int key, int scancode, int action, int mods){
 
 /* **************************************************************************************************** */
 
-void dotApp::onMouseButton(GLFWwindow* window, int button, int action, int mods){
-    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+void triangleApp::onMouseButton(GLFWwindow* window, int button, int action, int mods){
+    triangleApp *pThis = (triangleApp*)glfwGetWindowUserPointer(window);
     pThis->mouseClick(button, action, mods);
 }
 
-void dotApp::mouseClick(int button, int action, int mods){
+void triangleApp::mouseClick(int button, int action, int mods){
 
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::onMouseMove(GLFWwindow* window, double x, double y){
-    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+void triangleApp::onMouseMove(GLFWwindow* window, double x, double y){
+    triangleApp *pThis = (triangleApp*)glfwGetWindowUserPointer(window);
     pThis->mouseMove(x, y);
 }
 
-void dotApp::mouseMove(double x, double y){
+void triangleApp::mouseMove(double x, double y){
 
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::onMouseWheel(GLFWwindow* window, double xoffset, double yoffset){
-    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+void triangleApp::onMouseWheel(GLFWwindow* window, double xoffset, double yoffset){
+    triangleApp *pThis = (triangleApp*)glfwGetWindowUserPointer(window);
     pThis->mouseWheel(xoffset, yoffset);
 }
 
-void dotApp::mouseWheel(double xoffset, double yoffset){
+void triangleApp::mouseWheel(double xoffset, double yoffset){
 
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::setVsync(int enable){
+void triangleApp::setVsync(int enable){
     info.flags.vsync = enable ? 1 : 0;
     glfwSwapInterval((int)info.flags.vsync);
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::getMousePosition(int *x, int *y){
+void triangleApp::getMousePosition(int *x, int *y){
     double dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
@@ -225,7 +233,7 @@ void dotApp::getMousePosition(int *x, int *y){
 /* **************************************************************************************************** */
 
 void GLAPIENTRY
-dotApp::MessageCallback(GLenum source,
+triangleApp::MessageCallback(GLenum source,
                  GLenum type,
                  GLuint id,
                  GLenum severity,
@@ -239,8 +247,7 @@ dotApp::MessageCallback(GLenum source,
 
 /* **************************************************************************************************** */
 
-void dotApp::update(){
-    
+void triangleApp::update(){
 }
 
 /* **************************************************************************************************** */

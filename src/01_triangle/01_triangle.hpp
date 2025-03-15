@@ -3,15 +3,18 @@
 #include "../../headers/app.hpp"
 
 #include <cstring>
+#include <array>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 /* **************************************************************************************************** */
 
-class dotApp : public app {
+class triangleApp : public app {
     public:
-        dotApp();
-        ~dotApp() override;
+        triangleApp();
+        ~triangleApp() override;
 
         void openglSetup() override;
         void openglTeardown() override;
@@ -49,7 +52,34 @@ class dotApp : public app {
 
     private:
         bool pressed[GLFW_KEY_LAST];
-        GLuint ebo, vbo, vao;
+        
+        float aspectRatio;
+        GLuint program;
+
+        GLuint vao[1];
+        GLuint vbo[1];
+        GLuint ebo[1];
+
+        GLint renderModelMatrixLoc;
+        GLint renderProjectionMatrixLoc;
+
+        GLfloat vertexPositions[16] = {
+            -1.0f, -1.0f,  0.0f, 1.0f,
+            +1.0f, -1.0f,  0.0f, 1.0f,
+            -1.0f,  1.0f,  0.0f, 1.0f,
+            -1.0f, -1.0f,  0.0f, 1.0f,
+        };
+
+        GLfloat vertexColors[16] = {
+            1.0f, 1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 0.0f, 1.0f,
+            1.0f, 0.0f, 1.0f, 1.0f,
+            0.0f, 1.0f, 1.0f, 1.0f
+        };
+
+        GLushort vertexIndices[3] = {
+            0, 1, 2
+        };
 };
 
 /* *****************************************************************************************************/

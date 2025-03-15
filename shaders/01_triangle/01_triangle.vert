@@ -1,7 +1,13 @@
-#version 450 core
+#version 450
 
-layout(location = 0) in vec4 vPosition;
+uniform mat4 translationMatrix;
 
-void main(){
-    gl_Position = vPosition;
+layout(location = 0) in vec4 position;
+layout(location = 1) in vec4 color;
+
+out vec4 inColor;
+
+void main(void){
+    inColor = color;
+    gl_Position = ( position);
 }

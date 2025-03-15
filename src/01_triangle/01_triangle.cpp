@@ -25,27 +25,42 @@ triangleApp::~triangleApp() {
 /* **************************************************************************************************** */
 
 void triangleApp::openglSetup(){
+    glGenBuffers(1, ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo[0]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vertexIndices), vertexIndices, GL_STATIC_DRAW);
+
     glGenVertexArrays(1, vao);
     glBindVertexArray(vao[0]);
 
     glCreateBuffers(1, vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-    glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, 0);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions)+sizeof(vertexColors), NULL, GL_STATIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertexPositions), vertexPositions);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertexPositions), sizeof(vertexColors), vertexColors);
 
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)sizeof(vertexPositions));
     glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
 }
 
 /* **************************************************************************************************** */
 
 void triangleApp::render(){
-    static const float black[] = {0.0f, 0.0f, 0.0f, 0.0f};
+    GLfloat black[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+    glm::mat4 modelMatrix(1.0f);
+    
+    glEnable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
 
     glClearBufferfv(GL_COLOR, 0, black);
 
     glBindVertexArray(vao[0]);
-    glPointSize(5);
-    glDrawArrays(GL_TRIANGLES, 0, 3);      
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo[0]);
+
+    modelMatrix = glm::translate(modelMatrix, glm::vec3(-3.0f, 0.0f, 0.0f));
+    glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
 /* **************************************************************************************************** */
@@ -70,6 +85,8 @@ void triangleApp::gameLoop(){
 
     program = loadShader(shaders); 
     glUseProgram(program);
+
+    translationMatrixPosition = glGetUniformLocation(program, "translationMatrix");
 
     while (running) {
         render();

@@ -60,14 +60,12 @@ class triangleApp : public app {
         GLuint vbo[1];
         GLuint ebo[1];
 
-        GLint renderModelMatrixLoc;
-        GLint renderProjectionMatrixLoc;
+        GLint translationMatrixPosition;
 
         GLfloat vertexPositions[16] = {
-            -1.0f, -1.0f,  0.0f, 1.0f,
-            +1.0f, -1.0f,  0.0f, 1.0f,
-            -1.0f,  1.0f,  0.0f, 1.0f,
-            -1.0f, -1.0f,  0.0f, 1.0f,
+            -0.8f, -0.8f,  0.0f, 1.0f,
+            +0.8f, -0.8f,  0.0f, 1.0f,
+            -0.8f,  0.8f,  0.0f, 1.0f,
         };
 
         GLfloat vertexColors[16] = {

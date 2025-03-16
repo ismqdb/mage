@@ -63,9 +63,9 @@ class triangleApp : public app {
         GLint translationMatrixPosition;
 
         GLfloat vertexPositions[16] = {
-            -0.8f, -0.8f,  0.0f, 1.0f,
-            +0.8f, -0.8f,  0.0f, 1.0f,
-            -0.8f,  0.8f,  0.0f, 1.0f,
+            -0.9f, -0.4f,  0.0f, 1.0f,
+            -0.7f, -0.4f,  0.0f, 1.0f,
+            -0.9f,  0.4f,  0.0f, 1.0f,
         };
 
         GLfloat vertexColors[16] = {
@@ -78,6 +78,15 @@ class triangleApp : public app {
         GLushort vertexIndices[3] = {
             0, 1, 2
         };
+
+        GLfloat black[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+
+        glm::mat4 modelMatrix;
+    
+        glm::mat4 triangle_1;
+        glm::mat4 triangle_2;
+        glm::mat4 triangle_3;
+        glm::mat4 triangle_4;
 };
 
 /* *****************************************************************************************************/

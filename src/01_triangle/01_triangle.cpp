@@ -16,9 +16,17 @@ triangleApp::triangleApp() : app(){
     memset(this->pressed, 0, GLFW_KEY_LAST);
 
     glfwSetup();
+    openglSetup();
+
+    this->modelMatrix = glm::mat4(1.0f);
+    triangle_1 = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+    triangle_2 = glm::translate(modelMatrix, glm::vec3(0.25f, 0.0f, 0.0f));
+    triangle_3 = glm::translate(modelMatrix, glm::vec3(0.5f, 0.0f, 0.0f));
+    triangle_4 = glm::translate(modelMatrix, glm::vec3(0.75f, 0.0f, 0.0f));
 }
 
 triangleApp::~triangleApp() {
+    openglTeardown();
     glfwTeardown();
 }
 
@@ -46,10 +54,7 @@ void triangleApp::openglSetup(){
 
 /* **************************************************************************************************** */
 
-void triangleApp::render(){
-    GLfloat black[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-    glm::mat4 modelMatrix(1.0f);
-    
+void triangleApp::render(){    
     glEnable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
 
@@ -58,9 +63,17 @@ void triangleApp::render(){
     glBindVertexArray(vao[0]);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo[0]);
 
-    modelMatrix = glm::translate(modelMatrix, glm::vec3(-3.0f, 0.0f, 0.0f));
-    glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+    glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_1));
     glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_2));
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL);
+
+    glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_3));
+    glDrawElementsBaseVertex(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL, 1);
+
+    glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_4));
+    glDrawArraysInstanced(GL_TRIANGLES, 0, 3, 1);
 }
 
 /* **************************************************************************************************** */
@@ -151,15 +164,11 @@ void triangleApp::glfwSetup(){
 
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, 0);
-
-    openglSetup();
 }
 
 /* **************************************************************************************************** */
 
 void triangleApp::glfwTeardown(){
-    openglTeardown();
-
     glfwDestroyWindow(window);
     glfwTerminate();
 }

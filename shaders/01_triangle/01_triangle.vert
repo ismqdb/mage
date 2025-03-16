@@ -9,5 +9,5 @@ out vec4 inColor;
 
 void main(void){
     inColor = color;
-    gl_Position = ( position);
+    gl_Position = (translationMatrix * position);
 }

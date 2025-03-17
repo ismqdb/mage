@@ -70,7 +70,7 @@ void triangleApp::render(){
     glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL);
 
     glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_3));
-    glDrawElementsBaseVertex(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL, 1);
+    glDrawElementsBaseVertex(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL, 0);
 
     glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_4));
     glDrawArraysInstanced(GL_TRIANGLES, 0, 3, 1);

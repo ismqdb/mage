@@ -102,7 +102,7 @@ void dotApp::glfwSetup(){
     info.windowWidth = 800;
     info.windowHeight = 600;
 
-    const char title[] = "MAGE";
+    const char title[] = "mage";
     info.title = title;
     
     #ifdef __APPLE__

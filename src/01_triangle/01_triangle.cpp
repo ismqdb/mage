@@ -90,13 +90,13 @@ void triangleApp::openglTeardown(){
 void triangleApp::gameLoop(){
     int running = 1;
 
-    shader shaders[] = {
+    mage::shader shaders[] = {
         {GL_VERTEX_SHADER, "../shaders/01_triangle/01_triangle.vert"},
         {GL_FRAGMENT_SHADER, "../shaders/01_triangle/01_triangle.frag"},
         {GL_NONE, NULL}
     };
 
-    program = loadShader(shaders); 
+    program = mage::loadShader(shaders); 
     glUseProgram(program);
 
     translationMatrixPosition = glGetUniformLocation(program, "translationMatrix");

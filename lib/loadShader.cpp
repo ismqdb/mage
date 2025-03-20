@@ -13,7 +13,7 @@
 
 /* **************************************************************************************************** */
 
-static const GLchar* readShader(const char* path){
+static const GLchar* mage::readShader(const char* path){
     #ifdef WIN32
         FILE* infile;
         fopen_s(&infile, path, "rb");
@@ -44,20 +44,20 @@ static const GLchar* readShader(const char* path){
 
 /* **************************************************************************************************** */
 
-GLuint loadShader(shader* shaders){
+GLuint mage::loadShader(mage::shader* shaders){
     if (shaders == NULL) { 
         return 0; 
     }
 
     GLuint program = glCreateProgram();
 
-    shader* entry = shaders;
+    mage::shader* entry = shaders;
     while (entry->type != GL_NONE) {
         GLuint shader = glCreateShader(entry->type);
 
         entry->name = shader;
 
-        const GLchar* source = readShader(entry->path);
+        const GLchar* source = mage::readShader(entry->path);
         if (source == NULL) {
             for (entry = shaders; entry->type != GL_NONE; ++entry) {
                 glDeleteShader(entry->name);

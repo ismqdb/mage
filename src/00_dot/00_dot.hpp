@@ -6,7 +6,7 @@
 
 /* **************************************************************************************************** */
 
-class dotApp : public app {
+class dotApp : public mage::app {
     public:
         dotApp();
         ~dotApp() override;

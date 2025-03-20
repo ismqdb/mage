@@ -11,15 +11,19 @@
 
 /* **************************************************************************************************** */
 
-struct shader {
-    GLenum       type;
-    const char*  path;
-    GLuint       name;
-};
+namespace mage {
+    struct shader {
+        GLenum       type;
+        const char*  path;
+        GLuint       name;
+    };
+}
 
 /* **************************************************************************************************** */
 
-GLuint loadShader(shader*);
-static const GLchar* readShader(const char*);
+namespace mage {
+    GLuint loadShader(mage::shader*);
+    static const GLchar* readShader(const char*);
+}
 
 /* **************************************************************************************************** */

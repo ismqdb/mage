@@ -11,7 +11,7 @@
 
 /* **************************************************************************************************** */
 
-class triangleApp : public app {
+class triangleApp : public mage::app {
     public:
         triangleApp();
         ~triangleApp() override;

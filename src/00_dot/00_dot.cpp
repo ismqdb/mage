@@ -72,13 +72,13 @@ void dotApp::openglTeardown(){
 void dotApp::gameLoop(){
     int running = 1;
 
-    shader shaders[] = {
+    mage::shader shaders[] = {
         {GL_VERTEX_SHADER, "../shaders/00_dot/00_dot.vert"},
         {GL_FRAGMENT_SHADER, "../shaders/00_dot/00_dot.frag"},
         {GL_NONE, NULL}
     };
 
-    GLuint program = loadShader(shaders);
+    GLuint program = mage::loadShader(shaders);
     glUseProgram(program);
 
     while (running) {

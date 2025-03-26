@@ -27,19 +27,40 @@ cubeApp::~cubeApp() {
 /* **************************************************************************************************** */
 
 void cubeApp::openglSetup(){
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
 
+    glGenBuffers(1, &buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glEnableVertexAttribArray(0);
+
+    glEnable(GL_CULL_FACE);
+    glFrontFace(GL_CW);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
 }
 
 /* **************************************************************************************************** */
 
 void cubeApp::render(){    
+    GLfloat green[] = {0.0f, 0.25f, 0.0f, 1.0f};
+    GLfloat one = 1.0f;
 
+    glViewport(0, 0, info.windowWidth, info.windowHeight);
+    glClearBufferfv(GL_COLOR, 0, green);
+    glClearBufferfv(GL_DEPTH, 0, &one);
+
+    glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projMatrix));
 }
 
 /* **************************************************************************************************** */
 
 void cubeApp::openglTeardown(){
-
+    glDeleteVertexArrays(1, &vao);
+    glDeleteProgram(program);
+    glDeleteBuffers(1, &buffer);
 }
 
 /* **************************************************************************************************** */
@@ -55,6 +76,9 @@ void cubeApp::gameLoop(){
 
     program = mage::loadShader(shaders); 
     glUseProgram(program);
+
+    mvLocation = glGetUniformLocation(program, "mvMatrix");
+    projLocation = glGetUniformBlockIndex(program, "projLocation");
 
     while (running) {
         render();
@@ -138,6 +162,9 @@ void cubeApp::onResize(GLFWwindow* window, int width, int height){
 void cubeApp::resizeWindow(int width, int height){
     glViewport(0, 0, width, height);
     aspectRatio = float(width)/float(height);
+
+
+    projMatrix = glm::perspective(50.0f, aspectRatio, 0.1f, 1000.0f);
 }
 
 /* **************************************************************************************************** */

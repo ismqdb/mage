@@ -21,4 +21,3 @@ add_executable(02_cube ${SOURCE_FILES}
 
 target_link_libraries(00_dot glm::glm)
 target_link_libraries(01_triangle glm::glm)
-target_link_libraries(02_cube glm::glm)

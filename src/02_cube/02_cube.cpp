@@ -16,7 +16,6 @@ cubeApp::cubeApp() : app(){
     memset(this->pressed, 0, GLFW_KEY_LAST);
 
     glfwSetup();
-    openglSetup();
 }
 
 cubeApp::~cubeApp() {
@@ -27,6 +26,18 @@ cubeApp::~cubeApp() {
 /* **************************************************************************************************** */
 
 void cubeApp::openglSetup(){
+    mage::shader shaders[] = {
+        {GL_VERTEX_SHADER, "../shaders/02_cube/02_cube.vert"},
+        {GL_FRAGMENT_SHADER, "../shaders/02_cube/02_cube.frag"},
+        {GL_NONE, NULL}
+    };
+
+    program = mage::loadShader(shaders); 
+    glUseProgram(program);
+
+    mvLocation = glGetUniformLocation(program, "mvMatrix");
+    projLocation = glGetUniformLocation(program, "projMatrix");
+
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
@@ -52,7 +63,35 @@ void cubeApp::render(){
     glClearBufferfv(GL_COLOR, 0, green);
     glClearBufferfv(GL_DEPTH, 0, &one);
 
-    glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projMatrix));
+    glUseProgram(program);
+
+    glUniformMatrix4fv(projLocation, 1, GL_FALSE, projMatrix);
+
+    #ifdef MANY_CUBES
+            int i;
+            for (i = 0; i < 24; i++)
+            {
+                float f = (float)i + (float)currentTime * 0.3f;
+                vmath::mat4 mv_matrix = vmath::translate(0.0f, 0.0f, -6.0f) *
+                                        vmath::rotate((float)currentTime * 45.0f, 0.0f, 1.0f, 0.0f) *
+                                        vmath::rotate((float)currentTime * 21.0f, 1.0f, 0.0f, 0.0f) *
+                                        vmath::translate(sinf(2.1f * f) * 2.0f,
+                                                         cosf(1.7f * f) * 2.0f,
+                                                         sinf(1.3f * f) * cosf(1.5f * f) * 2.0f);
+                glUniformMatrix4fv(mv_location, 1, GL_FALSE, mv_matrix);
+                glDrawArrays(GL_TRIANGLES, 0, 36);
+            }
+    #else
+            float f = (float)currentTime * 0.3f;
+            vmath::mat4 mv_matrix = vmath::translate(0.0f, 0.0f, -4.0f) *
+                                    vmath::translate(sinf(2.1f * f) * 0.5f,
+                                                        cosf(1.7f * f) * 0.5f,
+                                                        sinf(1.3f * f) * cosf(1.5f * f) * 2.0f) *
+                                    vmath::rotate((float)currentTime * 45.0f, 0.0f, 1.0f, 0.0f) *
+                                    vmath::rotate((float)currentTime * 81.0f, 1.0f, 0.0f, 0.0f);
+            glUniformMatrix4fv(mvLocation, 1, GL_FALSE, mv_matrix);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+    #endif
 }
 
 /* **************************************************************************************************** */
@@ -68,17 +107,7 @@ void cubeApp::openglTeardown(){
 void cubeApp::gameLoop(){
     int running = 1;
 
-    mage::shader shaders[] = {
-        {GL_VERTEX_SHADER, "../shaders/02_cube/02_cube.vert"},
-        {GL_FRAGMENT_SHADER, "../shaders/02_cube/02_cube.frag"},
-        {GL_NONE, NULL}
-    };
-
-    program = mage::loadShader(shaders); 
-    glUseProgram(program);
-
-    mvLocation = glGetUniformLocation(program, "mvMatrix");
-    projLocation = glGetUniformBlockIndex(program, "projLocation");
+    openglSetup();
 
     while (running) {
         render();
@@ -164,7 +193,7 @@ void cubeApp::resizeWindow(int width, int height){
     aspectRatio = float(width)/float(height);
 
 
-    projMatrix = glm::perspective(50.0f, aspectRatio, 0.1f, 1000.0f);
+    projMatrix = vmath::perspective(50.0f, aspectRatio, 0.1f, 1000.0f);
 }
 
 /* **************************************************************************************************** */

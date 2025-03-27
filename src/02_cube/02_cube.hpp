@@ -1,13 +1,10 @@
 /* **************************************************************************************************** */
 
 #include "../../headers/app.hpp"
+#include "../../headers/vmath.hpp"
 
 #include <cstring>
 #include <array>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 /* **************************************************************************************************** */
 
@@ -55,12 +52,15 @@ class cubeApp : public mage::app {
         
         float aspectRatio;
         GLuint program;
+        int fov = 45.0f;
+
+        int currentTime = 0.5;
 
         GLuint vao;
         GLuint buffer;
         GLint mvLocation;
         GLint projLocation;
-        glm::mat4 projMatrix;
+        vmath::mat4 projMatrix;
 
         GLfloat vertexPositions[108] = {
             -0.25f,  0.25f, -0.25f,

@@ -273,6 +273,7 @@ cubeApp::MessageCallback(GLenum source,
     fprintf( stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
         ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
             type, severity, message );
+    errorAbort(glGetError(), message);
 }
 
 /* **************************************************************************************************** */

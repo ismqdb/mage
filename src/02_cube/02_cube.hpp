@@ -1,6 +1,7 @@
 /* **************************************************************************************************** */
 
 #include "../../headers/app.hpp"
+#include "../../headers/errorMacros.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

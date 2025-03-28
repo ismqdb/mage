@@ -34,11 +34,6 @@ void cubeApp::openglSetup(){
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
     glEnableVertexAttribArray(0);
-
-    glEnable(GL_CULL_FACE);
-    glFrontFace(GL_CW);
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LEQUAL);
 }
 
 /* **************************************************************************************************** */
@@ -86,19 +81,22 @@ void cubeApp::gameLoop(){
         100.0f
     );
 
-    /*viewMatrix = glm::lookAt(
+    viewMatrix = glm::lookAt(
         glm::vec3(0.0f, 0.0f, 3.0f), 
         glm::vec3(0.0f, 0.0f, 0.0f), 
         glm::vec3(0.0f, 1.0f, 0.0f)
-    );*/
+    );
 
-    viewMatrix = glm::mat4(1.0f);
+    //viewMatrix = glm::mat4(1.0f);
 
     program = mage::loadShader(shaders); 
     glUseProgram(program);
 
     projectionMatrixLocation = glGetUniformLocation(program, "projection");
     viewMatrixLocation = glGetUniformLocation(program, "view");
+
+    glEnable(GL_DEPTH_TEST);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     openglSetup();
 

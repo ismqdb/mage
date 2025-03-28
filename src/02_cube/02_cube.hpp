@@ -62,11 +62,11 @@ class cubeApp : public mage::app {
         GLuint vao;
         GLuint buffer;
 
-        GLint moveMatrixLocation;
-        GLint lookAtMatrixLocation;
+        GLint projectionMatrixLocation;
+        GLint viewMatrixLocation;
         
-        glm::mat4 lookAtMatrix;
-        glm::mat4 moveMatrix;
+        glm::mat4 projectionMatrix;
+        glm::mat4 viewMatrix;
 
         GLfloat vertexPositions[108] = {
             -0.25f,  0.25f, -0.25f,

@@ -26,18 +26,6 @@ cubeApp::~cubeApp() {
 /* **************************************************************************************************** */
 
 void cubeApp::openglSetup(){
-    mage::shader shaders[] = {
-        {GL_VERTEX_SHADER, "../shaders/02_cube/02_cube.vert"},
-        {GL_FRAGMENT_SHADER, "../shaders/02_cube/02_cube.frag"},
-        {GL_NONE, NULL}
-    };
-
-    program = mage::loadShader(shaders); 
-    glUseProgram(program);
-
-    moveMatrixLocation = glGetUniformLocation(program, "moveMatrix");
-    lookAtMatrixLocation = glGetUniformLocation(program, "lookAtMatrix");
-
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
@@ -65,9 +53,9 @@ void cubeApp::render(){
 
     glUseProgram(program);
 
-    glUniformMatrix4fv(lookAtMatrixLocation, 1, GL_FALSE, glm::value_ptr(lookAtMatrix));
+    glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
-    glUniformMatrix4fv(moveMatrixLocation, 1, GL_FALSE, glm::value_ptr(moveMatrix));
+    glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
 }
@@ -84,6 +72,33 @@ void cubeApp::openglTeardown(){
 
 void cubeApp::gameLoop(){
     int running = 1;
+
+    mage::shader shaders[] = {
+        {GL_VERTEX_SHADER, "../shaders/02_cube/02_cube.vert"},
+        {GL_FRAGMENT_SHADER, "../shaders/02_cube/02_cube.frag"},
+        {GL_NONE, NULL}
+    };
+
+    projectionMatrix = glm::perspective(
+        (float)glm::radians((float)fov), 
+        (float)info.windowWidth / (float)info.windowHeight, 
+        0.1f, 
+        100.0f
+    );
+
+    /*viewMatrix = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 3.0f), 
+        glm::vec3(0.0f, 0.0f, 0.0f), 
+        glm::vec3(0.0f, 1.0f, 0.0f)
+    );*/
+
+    viewMatrix = glm::mat4(1.0f);
+
+    program = mage::loadShader(shaders); 
+    glUseProgram(program);
+
+    projectionMatrixLocation = glGetUniformLocation(program, "projection");
+    viewMatrixLocation = glGetUniformLocation(program, "view");
 
     openglSetup();
 

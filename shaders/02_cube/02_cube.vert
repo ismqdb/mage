@@ -6,10 +6,10 @@ out VS_OUT {
     vec4 color;
 } vs_out;
 
-uniform mat4 moveMatrix;
-uniform mat4 lookAtMatrix;
+uniform mat4 projection;
+uniform mat4 view;
 
 void main(void){
-    gl_Position =  position;
+    gl_Position = view * position;
     vs_out.color = position * 2.0f + vec4(0.5, 0.5, 0.5, 0.0);
 }

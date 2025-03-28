@@ -1,7 +1,10 @@
 /* **************************************************************************************************** */
 
 #include "../../headers/app.hpp"
-#include "../../headers/vmath.hpp"
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <cstring>
 #include <array>
@@ -58,9 +61,12 @@ class cubeApp : public mage::app {
 
         GLuint vao;
         GLuint buffer;
-        GLint mvLocation;
-        GLint projLocation;
-        vmath::mat4 projMatrix;
+
+        GLint moveMatrixLocation;
+        GLint lookAtMatrixLocation;
+        
+        glm::mat4 lookAtMatrix;
+        glm::mat4 moveMatrix;
 
         GLfloat vertexPositions[108] = {
             -0.25f,  0.25f, -0.25f,

@@ -35,8 +35,8 @@ void cubeApp::openglSetup(){
     program = mage::loadShader(shaders); 
     glUseProgram(program);
 
-    mvLocation = glGetUniformLocation(program, "mvMatrix");
-    projLocation = glGetUniformLocation(program, "projMatrix");
+    moveMatrixLocation = glGetUniformLocation(program, "moveMatrix");
+    lookAtMatrixLocation = glGetUniformLocation(program, "lookAtMatrix");
 
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
@@ -65,33 +65,11 @@ void cubeApp::render(){
 
     glUseProgram(program);
 
-    glUniformMatrix4fv(projLocation, 1, GL_FALSE, projMatrix);
+    glUniformMatrix4fv(lookAtMatrixLocation, 1, GL_FALSE, glm::value_ptr(lookAtMatrix));
 
-    #ifdef MANY_CUBES
-            int i;
-            for (i = 0; i < 24; i++)
-            {
-                float f = (float)i + (float)currentTime * 0.3f;
-                vmath::mat4 mv_matrix = vmath::translate(0.0f, 0.0f, -6.0f) *
-                                        vmath::rotate((float)currentTime * 45.0f, 0.0f, 1.0f, 0.0f) *
-                                        vmath::rotate((float)currentTime * 21.0f, 1.0f, 0.0f, 0.0f) *
-                                        vmath::translate(sinf(2.1f * f) * 2.0f,
-                                                         cosf(1.7f * f) * 2.0f,
-                                                         sinf(1.3f * f) * cosf(1.5f * f) * 2.0f);
-                glUniformMatrix4fv(mv_location, 1, GL_FALSE, mv_matrix);
-                glDrawArrays(GL_TRIANGLES, 0, 36);
-            }
-    #else
-            float f = (float)currentTime * 0.3f;
-            vmath::mat4 mv_matrix = vmath::translate(0.0f, 0.0f, -4.0f) *
-                                    vmath::translate(sinf(2.1f * f) * 0.5f,
-                                                        cosf(1.7f * f) * 0.5f,
-                                                        sinf(1.3f * f) * cosf(1.5f * f) * 2.0f) *
-                                    vmath::rotate((float)currentTime * 45.0f, 0.0f, 1.0f, 0.0f) *
-                                    vmath::rotate((float)currentTime * 81.0f, 1.0f, 0.0f, 0.0f);
-            glUniformMatrix4fv(mvLocation, 1, GL_FALSE, mv_matrix);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-    #endif
+    glUniformMatrix4fv(moveMatrixLocation, 1, GL_FALSE, glm::value_ptr(moveMatrix));
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+
 }
 
 /* **************************************************************************************************** */
@@ -193,7 +171,7 @@ void cubeApp::resizeWindow(int width, int height){
     aspectRatio = float(width)/float(height);
 
 
-    projMatrix = vmath::perspective(50.0f, aspectRatio, 0.1f, 1000.0f);
+    
 }
 
 /* **************************************************************************************************** */

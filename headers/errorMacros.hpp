@@ -12,6 +12,14 @@
 
 /* ******************************************************************************** */
 
+#define errorAbortAtLine(code,text,line) do { \
+    fprintf (stderr, "%s at \"%s\":%d: %s\n", \
+        text, __FILE__, line, strerror (code)); \
+    abort (); \
+    } while (0)
+
+/* ******************************************************************************** */
+
 #define errnoAbort(text) do { \
     fprintf (stderr, "%s at \"%s\":%d: %s\n", \
         text, __FILE__, __LINE__, strerror (errno)); \

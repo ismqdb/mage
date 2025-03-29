@@ -42,7 +42,6 @@ void cubeApp::render(){
     GLfloat green[] = {0.0f, 0.25f, 0.0f, 1.0f};
     GLfloat one = 1.0f;
 
-    glViewport(0, 0, info.windowWidth, info.windowHeight);
     glClearBufferfv(GL_COLOR, 0, green);
     glClearBufferfv(GL_DEPTH, 0, &one);
 

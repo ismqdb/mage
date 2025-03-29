@@ -181,8 +181,18 @@ void cubeApp::onResize(GLFWwindow* window, int width, int height){
 }
 
 void cubeApp::resizeWindow(int width, int height){
+    this->info.windowWidth = width;
+    this->info.windowHeight = height;
+
     glViewport(0, 0, width, height);
-    aspectRatio = float(width)/float(height);    
+    aspectRatio = float(info.windowWidth)/float(info.windowHeight); 
+    
+    projectionMatrix = glm::perspective(
+        (float)glm::radians((float)fov), 
+        (float)info.windowWidth / (float)info.windowHeight, 
+        aspectRatio, 
+        100.0f
+    );
 }
 
 /* **************************************************************************************************** */

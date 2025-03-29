@@ -65,9 +65,11 @@ class cubeApp : public mage::app {
 
         GLint projectionMatrixLocation;
         GLint viewMatrixLocation;
+        GLint modelMatrixLocation;
         
         glm::mat4 projectionMatrix;
         glm::mat4 viewMatrix;
+        glm::mat4 modelMatrix;
 
         GLfloat vertexPositions[108] = {
             -0.25f,  0.25f, -0.25f,

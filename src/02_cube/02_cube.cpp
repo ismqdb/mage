@@ -49,10 +49,10 @@ void cubeApp::render(){
     glUseProgram(program);
 
     glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-
     glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
+    glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 /* **************************************************************************************************** */
@@ -87,13 +87,14 @@ void cubeApp::gameLoop(){
         glm::vec3(0.0f, 1.0f, 0.0f)
     );
 
-    //viewMatrix = glm::mat4(1.0f);
+    modelMatrix = glm::mat4(1.0f);
 
     program = mage::loadShader(shaders); 
     glUseProgram(program);
 
     projectionMatrixLocation = glGetUniformLocation(program, "projection");
     viewMatrixLocation = glGetUniformLocation(program, "view");
+    modelMatrixLocation = glGetUniformLocation(program, "model");
 
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -181,10 +182,7 @@ void cubeApp::onResize(GLFWwindow* window, int width, int height){
 
 void cubeApp::resizeWindow(int width, int height){
     glViewport(0, 0, width, height);
-    aspectRatio = float(width)/float(height);
-
-
-    
+    aspectRatio = float(width)/float(height);    
 }
 
 /* **************************************************************************************************** */

@@ -279,6 +279,66 @@ cubeApp::MessageCallback(GLenum source,
 /* **************************************************************************************************** */
 
 void cubeApp::update(){
+    double deltaMove = 0.025;
+
+    for(int i = 0; i < GLFW_KEY_LAST; i++){
+        if(!pressed[i])
+            continue;
+
+        switch(i){
+            case GLFW_KEY_A:
+                modelMatrix = glm::rotate(
+                    modelMatrix,
+                    (float)glfwGetTime(),
+                    glm::vec3(1.0f, 0.0f, 0.0f)
+                );
+                break;
+
+            case GLFW_KEY_D:
+                modelMatrix = glm::rotate(
+                    modelMatrix,
+                    (float)glfwGetTime(),
+                    glm::vec3(0.0f, 0.0f, 1.0f)
+                );
+                break;
+
+            case GLFW_KEY_W:
+                modelMatrix = glm::rotate(
+                    modelMatrix,
+                    (float)glfwGetTime(),
+                    glm::vec3(0.0f, 1.0f, 0.0f)
+                );
+                break;
+
+            case GLFW_KEY_LEFT:
+                modelMatrix = glm::translate(
+                    modelMatrix,
+                    glm::vec3(-deltaMove, 0.0, 0.0)
+                );
+                break;
+
+            case GLFW_KEY_RIGHT:
+                modelMatrix = glm::translate(
+                    modelMatrix,
+                    glm::vec3(deltaMove, 0.0f, 0.0f)
+                );
+                break;
+
+            case GLFW_KEY_UP:
+                modelMatrix = glm::translate(
+                    modelMatrix,
+                    glm::vec3(0.0f, deltaMove, 0.0f)
+                );
+                break;
+
+            case GLFW_KEY_DOWN:
+                modelMatrix = glm::translate(
+                    modelMatrix,
+                    glm::vec3(0.0f, -deltaMove, 0.0f)
+                );
+                break;
+        }
+    }
 }
 
 /* **************************************************************************************************** */

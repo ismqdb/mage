@@ -84,9 +84,6 @@ class texTriangle : public mage::app {
         glm::mat4 modelMatrix;
     
         glm::mat4 triangle_1;
-        glm::mat4 triangle_2;
-        glm::mat4 triangle_3;
-        glm::mat4 triangle_4;
 };
 
 /* *****************************************************************************************************/

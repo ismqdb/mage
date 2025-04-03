@@ -20,9 +20,6 @@ texTriangle::texTriangle() : app(){
 
     this->modelMatrix = glm::mat4(1.0f);
     triangle_1 = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
-    triangle_2 = glm::translate(modelMatrix, glm::vec3(0.25f, 0.0f, 0.0f));
-    triangle_3 = glm::translate(modelMatrix, glm::vec3(0.5f, 0.0f, 0.0f));
-    triangle_4 = glm::translate(modelMatrix, glm::vec3(0.75f, 0.0f, 0.0f));
 }
 
 texTriangle::~texTriangle() {
@@ -65,15 +62,6 @@ void texTriangle::render(){
 
     glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_1));
     glDrawArrays(GL_TRIANGLES, 0, 3);
-
-    glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_2));
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL);
-
-    glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_3));
-    glDrawElementsBaseVertex(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL, 0);
-
-    glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_4));
-    glDrawArraysInstanced(GL_TRIANGLES, 0, 3, 1);
 }
 
 /* **************************************************************************************************** */

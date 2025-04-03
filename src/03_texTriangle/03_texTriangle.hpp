@@ -51,6 +51,8 @@ class texTriangle : public mage::app {
             const void*);
 
     private:
+        void generateTexture(float*, int, int);
+
         bool pressed[GLFW_KEY_LAST];
         
         float aspectRatio;

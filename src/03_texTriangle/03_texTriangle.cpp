@@ -265,3 +265,16 @@ void texTriangle::update(){
 }
 
 /* **************************************************************************************************** */
+
+void generateTexture(float *data, int width, int height){
+    int x, y;
+
+    for (y = 0; y < height; y++)
+        for (x = 0; x < width; x++)
+            data[(y * width + x) * 4 + 0] = (float)((x & y) & 0xFF) / 255.0f;
+            data[(y * width + x) * 4 + 1] = (float)((x | y) & 0xFF) / 255.0f;
+            data[(y * width + x) * 4 + 2] = (float)((x ^ y) & 0xFF) / 255.0f;
+            data[(y * width + x) * 4 + 3] = 1.0f;
+}
+
+/* **************************************************************************************************** */

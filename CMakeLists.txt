@@ -19,6 +19,10 @@ add_executable(01_triangle ${SOURCE_FILES}
 add_executable(02_cube ${SOURCE_FILES} 
     src/02_cube/02_cube.cpp) 
 
+add_executable(03_texTriangle ${SOURCE_FILES} 
+    src/03_texTriangle/03_texTriangle.cpp) 
+
 target_link_libraries(00_dot glm::glm)
 target_link_libraries(01_triangle glm::glm)
 target_link_libraries(02_cube glm::glm)
+target_link_libraries(03_texTriangle glm::glm)

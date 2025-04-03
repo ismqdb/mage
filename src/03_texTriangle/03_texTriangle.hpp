@@ -61,6 +61,7 @@ class texTriangle : public mage::app {
         GLuint vao[1];
         GLuint vbo[1];
         GLuint ebo[1];
+        GLuint texture[1];
 
         GLint translationMatrixPosition;
 

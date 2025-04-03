@@ -55,7 +55,11 @@ void texTriangle::render(){
     glEnable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
 
-    glClearBufferfv(GL_COLOR, 0, black);
+    GLfloat green[] = {0.0f, 0.25f, 0.0f, 1.0f};
+    GLfloat one = 1.0f;
+
+    glClearBufferfv(GL_COLOR, 0, green);
+    glClearBufferfv(GL_DEPTH, 0, &one);
 
     glBindVertexArray(vao[0]);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo[0]);

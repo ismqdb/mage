@@ -4,7 +4,7 @@
 
 /* **************************************************************************************************** */
 
-int main(){
+i32 main(){
     texTriangle texTriangle{};
 
     texTriangle.gameLoop();
@@ -80,7 +80,7 @@ void texTriangle::openglTeardown(){
 /* **************************************************************************************************** */
 
 void texTriangle::gameLoop(){
-    int running = 1;
+    i32 running = 1;
 
     mage::shader shaders[] = {
         {GL_VERTEX_SHADER, "../shaders/03_texTriangle/03_texTriangle.vert"},
@@ -167,31 +167,31 @@ void texTriangle::glfwTeardown(){
 
 /* **************************************************************************************************** */
 
-void texTriangle::onResize(GLFWwindow* window, int width, int height){
+void texTriangle::onResize(GLFWwindow* window, i32 width, i32 height){
     texTriangle *pThis = (texTriangle*)glfwGetWindowUserPointer(window);
     pThis->resizeWindow(width, height);
 }
 
-void texTriangle::resizeWindow(int width, int height){
+void texTriangle::resizeWindow(i32 width, i32 height){
     glViewport(0, 0, width, height);
-    aspectRatio = float(width)/float(height);
+    aspectRatio = f32(width)/f32(height);
 }
 
 /* **************************************************************************************************** */
 
-void texTriangle::onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
+void texTriangle::onKey(GLFWwindow* window, i32 key, i32 scancode, i32 action, i32 mods){
     texTriangle *pThis = (texTriangle*)glfwGetWindowUserPointer(window);
     pThis->keyPress(key, scancode, action, mods);
 }
 
-void texTriangle::keyPress(int key, int scancode, int action, int mods){
+void texTriangle::keyPress(i32 key, i32 scancode, i32 action, i32 mods){
     if(key == GLFW_KEY_UNKNOWN)
         return;
 
     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) 
         glfwSetWindowShouldClose(window, true);
     
-    for(int i = 0; i < GLFW_KEY_LAST; i++)
+    for(i32 i = 0; i < GLFW_KEY_LAST; i++)
         if(action == GLFW_PRESS && i == key)
             pressed[key] = true;
         else if(action == GLFW_RELEASE && i == key)
@@ -200,12 +200,12 @@ void texTriangle::keyPress(int key, int scancode, int action, int mods){
 
 /* **************************************************************************************************** */
 
-void texTriangle::onMouseButton(GLFWwindow* window, int button, int action, int mods){
+void texTriangle::onMouseButton(GLFWwindow* window, i32 button, i32 action, i32 mods){
     texTriangle *pThis = (texTriangle*)glfwGetWindowUserPointer(window);
     pThis->mouseClick(button, action, mods);
 }
 
-void texTriangle::mouseClick(int button, int action, int mods){
+void texTriangle::mouseClick(i32 button, i32 action, i32 mods){
 
 }
 
@@ -233,19 +233,19 @@ void texTriangle::mouseWheel(double xoffset, double yoffset){
 
 /* **************************************************************************************************** */
 
-void texTriangle::setVsync(int enable){
+void texTriangle::setVsync(i32 enable){
     info.flags.vsync = enable ? 1 : 0;
-    glfwSwapInterval((int)info.flags.vsync);
+    glfwSwapInterval((i32)info.flags.vsync);
 }
 
 /* **************************************************************************************************** */
 
-void texTriangle::getMousePosition(int *x, int *y){
+void texTriangle::getMousePosition(i32 *x, i32 *y){
     double dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
-    *x = (int)(floor(dx));
-    *y = (int)(floor(dy));
+    *x = (i32)(floor(dx));
+    *y = (i32)(floor(dy));
 }
 
 /* **************************************************************************************************** */
@@ -270,14 +270,14 @@ void texTriangle::update(){
 
 /* **************************************************************************************************** */
 
-void generateTexture(float *data, int width, int height){
-    int x, y;
+void generateTexture(f32 *data, i32 width, i32 height){
+    i32 x, y;
 
     for (y = 0; y < height; y++)
         for (x = 0; x < width; x++)
-            data[(y * width + x) * 4 + 0] = (float)((x & y) & 0xFF) / 255.0f;
-            data[(y * width + x) * 4 + 1] = (float)((x | y) & 0xFF) / 255.0f;
-            data[(y * width + x) * 4 + 2] = (float)((x ^ y) & 0xFF) / 255.0f;
+            data[(y * width + x) * 4 + 0] = (f32)((x & y) & 0xFF) / 255.0f;
+            data[(y * width + x) * 4 + 1] = (f32)((x | y) & 0xFF) / 255.0f;
+            data[(y * width + x) * 4 + 2] = (f32)((x ^ y) & 0xFF) / 255.0f;
             data[(y * width + x) * 4 + 3] = 1.0f;
 }
 

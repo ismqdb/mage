@@ -10,6 +10,7 @@
 /* **************************************************************************************************** */
 
 #include "./loadShader.hpp"
+#include "./types.hpp"
 
 /* **************************************************************************************************** */
 
@@ -24,21 +25,21 @@
 namespace mage {
     struct appInfo {
         std::string title;
-        int windowWidth;
-        int windowHeight;
-        int majorVersion;
-        int minorVersion;
-        int samples;
+        i32 windowWidth;
+        i32 windowHeight;
+        i32 majorVersion;
+        i32 minorVersion;
+        i32 samples;
         union {
             struct {
-                unsigned int    fullscreen  : 1;
-                unsigned int    vsync       : 1;
-                unsigned int    cursor      : 1;
-                unsigned int    stereo      : 1;
-                unsigned int    debug       : 1;
-                unsigned int    robust      : 1;
+                u32    fullscreen  : 1;
+                u32    vsync       : 1;
+                u32    cursor      : 1;
+                u32    stereo      : 1;
+                u32    debug       : 1;
+                u32    robust      : 1;
             };
-            unsigned int        all;
+            u32        all;
         } flags;
     };
 }

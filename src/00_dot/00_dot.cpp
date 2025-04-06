@@ -4,7 +4,7 @@
 
 /* **************************************************************************************************** */
 
-int main(){
+i32 main(){
     dotApp dotApp;
 
     dotApp.gameLoop();
@@ -52,7 +52,7 @@ void dotApp::openglSetup(){
 /* **************************************************************************************************** */
 
 void dotApp::render(){
-    static const float black[] = {0.0f, 0.0f, 0.0f, 0.0f};
+    static const f32 black[] = {0.0f, 0.0f, 0.0f, 0.0f};
 
     glClearBufferfv(GL_COLOR, 0, black);
 
@@ -70,7 +70,7 @@ void dotApp::openglTeardown(){
 /* **************************************************************************************************** */
 
 void dotApp::gameLoop(){
-    int running = 1;
+    i32 running = 1;
 
     mage::shader shaders[] = {
         {GL_VERTEX_SHADER, "../shaders/00_dot/00_dot.vert"},
@@ -159,31 +159,31 @@ void dotApp::glfwTeardown(){
 
 /* **************************************************************************************************** */
 
-void dotApp::onResize(GLFWwindow* window, int w, int h){
+void dotApp::onResize(GLFWwindow* window, i32 w, i32 h){
     dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
     pThis->resizeWindow(w, h);
 }
 
-void dotApp::resizeWindow(int x, int y){
+void dotApp::resizeWindow(i32 x, i32 y){
     info.windowWidth = x;
     info.windowHeight = y;
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
+void dotApp::onKey(GLFWwindow* window, i32 key, i32 scancode, i32 action, i32 mods){
     dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
     pThis->keyPress(key, scancode, action, mods);
 }
 
-void dotApp::keyPress(int key, int scancode, int action, int mods){
+void dotApp::keyPress(i32 key, i32 scancode, i32 action, i32 mods){
     if(key == GLFW_KEY_UNKNOWN)
         return;
 
     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) 
         glfwSetWindowShouldClose(window, true);
     
-    for(int i = 0; i < GLFW_KEY_LAST; i++)
+    for(i32 i = 0; i < GLFW_KEY_LAST; i++)
         if(action == GLFW_PRESS && i == key)
             pressed[key] = true;
         else if(action == GLFW_RELEASE && i == key)
@@ -192,12 +192,12 @@ void dotApp::keyPress(int key, int scancode, int action, int mods){
 
 /* **************************************************************************************************** */
 
-void dotApp::onMouseButton(GLFWwindow* window, int button, int action, int mods){
+void dotApp::onMouseButton(GLFWwindow* window, i32 button, i32 action, i32 mods){
     dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
     pThis->mouseClick(button, action, mods);
 }
 
-void dotApp::mouseClick(int button, int action, int mods){
+void dotApp::mouseClick(i32 button, i32 action, i32 mods){
 
 }
 
@@ -225,19 +225,19 @@ void dotApp::mouseWheel(double xoffset, double yoffset){
 
 /* **************************************************************************************************** */
 
-void dotApp::setVsync(int enable){
+void dotApp::setVsync(i32 enable){
     info.flags.vsync = enable ? 1 : 0;
-    glfwSwapInterval((int)info.flags.vsync);
+    glfwSwapInterval((i32)info.flags.vsync);
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::getMousePosition(int *x, int *y){
+void dotApp::getMousePosition(i32 *x, i32 *y){
     double dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
-    *x = (int)(floor(dx));
-    *y = (int)(floor(dy));
+    *x = (i32)(floor(dx));
+    *y = (i32)(floor(dy));
 }
 
 /* **************************************************************************************************** */
@@ -256,7 +256,7 @@ dotApp::MessageCallback(GLenum source,
 /* **************************************************************************************************** */
 
 void dotApp::update(){
-    for(int i = 0; i < GLFW_KEY_LAST; i++){
+    for(i32 i = 0; i < GLFW_KEY_LAST; i++){
         if(!pressed[i])
             continue;
 

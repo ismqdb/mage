@@ -4,7 +4,7 @@
 
 /* **************************************************************************************************** */
 
-int main(){
+i32 main(){
     triangleApp triangleApp;
 
     triangleApp.gameLoop();
@@ -88,7 +88,7 @@ void triangleApp::openglTeardown(){
 /* **************************************************************************************************** */
 
 void triangleApp::gameLoop(){
-    int running = 1;
+    i32 running = 1;
 
     mage::shader shaders[] = {
         {GL_VERTEX_SHADER, "../shaders/01_triangle/01_triangle.vert"},
@@ -175,31 +175,31 @@ void triangleApp::glfwTeardown(){
 
 /* **************************************************************************************************** */
 
-void triangleApp::onResize(GLFWwindow* window, int width, int height){
+void triangleApp::onResize(GLFWwindow* window, i32 width, i32 height){
     triangleApp *pThis = (triangleApp*)glfwGetWindowUserPointer(window);
     pThis->resizeWindow(width, height);
 }
 
-void triangleApp::resizeWindow(int width, int height){
+void triangleApp::resizeWindow(i32 width, i32 height){
     glViewport(0, 0, width, height);
-    aspectRatio = float(width)/float(height);
+    aspectRatio = f32(width)/f32(height);
 }
 
 /* **************************************************************************************************** */
 
-void triangleApp::onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
+void triangleApp::onKey(GLFWwindow* window, i32 key, i32 scancode, i32 action, i32 mods){
     triangleApp *pThis = (triangleApp*)glfwGetWindowUserPointer(window);
     pThis->keyPress(key, scancode, action, mods);
 }
 
-void triangleApp::keyPress(int key, int scancode, int action, int mods){
+void triangleApp::keyPress(i32 key, i32 scancode, i32 action, i32 mods){
     if(key == GLFW_KEY_UNKNOWN)
         return;
 
     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) 
         glfwSetWindowShouldClose(window, true);
     
-    for(int i = 0; i < GLFW_KEY_LAST; i++)
+    for(i32 i = 0; i < GLFW_KEY_LAST; i++)
         if(action == GLFW_PRESS && i == key)
             pressed[key] = true;
         else if(action == GLFW_RELEASE && i == key)
@@ -208,12 +208,12 @@ void triangleApp::keyPress(int key, int scancode, int action, int mods){
 
 /* **************************************************************************************************** */
 
-void triangleApp::onMouseButton(GLFWwindow* window, int button, int action, int mods){
+void triangleApp::onMouseButton(GLFWwindow* window, i32 button, i32 action, i32 mods){
     triangleApp *pThis = (triangleApp*)glfwGetWindowUserPointer(window);
     pThis->mouseClick(button, action, mods);
 }
 
-void triangleApp::mouseClick(int button, int action, int mods){
+void triangleApp::mouseClick(i32 button, i32 action, i32 mods){
 
 }
 
@@ -241,19 +241,19 @@ void triangleApp::mouseWheel(double xoffset, double yoffset){
 
 /* **************************************************************************************************** */
 
-void triangleApp::setVsync(int enable){
+void triangleApp::setVsync(i32 enable){
     info.flags.vsync = enable ? 1 : 0;
-    glfwSwapInterval((int)info.flags.vsync);
+    glfwSwapInterval((i32)info.flags.vsync);
 }
 
 /* **************************************************************************************************** */
 
-void triangleApp::getMousePosition(int *x, int *y){
+void triangleApp::getMousePosition(i32 *x, i32 *y){
     double dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
-    *x = (int)(floor(dx));
-    *y = (int)(floor(dy));
+    *x = (i32)(floor(dx));
+    *y = (i32)(floor(dy));
 }
 
 /* **************************************************************************************************** */

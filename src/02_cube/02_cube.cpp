@@ -4,7 +4,7 @@
 
 /* **************************************************************************************************** */
 
-int main(){
+i32 main(){
     cubeApp cubeApp;
 
     cubeApp.gameLoop();
@@ -65,7 +65,7 @@ void cubeApp::openglTeardown(){
 /* **************************************************************************************************** */
 
 void cubeApp::gameLoop(){
-    int running = 1;
+    i32 running = 1;
 
     mage::shader shaders[] = {
         {GL_VERTEX_SHADER, "../shaders/02_cube/02_cube.vert"},
@@ -74,8 +74,8 @@ void cubeApp::gameLoop(){
     };
 
     projectionMatrix = glm::perspective(
-        (float)glm::radians((float)fov), 
-        (float)info.windowWidth / (float)info.windowHeight, 
+        (f32)glm::radians((f32)fov), 
+        (f32)info.windowWidth / (f32)info.windowHeight, 
         0.1f, 
         100.0f
     );
@@ -174,21 +174,21 @@ void cubeApp::glfwTeardown(){
 
 /* **************************************************************************************************** */
 
-void cubeApp::onResize(GLFWwindow* window, int width, int height){
+void cubeApp::onResize(GLFWwindow* window, i32 width, i32 height){
     cubeApp *pThis = (cubeApp*)glfwGetWindowUserPointer(window);
     pThis->resizeWindow(width, height);
 }
 
-void cubeApp::resizeWindow(int width, int height){
+void cubeApp::resizeWindow(i32 width, i32 height){
     this->info.windowWidth = width;
     this->info.windowHeight = height;
 
     glViewport(0, 0, width, height);
-    aspectRatio = float(info.windowWidth)/float(info.windowHeight); 
+    aspectRatio = f32(info.windowWidth)/f32(info.windowHeight); 
     
     projectionMatrix = glm::perspective(
-        (float)glm::radians((float)fov), 
-        (float)info.windowWidth / (float)info.windowHeight, 
+        (f32)glm::radians((f32)fov), 
+        (f32)info.windowWidth / (f32)info.windowHeight, 
         aspectRatio, 
         100.0f
     );
@@ -196,19 +196,19 @@ void cubeApp::resizeWindow(int width, int height){
 
 /* **************************************************************************************************** */
 
-void cubeApp::onKey(GLFWwindow* window, int key, int scancode, int action, int mods){
+void cubeApp::onKey(GLFWwindow* window, i32 key, i32 scancode, i32 action, i32 mods){
     cubeApp *pThis = (cubeApp*)glfwGetWindowUserPointer(window);
     pThis->keyPress(key, scancode, action, mods);
 }
 
-void cubeApp::keyPress(int key, int scancode, int action, int mods){
+void cubeApp::keyPress(i32 key, i32 scancode, i32 action, i32 mods){
     if(key == GLFW_KEY_UNKNOWN)
         return;
 
     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) 
         glfwSetWindowShouldClose(window, true);
     
-    for(int i = 0; i < GLFW_KEY_LAST; i++)
+    for(i32 i = 0; i < GLFW_KEY_LAST; i++)
         if(action == GLFW_PRESS && i == key)
             pressed[key] = true;
         else if(action == GLFW_RELEASE && i == key)
@@ -217,12 +217,12 @@ void cubeApp::keyPress(int key, int scancode, int action, int mods){
 
 /* **************************************************************************************************** */
 
-void cubeApp::onMouseButton(GLFWwindow* window, int button, int action, int mods){
+void cubeApp::onMouseButton(GLFWwindow* window, i32 button, i32 action, i32 mods){
     cubeApp *pThis = (cubeApp*)glfwGetWindowUserPointer(window);
     pThis->mouseClick(button, action, mods);
 }
 
-void cubeApp::mouseClick(int button, int action, int mods){
+void cubeApp::mouseClick(i32 button, i32 action, i32 mods){
 
 }
 
@@ -250,19 +250,19 @@ void cubeApp::mouseWheel(double xoffset, double yoffset){
 
 /* **************************************************************************************************** */
 
-void cubeApp::setVsync(int enable){
+void cubeApp::setVsync(i32 enable){
     info.flags.vsync = enable ? 1 : 0;
-    glfwSwapInterval((int)info.flags.vsync);
+    glfwSwapInterval((i32)info.flags.vsync);
 }
 
 /* **************************************************************************************************** */
 
-void cubeApp::getMousePosition(int *x, int *y){
+void cubeApp::getMousePosition(i32 *x, i32 *y){
     double dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
-    *x = (int)(floor(dx));
-    *y = (int)(floor(dy));
+    *x = (i32)(floor(dx));
+    *y = (i32)(floor(dy));
 }
 
 /* **************************************************************************************************** */
@@ -279,7 +279,7 @@ cubeApp::MessageCallback(GLenum source,
         ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
             type, severity, message );
     
-    int error = glGetError();
+    i32 error = glGetError();
 
     if(error != GL_NO_ERROR)
         errorAbort(error, message);
@@ -290,7 +290,7 @@ cubeApp::MessageCallback(GLenum source,
 void cubeApp::update(){
     double deltaMove = 0.025;
 
-    for(int i = 0; i < GLFW_KEY_LAST; i++){
+    for(i32 i = 0; i < GLFW_KEY_LAST; i++){
         if(!pressed[i])
             continue;
 
@@ -298,7 +298,7 @@ void cubeApp::update(){
             case GLFW_KEY_A:
                 modelMatrix = glm::rotate(
                     modelMatrix,
-                    (float)glfwGetTime(),
+                    (f32)glfwGetTime(),
                     glm::vec3(1.0f, 0.0f, 0.0f)
                 );
                 break;
@@ -306,7 +306,7 @@ void cubeApp::update(){
             case GLFW_KEY_D:
                 modelMatrix = glm::rotate(
                     modelMatrix,
-                    (float)glfwGetTime(),
+                    (f32)glfwGetTime(),
                     glm::vec3(0.0f, 0.0f, 1.0f)
                 );
                 break;
@@ -314,7 +314,7 @@ void cubeApp::update(){
             case GLFW_KEY_W:
                 modelMatrix = glm::rotate(
                     modelMatrix,
-                    (float)glfwGetTime(),
+                    (f32)glfwGetTime(),
                     glm::vec3(0.0f, 1.0f, 0.0f)
                 );
                 break;

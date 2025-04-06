@@ -21,15 +21,15 @@ static const GLchar* mage::readShader(const char* path){
         FILE* infile = fopen(path, "rb");
     #endif // WIN32
 
-        if (!infile) {
-    #ifdef _DEBUG
+    if (!infile) {
+        #ifdef _DEBUG
             std::cerr << "Unable to open file '" << path << "'" << std::endl;
-    #endif /* DEBUG */
+        #endif /* DEBUG */
             return NULL;
-        }
+    }
 
     fseek(infile, 0, SEEK_END);
-    int len = ftell(infile);
+    i32 len = ftell(infile);
     fseek(infile, 0, SEEK_SET);
 
     GLchar* source = new GLchar[len+1];
@@ -76,15 +76,15 @@ GLuint mage::loadShader(mage::shader* shaders){
         glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
 
         if (!compiled) {
-        #ifdef _DEBUG
-            GLsizei len;
-            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
+            #ifdef _DEBUG
+                GLsizei len;
+                glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
 
-            GLchar* log = new GLchar[len+1];
-            glGetShaderInfoLog(shader, len, &len, log);
-            std::cerr << "Shader compilation failed: " << log << std::endl;
-            delete [] log;
-        #endif /* DEBUG */
+                GLchar* log = new GLchar[len+1];
+                glGetShaderInfoLog(shader, len, &len, log);
+                std::cerr << "Shader compilation failed: " << log << std::endl;
+                delete [] log;
+            #endif /* DEBUG */
 
             return 0;
         }

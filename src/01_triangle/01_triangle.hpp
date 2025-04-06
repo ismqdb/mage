@@ -24,14 +24,14 @@ class triangleApp : public mage::app {
         void glfwTeardown() override;
         void update() override;
 
-        static void onResize(GLFWwindow*, int, int);
-        virtual void resizeWindow(int, int);
+        static void onResize(GLFWwindow*, i32, i32);
+        virtual void resizeWindow(i32, i32);
 
-        static void onKey(GLFWwindow*, int, int, int, int);
-        virtual void keyPress(int, int, int, int);
+        static void onKey(GLFWwindow*, i32, i32, i32, i32);
+        virtual void keyPress(i32, i32, i32, i32);
 
-        static void onMouseButton(GLFWwindow*, int, int, int);
-        virtual void mouseClick(int, int, int);
+        static void onMouseButton(GLFWwindow*, i32, i32, i32);
+        virtual void mouseClick(i32, i32, i32);
 
         static void onMouseMove(GLFWwindow*, double, double);
         virtual void mouseMove(double, double);
@@ -39,8 +39,8 @@ class triangleApp : public mage::app {
         static void onMouseWheel(GLFWwindow*, double, double);
         virtual void mouseWheel(double, double);
 
-        void setVsync(int);
-        void getMousePosition(int*, int*);
+        void setVsync(i32);
+        void getMousePosition(i32*, i32*);
 
         static void GLAPIENTRY MessageCallback(GLenum,
             GLenum,
@@ -53,7 +53,7 @@ class triangleApp : public mage::app {
     private:
         bool pressed[GLFW_KEY_LAST];
         
-        float aspectRatio;
+        f32 aspectRatio;
         GLuint program;
 
         GLuint vao[1];

@@ -12,17 +12,17 @@ namespace mage {
     class vec3 {
         public:
             vec3();
-            vec3(const f32, const f32, const f32);
+            vec3(const real, const real, const real);
 
             void invert();
 
-            f32 x;
-            f32 y;
-            f32 z;
+            real x;
+            real y;
+            real z;
         protected:
 
         private:
-            f32 pad;
+            real pad;
     };
 };
 

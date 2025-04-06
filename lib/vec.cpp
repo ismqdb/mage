@@ -10,7 +10,7 @@ mage::vec3::vec3(){
     z = 0;
 }
 
-mage::vec3::vec3(const f32 a, const f32 b, const f32 c){
+mage::vec3::vec3(const real a, const real b, const real c){
     x = a;
     y = b;
     z = c;

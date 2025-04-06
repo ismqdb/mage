@@ -219,23 +219,23 @@ void triangleApp::mouseClick(i32 button, i32 action, i32 mods){
 
 /* **************************************************************************************************** */
 
-void triangleApp::onMouseMove(GLFWwindow* window, double x, double y){
+void triangleApp::onMouseMove(GLFWwindow* window, f64 x, f64 y){
     triangleApp *pThis = (triangleApp*)glfwGetWindowUserPointer(window);
     pThis->mouseMove(x, y);
 }
 
-void triangleApp::mouseMove(double x, double y){
+void triangleApp::mouseMove(f64 x, f64 y){
 
 }
 
 /* **************************************************************************************************** */
 
-void triangleApp::onMouseWheel(GLFWwindow* window, double xoffset, double yoffset){
+void triangleApp::onMouseWheel(GLFWwindow* window, f64 xoffset, f64 yoffset){
     triangleApp *pThis = (triangleApp*)glfwGetWindowUserPointer(window);
     pThis->mouseWheel(xoffset, yoffset);
 }
 
-void triangleApp::mouseWheel(double xoffset, double yoffset){
+void triangleApp::mouseWheel(f64 xoffset, f64 yoffset){
 
 }
 
@@ -249,7 +249,7 @@ void triangleApp::setVsync(i32 enable){
 /* **************************************************************************************************** */
 
 void triangleApp::getMousePosition(i32 *x, i32 *y){
-    double dx, dy;
+    f64 dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
     *x = (i32)(floor(dx));

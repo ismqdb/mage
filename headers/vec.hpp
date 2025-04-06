@@ -15,6 +15,12 @@ namespace mage {
             vec3(const real, const real, const real);
 
             void invert();
+            real magnitude();
+            real squareMagnitude();
+            void normalize();
+
+            void operator*=(const real);
+            vec3 operator*(const real) const;
 
             real x;
             real y;

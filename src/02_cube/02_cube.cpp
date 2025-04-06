@@ -228,23 +228,23 @@ void cubeApp::mouseClick(i32 button, i32 action, i32 mods){
 
 /* **************************************************************************************************** */
 
-void cubeApp::onMouseMove(GLFWwindow* window, double x, double y){
+void cubeApp::onMouseMove(GLFWwindow* window, f64 x, f64 y){
     cubeApp *pThis = (cubeApp*)glfwGetWindowUserPointer(window);
     pThis->mouseMove(x, y);
 }
 
-void cubeApp::mouseMove(double x, double y){
+void cubeApp::mouseMove(f64 x, f64 y){
 
 }
 
 /* **************************************************************************************************** */
 
-void cubeApp::onMouseWheel(GLFWwindow* window, double xoffset, double yoffset){
+void cubeApp::onMouseWheel(GLFWwindow* window, f64 xoffset, f64 yoffset){
     cubeApp *pThis = (cubeApp*)glfwGetWindowUserPointer(window);
     pThis->mouseWheel(xoffset, yoffset);
 }
 
-void cubeApp::mouseWheel(double xoffset, double yoffset){
+void cubeApp::mouseWheel(f64 xoffset, f64 yoffset){
 
 }
 
@@ -258,7 +258,7 @@ void cubeApp::setVsync(i32 enable){
 /* **************************************************************************************************** */
 
 void cubeApp::getMousePosition(i32 *x, i32 *y){
-    double dx, dy;
+    f64 dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
     *x = (i32)(floor(dx));
@@ -288,7 +288,7 @@ cubeApp::MessageCallback(GLenum source,
 /* **************************************************************************************************** */
 
 void cubeApp::update(){
-    double deltaMove = 0.025;
+    f64 deltaMove = 0.025;
 
     for(i32 i = 0; i < GLFW_KEY_LAST; i++){
         if(!pressed[i])

@@ -34,11 +34,11 @@ class cubeApp : public mage::app {
         static void onMouseButton(GLFWwindow*, i32, i32, i32);
         virtual void mouseClick(i32, i32, i32);
 
-        static void onMouseMove(GLFWwindow*, double, double);
-        virtual void mouseMove(double, double);
+        static void onMouseMove(GLFWwindow*, f64, f64);
+        virtual void mouseMove(f64, f64);
 
-        static void onMouseWheel(GLFWwindow*, double, double);
-        virtual void mouseWheel(double, double);
+        static void onMouseWheel(GLFWwindow*, f64, f64);
+        virtual void mouseWheel(f64, f64);
 
         void setVsync(i32);
         void getMousePosition(i32*, i32*);

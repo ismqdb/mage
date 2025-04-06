@@ -211,23 +211,23 @@ void texTriangle::mouseClick(i32 button, i32 action, i32 mods){
 
 /* **************************************************************************************************** */
 
-void texTriangle::onMouseMove(GLFWwindow* window, double x, double y){
+void texTriangle::onMouseMove(GLFWwindow* window, f64 x, f64 y){
     texTriangle *pThis = (texTriangle*)glfwGetWindowUserPointer(window);
     pThis->mouseMove(x, y);
 }
 
-void texTriangle::mouseMove(double x, double y){
+void texTriangle::mouseMove(f64 x, f64 y){
 
 }
 
 /* **************************************************************************************************** */
 
-void texTriangle::onMouseWheel(GLFWwindow* window, double xoffset, double yoffset){
+void texTriangle::onMouseWheel(GLFWwindow* window, f64 xoffset, f64 yoffset){
     texTriangle *pThis = (texTriangle*)glfwGetWindowUserPointer(window);
     pThis->mouseWheel(xoffset, yoffset);
 }
 
-void texTriangle::mouseWheel(double xoffset, double yoffset){
+void texTriangle::mouseWheel(f64 xoffset, f64 yoffset){
 
 }
 
@@ -241,7 +241,7 @@ void texTriangle::setVsync(i32 enable){
 /* **************************************************************************************************** */
 
 void texTriangle::getMousePosition(i32 *x, i32 *y){
-    double dx, dy;
+    f64 dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
     *x = (i32)(floor(dx));

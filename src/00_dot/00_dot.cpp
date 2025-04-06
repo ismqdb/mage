@@ -203,23 +203,23 @@ void dotApp::mouseClick(i32 button, i32 action, i32 mods){
 
 /* **************************************************************************************************** */
 
-void dotApp::onMouseMove(GLFWwindow* window, double x, double y){
+void dotApp::onMouseMove(GLFWwindow* window, f64 x, f64 y){
     dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
     pThis->mouseMove(x, y);
 }
 
-void dotApp::mouseMove(double x, double y){
+void dotApp::mouseMove(f64 x, f64 y){
 
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::onMouseWheel(GLFWwindow* window, double xoffset, double yoffset){
+void dotApp::onMouseWheel(GLFWwindow* window, f64 xoffset, f64 yoffset){
     dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
     pThis->mouseWheel(xoffset, yoffset);
 }
 
-void dotApp::mouseWheel(double xoffset, double yoffset){
+void dotApp::mouseWheel(f64 xoffset, f64 yoffset){
 
 }
 
@@ -233,7 +233,7 @@ void dotApp::setVsync(i32 enable){
 /* **************************************************************************************************** */
 
 void dotApp::getMousePosition(i32 *x, i32 *y){
-    double dx, dy;
+    f64 dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
     *x = (i32)(floor(dx));

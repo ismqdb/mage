@@ -59,34 +59,7 @@ class texTriangle : public mage::app {
         GLuint program;
 
         GLuint vao[1];
-        GLuint vbo[1];
-        GLuint ebo[1];
         GLuint texture[1];
-
-        GLint translationMatrixPosition;
-
-        GLfloat vertexPositions[16] = {
-            -0.9f, -0.4f,  0.0f, 1.0f,
-            -0.7f, -0.4f,  0.0f, 1.0f,
-            -0.9f,  0.4f,  0.0f, 1.0f,
-        };
-
-        GLfloat vertexColors[16] = {
-            1.0f, 1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f, 0.0f, 1.0f,
-            1.0f, 0.0f, 1.0f, 1.0f,
-            0.0f, 1.0f, 1.0f, 1.0f
-        };
-
-        GLushort vertexIndices[3] = {
-            0, 1, 2
-        };
-
-        GLfloat black[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-
-        glm::mat4 modelMatrix;
-    
-        glm::mat4 triangle_1;
 };
 
 /* *****************************************************************************************************/

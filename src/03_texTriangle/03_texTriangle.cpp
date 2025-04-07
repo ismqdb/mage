@@ -17,9 +17,6 @@ texTriangle::texTriangle() : app(){
 
     glfwSetup();
     openglSetup();
-
-    this->modelMatrix = glm::mat4(1.0f);
-    triangle_1 = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
 }
 
 texTriangle::~texTriangle() {
@@ -30,41 +27,44 @@ texTriangle::~texTriangle() {
 /* **************************************************************************************************** */
 
 void texTriangle::openglSetup(){
-    glGenBuffers(1, ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo[0]);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vertexIndices), vertexIndices, GL_STATIC_DRAW);
+    glGenTextures(1, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[0]);
+    glTexStorage2D(
+        GL_TEXTURE_2D,
+        8,
+        GL_RGBA32F,
+        256, 256
+    );
+
+    const i16 dataCount = 256;
+
+    f32 *data = new f32[dataCount * dataCount * 4];
+
+    generateTexture(data, dataCount, dataCount);
+
+    glTexSubImage2D(
+        GL_TEXTURE_2D,
+        0,
+        0, 0,
+        dataCount, dataCount,
+        GL_RGBA,
+        GL_FLOAT,
+        data
+    );
+
+    delete []data;
 
     glGenVertexArrays(1, vao);
     glBindVertexArray(vao[0]);
-
-    glCreateBuffers(1, vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions)+sizeof(vertexColors), NULL, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertexPositions), vertexPositions);
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertexPositions), sizeof(vertexColors), vertexColors);
-
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)sizeof(vertexPositions));
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
 }
 
 /* **************************************************************************************************** */
 
 void texTriangle::render(){    
-    glEnable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
-
     GLfloat green[] = {0.0f, 0.25f, 0.0f, 1.0f};
-    GLfloat one = 1.0f;
-
     glClearBufferfv(GL_COLOR, 0, green);
-    glClearBufferfv(GL_DEPTH, 0, &one);
-
-    glBindVertexArray(vao[0]);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo[0]);
-
-    glUniformMatrix4fv(translationMatrixPosition, 1, GL_FALSE, glm::value_ptr(triangle_1));
+    
+    glUseProgram(program);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
@@ -74,7 +74,6 @@ void texTriangle::openglTeardown(){
     glUseProgram(0);
     glDeleteProgram(program);
     glDeleteVertexArrays(1, vao);
-    glDeleteBuffers(1, vbo);
 }
 
 /* **************************************************************************************************** */
@@ -90,8 +89,6 @@ void texTriangle::gameLoop(){
 
     program = mage::loadShader(shaders); 
     glUseProgram(program);
-
-    translationMatrixPosition = glGetUniformLocation(program, "translationMatrix");
 
     while (running) {
         render();
@@ -270,7 +267,7 @@ void texTriangle::update(){
 
 /* **************************************************************************************************** */
 
-void generateTexture(f32 *data, i32 width, i32 height){
+void texTriangle::generateTexture(f32 *data, i32 width, i32 height){
     i32 x, y;
 
     for (y = 0; y < height; y++)

@@ -1,9 +1,9 @@
 #version 450 core
 
-in vec4 inColor;
+uniform sampler2D sam;
 
-layout (location = 0) out vec4 color;
+out vec4 color;
 
 void main(void){
-    color = inColor;
+    color = texture(sam, gl_FragCoord.xy / textureSize(sam, 0));
 }

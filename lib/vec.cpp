@@ -60,3 +60,39 @@ mage::vec3 mage::vec3::operator*(const real value) const {
 }
 
 /* **************************************************************************************************** */
+
+void mage::vec3::operator+=(const vec3& other){
+    x += other.x;
+    y += other.y;
+    z += other.z;
+}
+
+/* **************************************************************************************************** */
+
+mage::vec3 mage::vec3::operator+(const vec3& other){
+    return vec3(x+other.x, y+other.y, z+other.z);
+}
+
+/* **************************************************************************************************** */
+
+void mage::vec3::operator-=(const vec3& other){
+    x -= other.x;
+    y -= other.y;
+    z -= other.z;
+}
+
+/* **************************************************************************************************** */
+
+mage::vec3 mage::vec3::operator-(const vec3& other){
+    return vec3(x-other.x, y-other.y, z-other.z);
+}
+
+/* **************************************************************************************************** */
+
+void mage::vec3::addScaledVec(const vec3& other, real scale){
+    x += (other.x*scale);
+    y += (other.y*scale);
+    z += (other.z*scale);
+}
+
+/* **************************************************************************************************** */

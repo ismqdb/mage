@@ -22,6 +22,14 @@ namespace mage {
             void operator*=(const real);
             vec3 operator*(const real) const;
 
+            void operator+=(const vec3&);
+            vec3 operator+(const vec3&);
+
+            void operator-=(const vec3&);
+            vec3 operator-(const vec3&);
+
+            void addScaledVec(const vec3&, real);
+
             real x;
             real y;
             real z;

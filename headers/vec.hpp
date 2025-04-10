@@ -30,6 +30,9 @@ namespace mage {
 
             void addScaledVec(const vec3&, real);
 
+            vec3 componentProduct(const vec3&);
+            void componentProductUpdate(const vec3&);
+
             real x;
             real y;
             real z;

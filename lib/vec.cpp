@@ -56,7 +56,7 @@ void mage::vec3::operator*=(const real value){
 /* **************************************************************************************************** */
 
 mage::vec3 mage::vec3::operator*(const real value) const {
-    return mage::vec3(x*value, y*value, z*value);
+    return mage::vec3(x * value, y * value, z * value);
 }
 
 /* **************************************************************************************************** */
@@ -70,7 +70,7 @@ void mage::vec3::operator+=(const vec3& other){
 /* **************************************************************************************************** */
 
 mage::vec3 mage::vec3::operator+(const vec3& other){
-    return vec3(x+other.x, y+other.y, z+other.z);
+    return vec3(x + other.x, y + other.y, z + other.z);
 }
 
 /* **************************************************************************************************** */
@@ -84,15 +84,29 @@ void mage::vec3::operator-=(const vec3& other){
 /* **************************************************************************************************** */
 
 mage::vec3 mage::vec3::operator-(const vec3& other){
-    return vec3(x-other.x, y-other.y, z-other.z);
+    return vec3(x - other.x, y - other.y, z - other.z);
 }
 
 /* **************************************************************************************************** */
 
 void mage::vec3::addScaledVec(const vec3& other, real scale){
-    x += (other.x*scale);
-    y += (other.y*scale);
-    z += (other.z*scale);
+    x += (other.x * scale);
+    y += (other.y * scale);
+    z += (other.z * scale);
+}
+
+/* **************************************************************************************************** */
+
+mage::vec3 mage::vec3::componentProduct(const mage::vec3& other){
+    return vec3(x * other.x, y * other.y, z * other.z);
+}
+
+/* **************************************************************************************************** */
+
+void mage::vec3::componentProductUpdate(const vec3& other){
+    x *= other.x;
+    y *= other.y;
+    z *= other.z;
 }
 
 /* **************************************************************************************************** */

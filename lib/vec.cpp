@@ -10,7 +10,7 @@ mage::vec3::vec3(){
     z = 0;
 }
 
-mage::vec3::vec3(const f32 a, const f32 b, const f32 c){
+mage::vec3::vec3(const real a, const real b, const real c){
     x = a;
     y = b;
     z = c;
@@ -22,6 +22,77 @@ void mage::vec3::invert(){
     x = -x;
     y = -y;
     z = -z;
+}
+
+/* **************************************************************************************************** */
+
+real mage::vec3::magnitude(){
+    return rsqrt(x*x + y*y + z*z);
+}
+
+/* **************************************************************************************************** */
+
+real mage::vec3::squareMagnitude(){
+    return x*x + y*y + z*z;
+}
+
+/* **************************************************************************************************** */
+
+void mage::vec3::normalize(){
+    real l = magnitude();
+
+    if(l > 0)
+        (*this) *= ((real)1)/l;
+}
+
+/* **************************************************************************************************** */
+
+void mage::vec3::operator*=(const real value){
+    x *= value;
+    y *= value;
+    z *= value;
+}
+
+/* **************************************************************************************************** */
+
+mage::vec3 mage::vec3::operator*(const real value) const {
+    return mage::vec3(x*value, y*value, z*value);
+}
+
+/* **************************************************************************************************** */
+
+void mage::vec3::operator+=(const vec3& other){
+    x += other.x;
+    y += other.y;
+    z += other.z;
+}
+
+/* **************************************************************************************************** */
+
+mage::vec3 mage::vec3::operator+(const vec3& other){
+    return vec3(x+other.x, y+other.y, z+other.z);
+}
+
+/* **************************************************************************************************** */
+
+void mage::vec3::operator-=(const vec3& other){
+    x -= other.x;
+    y -= other.y;
+    z -= other.z;
+}
+
+/* **************************************************************************************************** */
+
+mage::vec3 mage::vec3::operator-(const vec3& other){
+    return vec3(x-other.x, y-other.y, z-other.z);
+}
+
+/* **************************************************************************************************** */
+
+void mage::vec3::addScaledVec(const vec3& other, real scale){
+    x += (other.x*scale);
+    y += (other.y*scale);
+    z += (other.z*scale);
 }
 
 /* **************************************************************************************************** */

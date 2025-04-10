@@ -12,26 +12,29 @@ namespace mage {
     class vec3 {
         public:
             vec3();
-            vec3(const real, const real, const real);
+            vec3(real, real, real);
 
             void invert();
             real magnitude();
             real squareMagnitude();
             void normalize();
 
-            void operator*=(const real);
-            vec3 operator*(const real) const;
+            void operator*=(real);
+            vec3 operator*(real);
 
-            void operator+=(const vec3&);
-            vec3 operator+(const vec3&);
+            void operator+=(vec3&);
+            vec3 operator+(vec3&);
 
-            void operator-=(const vec3&);
-            vec3 operator-(const vec3&);
+            void operator-=(vec3&);
+            vec3 operator-(vec3&);
 
-            void addScaledVec(const vec3&, real);
+            void addScaledVec(vec3&, real);
 
-            vec3 componentProduct(const vec3&);
-            void componentProductUpdate(const vec3&);
+            vec3 componentProduct(vec3&);
+            void componentProductUpdate(vec3&);
+
+            real scalarProduct(vec3& other);
+            real operator*(vec3& other) = delete;
 
             real x;
             real y;

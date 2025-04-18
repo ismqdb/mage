@@ -36,6 +36,9 @@ namespace mage {
             real scalarProduct(vec3& other);
             real operator*(vec3& other) = delete;
 
+            vec3 vectorProduct(vec3&);
+            void operator%=(vec3&);
+
             real x;
             real y;
             real z;

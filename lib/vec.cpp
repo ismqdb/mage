@@ -61,7 +61,7 @@ mage::vec3 mage::vec3::operator*(real value) {
 
 /* **************************************************************************************************** */
 
-void mage::vec3::operator+=(vec3& other){
+void mage::vec3::operator+=(mage::vec3& other){
     x += other.x;
     y += other.y;
     z += other.z;
@@ -69,13 +69,13 @@ void mage::vec3::operator+=(vec3& other){
 
 /* **************************************************************************************************** */
 
-mage::vec3 mage::vec3::operator+(vec3& other){
+mage::vec3 mage::vec3::operator+(mage::vec3& other){
     return vec3(x + other.x, y + other.y, z + other.z);
 }
 
 /* **************************************************************************************************** */
 
-void mage::vec3::operator-=(vec3& other){
+void mage::vec3::operator-=(mage::vec3& other){
     x -= other.x;
     y -= other.y;
     z -= other.z;
@@ -83,13 +83,13 @@ void mage::vec3::operator-=(vec3& other){
 
 /* **************************************************************************************************** */
 
-mage::vec3 mage::vec3::operator-(vec3& other){
+mage::vec3 mage::vec3::operator-(mage::vec3& other){
     return vec3(x - other.x, y - other.y, z - other.z);
 }
 
 /* **************************************************************************************************** */
 
-void mage::vec3::addScaledVec(vec3& other, real scale){
+void mage::vec3::addScaledVec(mage::vec3& other, real scale){
     x += (other.x * scale);
     y += (other.y * scale);
     z += (other.z * scale);
@@ -103,7 +103,7 @@ mage::vec3 mage::vec3::componentProduct(mage::vec3& other){
 
 /* **************************************************************************************************** */
 
-void mage::vec3::componentProductUpdate(vec3& other){
+void mage::vec3::componentProductUpdate(mage::vec3& other){
     x *= other.x;
     y *= other.y;
     z *= other.z;
@@ -113,6 +113,22 @@ void mage::vec3::componentProductUpdate(vec3& other){
 
 real mage::vec3::scalarProduct(vec3& other) {
     return x * other.x + y * other.y + z * other.z;
+}
+
+/* **************************************************************************************************** */
+
+mage::vec3 mage::vec3::vectorProduct(mage::vec3& vec){
+    return vec3(
+        y*vec.z - z*vec.y,
+        z*vec.x - x*vec.z,
+        x*vec.y - y*vec.x
+    );
+}
+
+/* **************************************************************************************************** */
+
+void mage::vec3::operator%=(mage::vec3& vec){
+    *this = vectorProduct(vec);
 }
 
 /* **************************************************************************************************** */

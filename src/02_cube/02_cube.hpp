@@ -3,9 +3,13 @@
 #include "../../headers/app.hpp"
 #include "../../headers/errorMacros.hpp"
 
+/* **************************************************************************************************** */
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+/* **************************************************************************************************** */
 
 #include <cstring>
 #include <array>
@@ -58,7 +62,7 @@ class cubeApp : public mage::app {
         GLuint program;
         i32 fov = 45.0f;
 
-        i32 currentTime = 0.5;
+        i32 currentTime;
 
         GLuint vao;
         GLuint positionBuffer;

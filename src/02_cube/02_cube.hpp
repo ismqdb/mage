@@ -61,7 +61,8 @@ class cubeApp : public mage::app {
         i32 currentTime = 0.5;
 
         GLuint vao;
-        GLuint buffer;
+        GLuint positionBuffer;
+        GLuint indexBuffer;
 
         GLint projectionMatrixLocation;
         GLint viewMatrixLocation;
@@ -71,54 +72,30 @@ class cubeApp : public mage::app {
         glm::mat4 viewMatrix;
         glm::mat4 modelMatrix;
 
-        GLfloat vertexPositions[108] = {
-            -0.25f,  0.25f, -0.25f,
-            -0.25f, -0.25f, -0.25f,
-             0.25f, -0.25f, -0.25f,
+        GLushort vertexIndices[36] = {
+            0, 1, 2,
+            2, 1, 3,
+            2, 3, 4,
+            4, 3, 5,
+            4, 5, 6,
+            6, 5, 7,
+            6, 7, 0,
+            0, 7, 1,
+            6, 0, 2,
+            2, 4, 6,
+            7, 5, 3,
+            7, 3, 1
+        };
 
-             0.25f, -0.25f, -0.25f,
-             0.25f,  0.25f, -0.25f,
-            -0.25f,  0.25f, -0.25f,
-
-             0.25f, -0.25f, -0.25f,
-             0.25f, -0.25f,  0.25f,
-             0.25f,  0.25f, -0.25f,
-
-             0.25f, -0.25f,  0.25f,
-             0.25f,  0.25f,  0.25f,
-             0.25f,  0.25f, -0.25f,
-
-             0.25f, -0.25f,  0.25f,
-            -0.25f, -0.25f,  0.25f,
-             0.25f,  0.25f,  0.25f,
-
-            -0.25f, -0.25f,  0.25f,
-            -0.25f,  0.25f,  0.25f,
-             0.25f,  0.25f,  0.25f,
-
-            -0.25f, -0.25f,  0.25f,
-            -0.25f, -0.25f, -0.25f,
-            -0.25f,  0.25f,  0.25f,
-
+        GLfloat vertexPositions[24] = {
             -0.25f, -0.25f, -0.25f,
             -0.25f,  0.25f, -0.25f,
-            -0.25f,  0.25f,  0.25f,
-
-            -0.25f, -0.25f,  0.25f,
-             0.25f, -0.25f,  0.25f,
              0.25f, -0.25f, -0.25f,
-
-             0.25f, -0.25f, -0.25f,
-            -0.25f, -0.25f, -0.25f,
-            -0.25f, -0.25f,  0.25f,
-
-            -0.25f,  0.25f, -0.25f,
              0.25f,  0.25f, -0.25f,
+             0.25f, -0.25f,  0.25f,
              0.25f,  0.25f,  0.25f,
-
-             0.25f,  0.25f,  0.25f,
+            -0.25f, -0.25f,  0.25f,
             -0.25f,  0.25f,  0.25f,
-            -0.25f,  0.25f, -0.25f
         };
 };
 

@@ -4,131 +4,108 @@
 
 /* **************************************************************************************************** */
 
-mage::vec3::vec3(){
-    x = 0;
-    y = 0;
-    z = 0;
-}
-
-mage::vec3::vec3(real a, real b, real c){
-    x = a;
-    y = b;
-    z = c;
+void mage::invert(mage::vec3& v){
+    v.x = -v.x;
+    v.y = -v.y;
+    v.z = -v.z;
 }
 
 /* **************************************************************************************************** */
 
-void mage::vec3::invert(){
-    x = -x;
-    y = -y;
-    z = -z;
+real mage::magnitude(mage::vec3& vec){
+    return rsqrt(vec.x*vec.x + vec.y*vec.y + vec.z*vec.z);
 }
 
 /* **************************************************************************************************** */
 
-real mage::vec3::magnitude(){
-    return rsqrt(x*x + y*y + z*z);
+real mage::squareMagnitude(mage::vec3& vec){
+    return vec.x*vec.x + vec.y*vec.y + vec.z*vec.z;
 }
 
 /* **************************************************************************************************** */
 
-real mage::vec3::squareMagnitude(){
-    return x*x + y*y + z*z;
+void mage::normalize(mage::vec3& vec){
+    real l = magnitude(vec);
+
+    if(l > 0){
+        vec.x /= l;
+        vec.y /= l;
+        vec.z /= l;
+    }        
 }
 
 /* **************************************************************************************************** */
 
-void mage::vec3::normalize(){
-    real l = magnitude();
-
-    if(l > 0)
-        (*this) *= ((real)1)/l;
+void mage::scale(mage::vec3& vec, real f){
+    vec.x *= f;
+    vec.y *= f;
+    vec.z *= f;
 }
 
 /* **************************************************************************************************** */
 
-void mage::vec3::operator*=(real value){
-    x *= value;
-    y *= value;
-    z *= value;
+mage::vec3 mage::add(mage::vec3& v1, mage::vec3& v2){
+    mage::vec3 result;
+
+    result.x = v1.x + v2.x;
+    result.y = v1.y + v2.y;
+    result.z = v1.z + v2.z;
+
+    return result;
 }
 
 /* **************************************************************************************************** */
 
-mage::vec3 mage::vec3::operator*(real value) {
-    return mage::vec3(x * value, y * value, z * value);
+mage::vec3 mage::sub(mage::vec3& v1, mage::vec3& v2){
+    mage::vec3 result;
+
+    result.x = v1.x - v2.x;
+    result.y = v1.y - v2.y;
+    result.z = v1.z - v2.z;
+
+    return result;
 }
 
 /* **************************************************************************************************** */
 
-void mage::vec3::operator+=(mage::vec3& other){
-    x += other.x;
-    y += other.y;
-    z += other.z;
+ mage::vec3 mage::addScaledVec(mage::vec3& v1, mage::vec3& v2, real scale){
+    mage::vec3 result;
+
+    result.x = v1.x + (v2.x * scale);
+    result.y = v1.y + (v2.y * scale);
+    result.z = v1.z + (v2.z * scale);
+
+    return result;
 }
 
 /* **************************************************************************************************** */
 
-mage::vec3 mage::vec3::operator+(mage::vec3& other){
-    return vec3(x + other.x, y + other.y, z + other.z);
+mage::vec3 mage::componentProduct(mage::vec3& v1, mage::vec3& v2){
+    mage::vec3 result;
+
+    result.x = v1.x * v2.x;
+    result.y = v1.y * v2.y;
+    result.z = v1.z * v2.z;
+
+    return result;
 }
 
 /* **************************************************************************************************** */
 
-void mage::vec3::operator-=(mage::vec3& other){
-    x -= other.x;
-    y -= other.y;
-    z -= other.z;
+real mage::scalarProduct(mage::vec3& v1, mage::vec3& v2) {
+    return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
 /* **************************************************************************************************** */
 
-mage::vec3 mage::vec3::operator-(mage::vec3& other){
-    return vec3(x - other.x, y - other.y, z - other.z);
-}
+mage::vec3 mage::vectorProduct(mage::vec3& v1, mage::vec3& v2){
+    mage::vec3 result;
 
-/* **************************************************************************************************** */
-
-void mage::vec3::addScaledVec(mage::vec3& other, real scale){
-    x += (other.x * scale);
-    y += (other.y * scale);
-    z += (other.z * scale);
-}
-
-/* **************************************************************************************************** */
-
-mage::vec3 mage::vec3::componentProduct(mage::vec3& other){
-    return vec3(x * other.x, y * other.y, z * other.z);
-}
-
-/* **************************************************************************************************** */
-
-void mage::vec3::componentProductUpdate(mage::vec3& other){
-    x *= other.x;
-    y *= other.y;
-    z *= other.z;
-}
-
-/* **************************************************************************************************** */
-
-real mage::vec3::scalarProduct(vec3& other) {
-    return x * other.x + y * other.y + z * other.z;
-}
-
-/* **************************************************************************************************** */
-
-mage::vec3 mage::vec3::vectorProduct(mage::vec3& vec){
-    return vec3(
-        y*vec.z - z*vec.y,
-        z*vec.x - x*vec.z,
-        x*vec.y - y*vec.x
-    );
-}
-
-/* **************************************************************************************************** */
-
-void mage::vec3::operator%=(mage::vec3& vec){
-    *this = vectorProduct(vec);
+    result.x = v1.y * v2.z - v1.z * v2.y;
+    result.y = v1.z * v2.x - v1.x * v2.z;
+    result.z = v1.x * v2.y - v1.y * v2.x;
+    
+    return result;
 }
 
 /* **************************************************************************************************** */

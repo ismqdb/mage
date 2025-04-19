@@ -11,42 +11,33 @@
 namespace mage {
     class vec3 {
         public:
-            vec3();
-            vec3(real, real, real);
-
-            void invert();
-            real magnitude();
-            real squareMagnitude();
-            void normalize();
-
-            void operator*=(real);
-            vec3 operator*(real);
-
-            void operator+=(vec3&);
-            vec3 operator+(vec3&);
-
-            void operator-=(vec3&);
-            vec3 operator-(vec3&);
-
-            void addScaledVec(vec3&, real);
-
-            vec3 componentProduct(vec3&);
-            void componentProductUpdate(vec3&);
-
-            real scalarProduct(vec3& other);
-            real operator*(vec3& other) = delete;
-
-            vec3 vectorProduct(vec3&);
-            void operator%=(vec3&);
-
             real x;
             real y;
             real z;
-        protected:
 
         private:
             real pad;
     };
+};
+
+/* **************************************************************************************************** */
+
+namespace mage {
+    void invert(mage::vec3&);
+    real magnitude(mage::vec3&);
+    real squareMagnitude(mage::vec3&);
+    void normalize(mage::vec3&);
+
+    void scale(mage::vec3&, real);
+
+    mage::vec3 add(mage::vec3&, mage::vec3&);
+    mage::vec3 sub(mage::vec3&, mage::vec3&);
+
+    mage::vec3 addScaledVec(mage::vec3&, mage::vec3&, real);
+    real scalarProduct(mage::vec3&, mage::vec3&);
+
+    mage::vec3 componentProduct(mage::vec3&, mage::vec3&);
+    mage::vec3 vectorProduct(mage::vec3&, mage::vec3&);
 };
 
 /* **************************************************************************************************** */

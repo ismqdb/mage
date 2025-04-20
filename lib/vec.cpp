@@ -68,18 +68,6 @@ mage::vec3 mage::sub(mage::vec3& v1, mage::vec3& v2){
 
 /* **************************************************************************************************** */
 
- mage::vec3 mage::addScaledVec(mage::vec3& v1, mage::vec3& v2, real scale){
-    mage::vec3 result;
-
-    result.x = v1.x + (v2.x * scale);
-    result.y = v1.y + (v2.y * scale);
-    result.z = v1.z + (v2.z * scale);
-
-    return result;
-}
-
-/* **************************************************************************************************** */
-
 mage::vec3 mage::componentProduct(mage::vec3& v1, mage::vec3& v2){
     mage::vec3 result;
 

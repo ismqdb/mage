@@ -33,9 +33,7 @@ namespace mage {
     mage::vec3 add(mage::vec3&, mage::vec3&);
     mage::vec3 sub(mage::vec3&, mage::vec3&);
 
-    mage::vec3 addScaledVec(mage::vec3&, mage::vec3&, real);
     real scalarProduct(mage::vec3&, mage::vec3&);
-
     mage::vec3 componentProduct(mage::vec3&, mage::vec3&);
     mage::vec3 vectorProduct(mage::vec3&, mage::vec3&);
 };

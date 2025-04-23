@@ -7,6 +7,7 @@ set(SOURCE_FILES
     ./glad/glad.c
     lib/loadShader.cpp
     lib/vec.cpp
+    lib/color.cpp
 )
 
 find_package(glm REQUIRED)

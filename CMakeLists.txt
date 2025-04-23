@@ -8,6 +8,7 @@ set(SOURCE_FILES
     lib/loadShader.cpp
     lib/vec.cpp
     lib/color.cpp
+    lib/point.cpp
 )
 
 find_package(glm REQUIRED)

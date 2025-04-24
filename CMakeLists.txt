@@ -9,6 +9,7 @@ set(SOURCE_FILES
     lib/vec.cpp
     lib/color.cpp
     lib/point.cpp
+    lib/simpleArray.cpp
 )
 
 find_package(glm REQUIRED)

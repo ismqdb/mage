@@ -3,6 +3,8 @@
 #include "../../headers/app.hpp"
 #include "../../headers/errorMacros.hpp"
 
+#include "../../headers/simpleArray.hpp"
+
 /* **************************************************************************************************** */
 
 #include <glm/glm.hpp>

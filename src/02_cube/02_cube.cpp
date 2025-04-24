@@ -15,6 +15,14 @@ i32 main(){
 cubeApp::cubeApp() : app(){
     memset(this->pressed, 0, GLFW_KEY_LAST);
 
+    simpleArray<i32> array{25};
+    array.insert(25);
+    array.insert(50);
+    array.insert(75);
+
+    i32 *a = array.raw();
+    i32 size = array.size();
+
     glfwSetup();
 }
 

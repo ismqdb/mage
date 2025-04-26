@@ -69,7 +69,7 @@ void cubeApp::render(){
     glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
     glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0);
+    glDrawElements(GL_TRIANGLES, vertexPositions.size(), GL_UNSIGNED_SHORT, 0);
 }
 
 /* **************************************************************************************************** */

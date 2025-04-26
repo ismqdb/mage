@@ -20,6 +20,7 @@ template<typename Type, u8 t_stride>
             ~simpleArray();
 
             void insert(Type);
+            void insertIndice(Type, Type, Type);
             void insertPoint(Type, Type, Type, Type);
 
             Type* raw();
@@ -42,6 +43,7 @@ template<typename Type, u8 t_stride>
 /* **************************************************************************************************** */
 
 template class simpleArray<i32, 4>;
+template class simpleArray<u32, 3>;
 template class simpleArray<f32, 4>;
 
 /* **************************************************************************************************** */

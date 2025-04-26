@@ -35,6 +35,13 @@ template<typename Type, u8 t_stride>
     }
 
 template<typename Type, u8 t_stride>
+    void simpleArray<Type, t_stride>::insertIndice(Type a, Type b, Type c){
+        insert(a);
+        insert(b);
+        insert(c);
+    }
+
+template<typename Type, u8 t_stride>
     void simpleArray<Type, t_stride>::insertPoint(Type x, Type y, Type z, Type w){
         insert(x);
         insert(y);

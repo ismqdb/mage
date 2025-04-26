@@ -16,7 +16,9 @@ cubeApp::cubeApp() : app(){
     memset(this->pressed, 0, GLFW_KEY_LAST);
 
     glfwSetup();
+
     initPoints();
+    initIndices();
 }
 
 cubeApp::~cubeApp() {
@@ -39,6 +41,23 @@ void cubeApp::initPoints(){
 
 /* **************************************************************************************************** */
 
+void cubeApp::initIndices(){
+    vertexIndices.insertIndice(0, 1, 2); /*
+    vertexIndices.insertIndice(2, 1, 3);
+    vertexIndices.insertIndice(2, 3, 4);
+    vertexIndices.insertIndice(4, 3, 5);
+    vertexIndices.insertIndice(4, 5, 6);
+    vertexIndices.insertIndice(6, 5, 7);
+    vertexIndices.insertIndice(6, 7, 0);
+    vertexIndices.insertIndice(0, 7, 1);
+    vertexIndices.insertIndice(6, 0, 2);
+    vertexIndices.insertIndice(2, 4, 6);
+    vertexIndices.insertIndice(7, 5, 3);
+    vertexIndices.insertIndice(7, 3, 1); */
+}
+
+/* **************************************************************************************************** */
+
 void cubeApp::openglSetup(){
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
@@ -51,7 +70,7 @@ void cubeApp::openglSetup(){
 
     glGenBuffers(1, &indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vertexIndices), vertexIndices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size_of(), vertexIndices.raw(), GL_STATIC_DRAW);
 }
 
 /* **************************************************************************************************** */

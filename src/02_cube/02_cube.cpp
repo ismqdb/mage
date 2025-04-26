@@ -46,7 +46,7 @@ void cubeApp::openglSetup(){
     glGenBuffers(1, &positionBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
     glBufferData(GL_ARRAY_BUFFER, vertexPositions.size_of(), vertexPositions.raw(), GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
+    glVertexAttribPointer(0, vertexPositions.stride(), GL_FLOAT, GL_FALSE, 0, NULL);
     glEnableVertexAttribArray(0);
 
     glGenBuffers(1, &indexBuffer);

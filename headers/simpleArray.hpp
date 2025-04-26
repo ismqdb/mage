@@ -13,32 +13,35 @@
 
 /* **************************************************************************************************** */
 
-template<typename T>
+template<typename Type, u8 t_stride>
     class simpleArray {
         public:
              simpleArray(u32);
             ~simpleArray();
 
-            void insert(T);
-            void insertPoint(T, T, T, T);
+            void insert(Type);
+            void insertPoint(Type, Type, Type, Type);
 
-            T* raw();
+            Type* raw();
             u64 size();
             u64 size_of();
+            u8 stride();
 
         private:
             void reserve();
 
-            T* m_data = nullptr;
+            Type* m_data = nullptr;
             u64 m_size = 0;
             u64 m_capacity = 0;
             u64 m_currentIdx;
             u64 m_sizeof;
+            
+            u8 m_stride = t_stride;
     };
 
 /* **************************************************************************************************** */
 
-template class simpleArray<i32>;
-template class simpleArray<f32>;
+template class simpleArray<i32, 4>;
+template class simpleArray<f32, 4>;
 
 /* **************************************************************************************************** */

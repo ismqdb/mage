@@ -95,7 +95,7 @@ class cubeApp : public mage::app {
             7, 3, 1
         };
 
-        simpleArray<f32> vertexPositions{50};
+        simpleArray<f32, 4> vertexPositions{50};
 };
 
 /* *****************************************************************************************************/

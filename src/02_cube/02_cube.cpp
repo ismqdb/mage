@@ -15,20 +15,26 @@ i32 main(){
 cubeApp::cubeApp() : app(){
     memset(this->pressed, 0, GLFW_KEY_LAST);
 
-    simpleArray<i32> array{25};
-    array.insert(25);
-    array.insert(50);
-    array.insert(75);
-
-    i32 *a = array.raw();
-    i32 size = array.size();
-
     glfwSetup();
+    initPoints();
 }
 
 cubeApp::~cubeApp() {
     openglTeardown();
     glfwTeardown();
+}
+
+/* **************************************************************************************************** */
+
+void cubeApp::initPoints(){
+    vertexPositions.insertPoint(-0.25f, -0.25f, -0.25f, 1.0f);
+    vertexPositions.insertPoint(-0.25f,  0.25f, -0.25f, 1.0f);
+    vertexPositions.insertPoint(+0.25f, -0.25f, -0.25f, 1.0f);
+    vertexPositions.insertPoint(+0.25f,  0.25f, -0.25f, 1.0f);
+    vertexPositions.insertPoint(+0.25f, -0.25f,  0.25f, 1.0f);
+    vertexPositions.insertPoint(+0.25f,  0.25f,  0.25f, 1.0f);
+    vertexPositions.insertPoint(+0.25f, -0.25f,  0.25f, 1.0f);
+    vertexPositions.insertPoint(-0.25f,  0.25f,  0.25f, 1.0f);
 }
 
 /* **************************************************************************************************** */
@@ -39,8 +45,8 @@ void cubeApp::openglSetup(){
 
     glGenBuffers(1, &positionBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions.raw()), vertexPositions.raw(), GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
     glEnableVertexAttribArray(0);
 
     glGenBuffers(1, &indexBuffer);

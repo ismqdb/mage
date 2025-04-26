@@ -3,6 +3,7 @@
         "setup.h": "c",
         "init.h": "c",
         "load_shaders.h": "c",
-        "glad.h": "c"
+        "glad.h": "c",
+        "cstdlib": "cpp"
     }
 }

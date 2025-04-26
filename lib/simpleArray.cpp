@@ -31,6 +31,14 @@ template<typename T>
         m_size++;
     }
 
+template<typename T>
+    void simpleArray<T>::insertPoint(T x, T y, T z, T w){
+        insert(x);
+        insert(y);
+        insert(z);
+        insert(w);
+    }
+
 /* **************************************************************************************************** */
 
 template<typename T>

@@ -58,6 +58,8 @@ class cubeApp : public mage::app {
             const void*);
 
     private:
+        void initPoints();
+
         bool pressed[GLFW_KEY_LAST];
         
         f32 aspectRatio;
@@ -93,16 +95,7 @@ class cubeApp : public mage::app {
             7, 3, 1
         };
 
-        GLfloat vertexPositions[24] = {
-            -0.25f, -0.25f, -0.25f,
-            -0.25f,  0.25f, -0.25f,
-             0.25f, -0.25f, -0.25f,
-             0.25f,  0.25f, -0.25f,
-             0.25f, -0.25f,  0.25f,
-             0.25f,  0.25f,  0.25f,
-            -0.25f, -0.25f,  0.25f,
-            -0.25f,  0.25f,  0.25f,
-        };
+        simpleArray<f32> vertexPositions{50};
 };
 
 /* *****************************************************************************************************/

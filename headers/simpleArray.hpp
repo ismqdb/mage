@@ -19,11 +19,12 @@ template<typename T>
              simpleArray(u32);
             ~simpleArray();
 
-            void insert(T);
+            void insertPoint(T, T, T, T);
             T* raw();
             u64 size();
         private:
             void reserve();
+            void insert(T);
 
             T* data = nullptr;
             u64 m_size = 0;
@@ -34,5 +35,6 @@ template<typename T>
 /* **************************************************************************************************** */
 
 template class simpleArray<i32>;
+template class simpleArray<f32>;
 
 /* **************************************************************************************************** */

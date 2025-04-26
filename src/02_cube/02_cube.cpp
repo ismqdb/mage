@@ -29,31 +29,43 @@ cubeApp::~cubeApp() {
 /* **************************************************************************************************** */
 
 void cubeApp::initPoints(){
-    vertexPositions.insertPoint(-0.25f, -0.25f, -0.25f, 1.0f);
-    vertexPositions.insertPoint(-0.25f,  0.25f, -0.25f, 1.0f);
-    vertexPositions.insertPoint(+0.25f, -0.25f, -0.25f, 1.0f);
-    vertexPositions.insertPoint(+0.25f,  0.25f, -0.25f, 1.0f);
-    vertexPositions.insertPoint(+0.25f, -0.25f,  0.25f, 1.0f);
-    vertexPositions.insertPoint(+0.25f,  0.25f,  0.25f, 1.0f);
-    vertexPositions.insertPoint(+0.25f, -0.25f,  0.25f, 1.0f);
-    vertexPositions.insertPoint(-0.25f,  0.25f,  0.25f, 1.0f);
+    vertexPositions.insertPoint(-0.25f, +0.25f, +0.00f, 1.0f);  // 0
+    vertexPositions.insertPoint(+0.25f, +0.25f, +0.00f, 1.0f);  // 1
+    vertexPositions.insertPoint(+0.25f, -0.25f, +0.00f, 1.0f);  // 2 
+    vertexPositions.insertPoint(-0.25f, -0.25f, +0.00f, 1.0f);  // 3
+
+    vertexPositions.insertPoint(-0.25f, +0.25f, -0.25f, 1.0f);  // 4
+    vertexPositions.insertPoint(+0.25f, +0.25f, -0.25f, 1.0f);  // 5
+    vertexPositions.insertPoint(+0.25f, -0.25f, -0.25f, 1.0f);  // 6 
+    vertexPositions.insertPoint(-0.25f, -0.25f, -0.25f, 1.0f);  // 7
 }
 
 /* **************************************************************************************************** */
 
 void cubeApp::initIndices(){
-    vertexIndices.insertIndice(0, 1, 2); /*
-    vertexIndices.insertIndice(2, 1, 3);
-    vertexIndices.insertIndice(2, 3, 4);
-    vertexIndices.insertIndice(4, 3, 5);
-    vertexIndices.insertIndice(4, 5, 6);
-    vertexIndices.insertIndice(6, 5, 7);
-    vertexIndices.insertIndice(6, 7, 0);
-    vertexIndices.insertIndice(0, 7, 1);
-    vertexIndices.insertIndice(6, 0, 2);
-    vertexIndices.insertIndice(2, 4, 6);
-    vertexIndices.insertIndice(7, 5, 3);
-    vertexIndices.insertIndice(7, 3, 1); */
+    // Front
+    vertexIndices.insertIndice(0, 1, 2);
+    vertexIndices.insertIndice(2, 3, 0);
+
+    // Back
+    vertexIndices.insertIndice(4, 5, 7);
+    vertexIndices.insertIndice(5, 6, 7);
+
+    // Right
+    vertexIndices.insertIndice(1, 5, 6);
+    vertexIndices.insertIndice(6, 2, 1);
+
+    // Left
+    vertexIndices.insertIndice(4, 7, 3);
+    vertexIndices.insertIndice(3, 0, 4);
+    
+    // Top
+    vertexIndices.insertIndice(1, 0, 4);
+    vertexIndices.insertIndice(4, 5, 1);
+    
+    // Bottom
+    vertexIndices.insertIndice(2, 3, 7);
+    vertexIndices.insertIndice(7, 6, 2);
 }
 
 /* **************************************************************************************************** */
@@ -88,7 +100,7 @@ void cubeApp::render(){
     glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
     glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-    glDrawElements(GL_TRIANGLES, vertexPositions.size(), GL_UNSIGNED_SHORT, 0);
+    glDrawElements(GL_TRIANGLES, vertexIndices.size(), GL_UNSIGNED_INT, 0);
 }
 
 /* **************************************************************************************************** */
@@ -133,6 +145,7 @@ void cubeApp::gameLoop(){
     modelMatrixLocation = glGetUniformLocation(program, "model");
 
     glEnable(GL_DEPTH_TEST);
+    glFrontFace(GL_CCW);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     openglSetup();

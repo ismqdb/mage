@@ -10,6 +10,7 @@ set(SOURCE_FILES
     lib/simpleArray.cpp
 )
 
+find_package(glfw3 REQUIRED)
 find_package(glm REQUIRED)
 
 add_executable(00_dot ${SOURCE_FILES} 

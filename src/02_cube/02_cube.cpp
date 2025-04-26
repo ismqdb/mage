@@ -134,7 +134,14 @@ void cubeApp::gameLoop(){
 /* **************************************************************************************************** */
 
 void cubeApp::glfwSetup(){
-    glfwInit();
+    glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+
+    if (!glfwInit()) {
+        const char* description;
+        int code = glfwGetError(&description);
+        printf("GLFW init failed (%d): %s\n", code, description);
+        abort();
+    }
 
     info.windowWidth = 800;
     info.windowHeight = 600;

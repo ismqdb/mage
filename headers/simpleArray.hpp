@@ -19,17 +19,21 @@ template<typename T>
              simpleArray(u32);
             ~simpleArray();
 
+            void insert(T);
             void insertPoint(T, T, T, T);
+
             T* raw();
             u64 size();
+            u64 size_of();
+
         private:
             void reserve();
-            void insert(T);
 
-            T* data = nullptr;
+            T* m_data = nullptr;
             u64 m_size = 0;
-            u64 capacity = 0;
-            u64 currentIdx;
+            u64 m_capacity = 0;
+            u64 m_currentIdx;
+            u64 m_sizeof;
     };
 
 /* **************************************************************************************************** */

@@ -8,27 +8,30 @@ template<typename T>
     simpleArray<T>::simpleArray(u32 startSize){
         assert(startSize > 0);
 
-        this->data = (T*)malloc(startSize * sizeof(T));
-        this->capacity = startSize;
-        this->currentIdx = 0;
+        m_data = (T*)malloc(startSize * sizeof(T));
+        m_capacity = startSize;
+        m_currentIdx = 0;
+        m_sizeof = 0;
     }
 
 template<typename T>
     simpleArray<T>::~simpleArray(){
-        free(this->data);
+        free(m_data);
         m_size = 0;
-        currentIdx = 0;
+        m_currentIdx = 0;
+        m_sizeof = 0;
     }
 
 /* **************************************************************************************************** */
 
 template<typename T>
     void simpleArray<T>::insert(T newValue){
-        if(m_size == capacity)
+        if(m_size == m_capacity)
             reserve();
 
-        data[currentIdx++] = newValue;
+        m_data[m_currentIdx++] = newValue;
         m_size++;
+        m_sizeof += sizeof(T);
     }
 
 template<typename T>
@@ -43,15 +46,15 @@ template<typename T>
 
 template<typename T>
     void simpleArray<T>::reserve(){
-        this->data = (T*)realloc(this->data, (this->capacity*2) * sizeof(T));
-        this->capacity *= 2;
+        m_data = (T*)realloc(m_data, (m_capacity*2) * sizeof(T));
+        m_capacity *= 2;
     }
 
 /* **************************************************************************************************** */
 
 template<typename T>
     T* simpleArray<T>::raw(){
-        return data;
+        return m_data;
     }
 
 /* **************************************************************************************************** */
@@ -59,6 +62,11 @@ template<typename T>
 template<typename T>
     u64 simpleArray<T>::size(){
         return m_size;
+    }
+
+template<typename T>
+    u64 simpleArray<T>::size_of(){
+        return m_sizeof;
     }
 
 /* **************************************************************************************************** */

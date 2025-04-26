@@ -34,10 +34,10 @@ void cubeApp::initPoints(){
     vertexPositions.insertPoint(+0.25f, -0.25f, +0.00f, 1.0f);  // 2 
     vertexPositions.insertPoint(-0.25f, -0.25f, +0.00f, 1.0f);  // 3
 
-    vertexPositions.insertPoint(-0.25f, +0.25f, -0.25f, 1.0f);  // 4
-    vertexPositions.insertPoint(+0.25f, +0.25f, -0.25f, 1.0f);  // 5
-    vertexPositions.insertPoint(+0.25f, -0.25f, -0.25f, 1.0f);  // 6 
-    vertexPositions.insertPoint(-0.25f, -0.25f, -0.25f, 1.0f);  // 7
+    vertexPositions.insertPoint(-0.25f, +0.25f, -0.50f, 1.0f);  // 4
+    vertexPositions.insertPoint(+0.25f, +0.25f, -0.50f, 1.0f);  // 5
+    vertexPositions.insertPoint(+0.25f, -0.25f, -0.50f, 1.0f);  // 6 
+    vertexPositions.insertPoint(-0.25f, -0.25f, -0.50f, 1.0f);  // 7
 }
 
 /* **************************************************************************************************** */
@@ -345,7 +345,8 @@ cubeApp::MessageCallback(GLenum source,
 /* **************************************************************************************************** */
 
 void cubeApp::update(){
-    f64 deltaMove = 0.025;
+    f32 deltaMove   = 0.025f/2;
+    f32 deltaRot    = 0.025f; 
 
     for(i32 i = 0; i < GLFW_KEY_LAST; i++){
         if(!pressed[i])
@@ -355,7 +356,7 @@ void cubeApp::update(){
             case GLFW_KEY_A:
                 modelMatrix = glm::rotate(
                     modelMatrix,
-                    (f32)glfwGetTime(),
+                    deltaRot,
                     glm::vec3(1.0f, 0.0f, 0.0f)
                 );
                 break;
@@ -363,7 +364,7 @@ void cubeApp::update(){
             case GLFW_KEY_D:
                 modelMatrix = glm::rotate(
                     modelMatrix,
-                    (f32)glfwGetTime(),
+                    deltaRot,
                     glm::vec3(0.0f, 0.0f, 1.0f)
                 );
                 break;
@@ -371,7 +372,7 @@ void cubeApp::update(){
             case GLFW_KEY_W:
                 modelMatrix = glm::rotate(
                     modelMatrix,
-                    (f32)glfwGetTime(),
+                    deltaRot,
                     glm::vec3(0.0f, 1.0f, 0.0f)
                 );
                 break;

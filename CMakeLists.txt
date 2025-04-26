@@ -25,7 +25,11 @@ add_executable(02_cube ${SOURCE_FILES}
 add_executable(03_texTriangle ${SOURCE_FILES} 
     src/03_texTriangle/03_texTriangle.cpp) 
 
+add_executable(04_rdot ${SOURCE_FILES} 
+    src/04_rdot/04_rdot.cpp)
+
 target_link_libraries(00_dot glm::glm)
 target_link_libraries(01_triangle glm::glm)
 target_link_libraries(02_cube glm::glm)
 target_link_libraries(03_texTriangle glm::glm)
+target_link_libraries(04_rdot glm::glm)

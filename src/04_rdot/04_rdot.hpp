@@ -1,16 +1,27 @@
 /* **************************************************************************************************** */
 
 #include "../../headers/app.hpp"
-#include "../../headers/types.hpp"
+#include "../../headers/errorMacros.hpp"
 
-#include <cstring>
+#include "../../headers/simpleArray.hpp"
 
 /* **************************************************************************************************** */
 
-class dotApp : public mage::app {
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+/* **************************************************************************************************** */
+
+#include <cstring>
+#include <array>
+
+/* **************************************************************************************************** */
+
+class rdot : public mage::app {
     public:
-        dotApp();
-        ~dotApp() override;
+        rdot();
+        ~rdot() override;
 
         void openglSetup() override;
         void openglTeardown() override;
@@ -47,18 +58,31 @@ class dotApp : public mage::app {
             const void*);
 
     private:
-        i32 numVAOs = 1;
-        i32 numBuffers = 1;
-
-        GLuint VAOs[1];
-        GLuint buffers[1];
-
-        GLuint numVertices = 0;
-        GLfloat vertices[1][2];
-
-        i32 pointSize = 5;
+        void initPoints();
+        void initIndices();
 
         bool pressed[GLFW_KEY_LAST];
+        
+        f32 aspectRatio;
+        GLuint program;
+        i32 fov = 45.0f;
+
+        i32 currentTime;
+
+        GLuint vao;
+        GLuint positionBuffer;
+        GLuint indexBuffer;
+
+        GLint projectionMatrixLocation;
+        GLint viewMatrixLocation;
+        GLint modelMatrixLocation;
+        
+        glm::mat4 projectionMatrix;
+        glm::mat4 viewMatrix;
+        glm::mat4 modelMatrix;
+
+        simpleArray<f32, 4> vertexPositions{50};
+        simpleArray<u32, 3> vertexIndices{50};
 };
 
 /* *****************************************************************************************************/

@@ -5,71 +5,65 @@
 /* **************************************************************************************************** */
 
 i32 main(){
-    dotApp dotApp;
+    rdot dotApp;
 
     dotApp.gameLoop();
 }
 
 /* **************************************************************************************************** */
 
-dotApp::dotApp() : app(){
-    numVAOs = 1;
-    numBuffers = 1;
-
-    VAOs[0] = {0};
-    buffers[0] = {0};
-
-    numVertices = 0;
-
-    vertices[0][0] = 0.25f;
-    vertices[0][1] = 0.40f;
-
-    numVertices = sizeof(vertices[0])/sizeof(GLfloat) / 2;
-
+rdot::rdot() : app(){
     memset(this->pressed, 0, GLFW_KEY_LAST);
 
     glfwSetup();
+
+    initPoints();
+    initIndices();
 }
 
-dotApp::~dotApp() {
+rdot::~rdot() {
     glfwTeardown();
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::openglSetup(){
-    glGenVertexArrays(numVAOs, VAOs);
-    glBindVertexArray(VAOs[0]);
-
-    glCreateBuffers(numBuffers, buffers);
-    glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
-    glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices), vertices, 0);
-
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)(0));
-    glEnableVertexAttribArray(0);
-}
-
-/* **************************************************************************************************** */
-
-void dotApp::render(){
-    static const f32 black[] = {0.0f, 0.0f, 0.0f, 0.0f};
-
-    glClearBufferfv(GL_COLOR, 0, black);
-
-    glBindVertexArray(VAOs[0]);
-    glPointSize(this->pointSize);
-    glDrawArrays(GL_POINTS, 0, numVertices);        // Points
-}
-
-/* **************************************************************************************************** */
-
-void dotApp::openglTeardown(){
+void rdot::initPoints(){
 
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::gameLoop(){
+void rdot::initIndices(){
+
+}
+
+/* **************************************************************************************************** */
+
+void rdot::openglSetup(){
+
+}
+
+/* **************************************************************************************************** */
+
+void rdot::render(){
+    GLfloat green[] = {0.0f, 0.25f, 0.0f, 1.0f};
+    GLfloat one = 1.0f;
+
+    glClearBufferfv(GL_COLOR, 0, green);
+    glClearBufferfv(GL_DEPTH, 0, &one);
+
+    glUseProgram(program);
+}
+
+/* **************************************************************************************************** */
+
+void rdot::openglTeardown(){
+
+}
+
+/* **************************************************************************************************** */
+
+void rdot::gameLoop(){
     i32 running = 1;
 
     mage::shader shaders[] = {
@@ -78,8 +72,33 @@ void dotApp::gameLoop(){
         {GL_NONE, NULL}
     };
 
+    projectionMatrix = glm::perspective(
+        (f32)glm::radians((f32)fov), 
+        (f32)info.windowWidth / (f32)info.windowHeight, 
+        0.1f, 
+        100.0f
+    );
+
+    viewMatrix = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 3.0f), 
+        glm::vec3(0.0f, 0.0f, 0.0f), 
+        glm::vec3(0.0f, 1.0f, 0.0f)
+    );
+
+    modelMatrix = glm::mat4(1.0f);
+
     GLuint program = mage::loadShader(shaders);
     glUseProgram(program);
+
+    projectionMatrixLocation = glGetUniformLocation(program, "projection");
+    viewMatrixLocation = glGetUniformLocation(program, "view");
+    modelMatrixLocation = glGetUniformLocation(program, "model");
+
+    glEnable(GL_DEPTH_TEST);
+    glFrontFace(GL_CCW);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    openglSetup();
 
     while (running) {
         render();
@@ -96,8 +115,15 @@ void dotApp::gameLoop(){
 
 /* **************************************************************************************************** */
 
-void dotApp::glfwSetup(){
-    glfwInit();
+void rdot::glfwSetup(){
+    glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+
+    if (!glfwInit()) {
+        const char* description;
+        int code = glfwGetError(&description);
+        printf("GLFW init failed (%d): %s\n", code, description);
+        abort();
+    }
 
     info.windowWidth = 800;
     info.windowHeight = 600;
@@ -150,7 +176,7 @@ void dotApp::glfwSetup(){
 
 /* **************************************************************************************************** */
 
-void dotApp::glfwTeardown(){
+void rdot::glfwTeardown(){
     openglTeardown();
 
     glfwDestroyWindow(window);
@@ -159,24 +185,24 @@ void dotApp::glfwTeardown(){
 
 /* **************************************************************************************************** */
 
-void dotApp::onResize(GLFWwindow* window, i32 w, i32 h){
-    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+void rdot::onResize(GLFWwindow* window, i32 w, i32 h){
+    rdot *pThis = (rdot*)glfwGetWindowUserPointer(window);
     pThis->resizeWindow(w, h);
 }
 
-void dotApp::resizeWindow(i32 x, i32 y){
+void rdot::resizeWindow(i32 x, i32 y){
     info.windowWidth = x;
     info.windowHeight = y;
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::onKey(GLFWwindow* window, i32 key, i32 scancode, i32 action, i32 mods){
-    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+void rdot::onKey(GLFWwindow* window, i32 key, i32 scancode, i32 action, i32 mods){
+    rdot *pThis = (rdot*)glfwGetWindowUserPointer(window);
     pThis->keyPress(key, scancode, action, mods);
 }
 
-void dotApp::keyPress(i32 key, i32 scancode, i32 action, i32 mods){
+void rdot::keyPress(i32 key, i32 scancode, i32 action, i32 mods){
     if(key == GLFW_KEY_UNKNOWN)
         return;
 
@@ -192,47 +218,47 @@ void dotApp::keyPress(i32 key, i32 scancode, i32 action, i32 mods){
 
 /* **************************************************************************************************** */
 
-void dotApp::onMouseButton(GLFWwindow* window, i32 button, i32 action, i32 mods){
-    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+void rdot::onMouseButton(GLFWwindow* window, i32 button, i32 action, i32 mods){
+    rdot *pThis = (rdot*)glfwGetWindowUserPointer(window);
     pThis->mouseClick(button, action, mods);
 }
 
-void dotApp::mouseClick(i32 button, i32 action, i32 mods){
+void rdot::mouseClick(i32 button, i32 action, i32 mods){
 
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::onMouseMove(GLFWwindow* window, f64 x, f64 y){
-    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+void rdot::onMouseMove(GLFWwindow* window, f64 x, f64 y){
+    rdot *pThis = (rdot*)glfwGetWindowUserPointer(window);
     pThis->mouseMove(x, y);
 }
 
-void dotApp::mouseMove(f64 x, f64 y){
+void rdot::mouseMove(f64 x, f64 y){
 
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::onMouseWheel(GLFWwindow* window, f64 xoffset, f64 yoffset){
-    dotApp *pThis = (dotApp*)glfwGetWindowUserPointer(window);
+void rdot::onMouseWheel(GLFWwindow* window, f64 xoffset, f64 yoffset){
+    rdot *pThis = (rdot*)glfwGetWindowUserPointer(window);
     pThis->mouseWheel(xoffset, yoffset);
 }
 
-void dotApp::mouseWheel(f64 xoffset, f64 yoffset){
+void rdot::mouseWheel(f64 xoffset, f64 yoffset){
 
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::setVsync(i32 enable){
+void rdot::setVsync(i32 enable){
     info.flags.vsync = enable ? 1 : 0;
     glfwSwapInterval((i32)info.flags.vsync);
 }
 
 /* **************************************************************************************************** */
 
-void dotApp::getMousePosition(i32 *x, i32 *y){
+void rdot::getMousePosition(i32 *x, i32 *y){
     f64 dx, dy;
     glfwGetCursorPos(window, &dx, &dy);
 
@@ -243,7 +269,7 @@ void dotApp::getMousePosition(i32 *x, i32 *y){
 /* **************************************************************************************************** */
 
 void GLAPIENTRY
-dotApp::MessageCallback(GLenum source,
+rdot::MessageCallback(GLenum source,
                  GLenum type,
                  GLuint id,
                  GLenum severity,
@@ -255,39 +281,35 @@ dotApp::MessageCallback(GLenum source,
 
 /* **************************************************************************************************** */
 
-void dotApp::update(){
+void rdot::update(){
     for(i32 i = 0; i < GLFW_KEY_LAST; i++){
         if(!pressed[i])
             continue;
 
         switch(i){
             case GLFW_KEY_LEFT:
-                this->vertices[0][0] -= 0.01;
                 break;
 
             case GLFW_KEY_RIGHT:
-                this->vertices[0][0] += 0.01;
+
                 break;
 
             case GLFW_KEY_UP:
-                this->vertices[0][1] += 0.01;
                 break;
 
             case GLFW_KEY_DOWN:
-                this->vertices[0][1] -= 0.01;
+
                 break;
 
             case GLFW_KEY_A:
-                this->pointSize++;
+
                 break;
             
             case GLFW_KEY_D:
-                this->pointSize--;
+
                 break;
         }
     }
-
-    this->openglSetup();
 }
 
 /* **************************************************************************************************** */

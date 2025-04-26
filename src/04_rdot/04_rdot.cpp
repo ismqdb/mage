@@ -28,19 +28,35 @@ rdot::~rdot() {
 /* **************************************************************************************************** */
 
 void rdot::initPoints(){
-
+    vertexPositions.insertPoint(-0.25f, +0.25f, +0.00f, 1.0f);  // 0
+    vertexPositions.insertPoint(+0.25f, +0.25f, +0.00f, 1.0f);  // 1
+    vertexPositions.insertPoint(+0.25f, -0.25f, +0.00f, 1.0f);  // 2 
+    vertexPositions.insertPoint(-0.25f, -0.25f, +0.00f, 1.0f);  // 3
 }
 
 /* **************************************************************************************************** */
 
 void rdot::initIndices(){
-
+    // Front
+    vertexIndices.insertIndice(0, 1, 2);
+    vertexIndices.insertIndice(2, 3, 0);
 }
 
 /* **************************************************************************************************** */
 
 void rdot::openglSetup(){
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
 
+    glGenBuffers(1, &positionBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
+    glBufferData(GL_ARRAY_BUFFER, vertexPositions.size_of(), vertexPositions.raw(), GL_STATIC_DRAW);
+    glVertexAttribPointer(0, vertexPositions.stride(), GL_FLOAT, GL_FALSE, 0, NULL);
+    glEnableVertexAttribArray(0);
+
+    glGenBuffers(1, &indexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size_of(), vertexIndices.raw(), GL_STATIC_DRAW);
 }
 
 /* **************************************************************************************************** */
@@ -53,6 +69,12 @@ void rdot::render(){
     glClearBufferfv(GL_DEPTH, 0, &one);
 
     glUseProgram(program);
+
+    glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+    glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+    glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+    glDrawElements(GL_TRIANGLES, vertexIndices.size(), GL_UNSIGNED_INT, 0);
 }
 
 /* **************************************************************************************************** */

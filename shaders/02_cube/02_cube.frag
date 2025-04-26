@@ -1,11 +1,8 @@
 #version 450 core
 
-out vec4 color;
-
-in VS_OUT {
-    vec4 color;
-} fs_in;
+in vec4 i_color;
+out vec4 o_color;
 
 void main(void){
-    color = fs_in.color;
+    o_color = i_color;
 }

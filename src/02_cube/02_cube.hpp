@@ -70,8 +70,6 @@ class cubeApp : public mage::app {
         i32 currentTime;
 
         GLuint vao;
-        GLuint positionBuffer;
-        GLuint indexBuffer;
 
         GLint projectionMatrixLocation;
         GLint viewMatrixLocation;

@@ -108,7 +108,9 @@ void cubeApp::render(){
 void cubeApp::openglTeardown(){
     glDeleteVertexArrays(1, &vao);
     glDeleteProgram(program);
-    glDeleteBuffers(1, &positionBuffer);
+
+    glDeleteBuffers(1, vertexPositions.buf());
+    glDeleteBuffers(1, vertexIndices.buf());
 }
 
 /* **************************************************************************************************** */

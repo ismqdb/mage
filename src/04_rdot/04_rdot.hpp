@@ -69,6 +69,8 @@ class rdot : public mage::app {
 
         i32 currentTime;
 
+        i32 circleRadius = 10;
+
         GLuint vao;
         GLuint positionBuffer;
         GLuint indexBuffer;

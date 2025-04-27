@@ -12,6 +12,8 @@ template<typename Type, u8 t_stride>
         m_capacity = startSize;
         m_currentIdx = 0;
         m_sizeof = 0;
+
+        m_buffer = new u32{};
     }
 
 template<typename Type, u8 t_stride>
@@ -20,6 +22,8 @@ template<typename Type, u8 t_stride>
         m_size = 0;
         m_currentIdx = 0;
         m_sizeof = 0;
+
+        delete m_buffer;
     }
 
 /* **************************************************************************************************** */
@@ -81,6 +85,13 @@ template<typename Type, u8 t_stride>
 template<typename Type, u8 t_stride>
     u8 simpleArray<Type, t_stride>::stride(){
         return m_stride;
+    }
+
+/* **************************************************************************************************** */
+
+template<typename Type, u8 t_stride>
+    u32* simpleArray<Type, t_stride>::buf(){
+        return m_buffer;
     }
 
 /* **************************************************************************************************** */

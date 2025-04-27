@@ -28,6 +28,8 @@ template<typename Type, u8 t_stride>
             u64 size_of();
             u8 stride();
 
+            u32* buf();
+
         private:
             void reserve();
 
@@ -38,6 +40,8 @@ template<typename Type, u8 t_stride>
             u64 m_sizeof;
             
             u8 m_stride = t_stride;
+            
+            u32 *m_buffer;
     };
 
 /* **************************************************************************************************** */

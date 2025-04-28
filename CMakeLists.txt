@@ -7,6 +7,7 @@ set(SOURCE_FILES
     ./glad/glad.c
     lib/loadShader.cpp
     lib/vec.cpp
+    lib/particle.cpp
     lib/simpleArray.cpp
 )
 

@@ -9,14 +9,11 @@
 /* **************************************************************************************************** */
 
 namespace mage {
-    class vec3 {
-        public:
-            real x;
-            real y;
-            real z;
-
-        private:
-            real pad;
+    struct vec3 {
+        real x;
+        real y;
+        real z;
+        real pad;
     };
 };
 

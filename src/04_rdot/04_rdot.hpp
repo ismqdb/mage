@@ -4,6 +4,7 @@
 #include "../../headers/errorMacros.hpp"
 
 #include "../../headers/simpleArray.hpp"
+#include "../../headers/vec.hpp"
 
 /* **************************************************************************************************** */
 
@@ -15,6 +16,7 @@
 
 #include <cstring>
 #include <array>
+#include <math.h>
 
 /* **************************************************************************************************** */
 
@@ -69,8 +71,12 @@ class rdot : public mage::app {
 
         i32 currentTime;
 
-        i32 circleRadius = 10;
+        f32 circleRadius = 0.25;
+        u32 noOfTriangles = 16;
+        f64 arcLen = 360.0 / noOfTriangles;
 
+        mage::vec3 position{0.0f, 0.0f, 0.0f};
+            
         GLuint vao;
         GLuint positionBuffer;
         GLuint indexBuffer;

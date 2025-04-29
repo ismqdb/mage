@@ -28,18 +28,26 @@ rdot::~rdot() {
 /* **************************************************************************************************** */
 
 void rdot::initPoints(){
-    vertexPositions.insertPoint(-0.25f, +0.25f, +0.00f, 1.0f);  // 0
-    vertexPositions.insertPoint(+0.25f, +0.25f, +0.00f, 1.0f);  // 1
-    vertexPositions.insertPoint(+0.25f, -0.25f, +0.00f, 1.0f);  // 2 
-    vertexPositions.insertPoint(-0.25f, -0.25f, +0.00f, 1.0f);  // 3
+    f64 angle = 0.0;
+
+    vertexPositions.insertPoint(position.x, position.y, position.z, 0.0f);
+
+    for(int i = 0; i < noOfTriangles; i++){
+        angle += arcLen;
+        vertexPositions.insertPoint(
+            position.x + circleRadius * cos(angle), 
+            position.y + circleRadius * sin(angle), 
+            0.0f, 0.0f
+        );
+    }
 }
 
 /* **************************************************************************************************** */
 
 void rdot::initIndices(){
-    // Front
-    vertexIndices.insertIndice(0, 1, 2);
-    vertexIndices.insertIndice(2, 3, 0);
+    for(int i = 1; i < noOfTriangles; i++){
+        vertexIndices.insertIndice(0, i, i+1);
+    }
 }
 
 /* **************************************************************************************************** */
@@ -192,8 +200,6 @@ void rdot::glfwSetup(){
 
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, 0);
-
-    openglSetup();
 }
 
 /* **************************************************************************************************** */

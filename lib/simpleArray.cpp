@@ -14,6 +14,7 @@ template<typename Type, u8 t_stride>
         m_sizeof = 0;
 
         m_buffer = new u32{};
+        m_vao = new u32{};
     }
 
 template<typename Type, u8 t_stride>
@@ -24,6 +25,7 @@ template<typename Type, u8 t_stride>
         m_sizeof = 0;
 
         delete m_buffer;
+        delete m_vao;
     }
 
 /* **************************************************************************************************** */
@@ -92,6 +94,13 @@ template<typename Type, u8 t_stride>
 template<typename Type, u8 t_stride>
     u32* simpleArray<Type, t_stride>::buf(){
         return m_buffer;
+    }
+
+/* **************************************************************************************************** */
+
+template<typename Type, u8 t_stride>
+    u32* simpleArray<Type, t_stride>::vao(){
+        return m_vao;
     }
 
 /* **************************************************************************************************** */

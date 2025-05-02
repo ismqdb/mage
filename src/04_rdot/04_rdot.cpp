@@ -16,9 +16,6 @@ rdot::rdot() : app(){
     memset(this->pressed, 0, GLFW_KEY_LAST);
 
     glfwSetup();
-
-    initPoints();
-    initIndices();
 }
 
 rdot::~rdot() {
@@ -27,44 +24,8 @@ rdot::~rdot() {
 
 /* **************************************************************************************************** */
 
-void rdot::initPoints(){
-    f64 angle = 0.0;
-
-    vertexPositions.insertPoint(position.x, position.y, position.z, 0.0f);
-
-    for(int i = 0; i < noOfTriangles; i++){
-        angle += arcLen;
-        vertexPositions.insertPoint(
-            position.x + circleRadius * cos(angle), 
-            position.y + circleRadius * sin(angle), 
-            0.0f, 0.0f
-        );
-    }
-}
-
-/* **************************************************************************************************** */
-
-void rdot::initIndices(){
-    for(int i = 1; i < noOfTriangles; i++){
-        vertexIndices.insertIndice(0, i, i+1);
-    }
-}
-
-/* **************************************************************************************************** */
-
 void rdot::openglSetup(){
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-
-    glGenBuffers(1, &positionBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
-    glBufferData(GL_ARRAY_BUFFER, vertexPositions.size_of(), vertexPositions.raw(), GL_STATIC_DRAW);
-    glVertexAttribPointer(0, vertexPositions.stride(), GL_FLOAT, GL_FALSE, 0, NULL);
-    glEnableVertexAttribArray(0);
-
-    glGenBuffers(1, &indexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size_of(), vertexIndices.raw(), GL_STATIC_DRAW);
+    
 }
 
 /* **************************************************************************************************** */
@@ -82,7 +43,13 @@ void rdot::render(){
     glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
     glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-    glDrawElements(GL_TRIANGLES, vertexIndices.size(), GL_UNSIGNED_INT, 0);
+    glPointSize(10);
+
+    circle1.render();
+    glDrawElements(GL_TRIANGLES, circle1.indicesCount(), GL_UNSIGNED_INT, 0);
+
+    circle2.render();
+    glDrawElements(GL_TRIANGLES, circle2.indicesCount(), GL_UNSIGNED_INT, 0);
 }
 
 /* **************************************************************************************************** */
@@ -117,7 +84,7 @@ void rdot::gameLoop(){
 
     modelMatrix = glm::mat4(1.0f);
 
-    GLuint program = mage::loadShader(shaders);
+    program = mage::loadShader(shaders);
     glUseProgram(program);
 
     projectionMatrixLocation = glGetUniformLocation(program, "projection");

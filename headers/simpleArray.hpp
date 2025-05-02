@@ -29,11 +29,12 @@ template<typename Type, u8 t_stride>
             u8 stride();
 
             u32* buf();
+            u32* vao();
 
         private:
             void reserve();
 
-            Type* m_data = nullptr;
+            Type *m_data = nullptr;
             u64 m_size = 0;
             u64 m_capacity = 0;
             u64 m_currentIdx;
@@ -42,6 +43,7 @@ template<typename Type, u8 t_stride>
             u8 m_stride = t_stride;
             
             u32 *m_buffer;
+            u32 *m_vao;
     };
 
 /* **************************************************************************************************** */

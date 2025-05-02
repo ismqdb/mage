@@ -6,6 +6,8 @@
 #include "../../headers/simpleArray.hpp"
 #include "../../headers/vec.hpp"
 
+#include "../../headers/circle.hpp"
+
 /* **************************************************************************************************** */
 
 #include <glm/glm.hpp>
@@ -16,7 +18,14 @@
 
 #include <cstring>
 #include <array>
-#include <math.h>
+#include <cmath>
+
+/* **************************************************************************************************** */
+
+// Ugly but temporary
+
+mage::circle circle1 = mage::circle(mage::vec3{.x = 0.0f, .y = +0.5f, .z = 0.0f}, 1.0f/4, 16);
+mage::circle circle2 = mage::circle(mage::vec3{.x = 0.0f, .y = -0.5f, .z = 0.0f}, 1.0f/4, 4);
 
 /* **************************************************************************************************** */
 
@@ -60,9 +69,6 @@ class rdot : public mage::app {
             const void*);
 
     private:
-        void initPoints();
-        void initIndices();
-
         bool pressed[GLFW_KEY_LAST];
         
         f32 aspectRatio;
@@ -71,16 +77,6 @@ class rdot : public mage::app {
 
         i32 currentTime;
 
-        f32 circleRadius = 0.25;
-        u32 noOfTriangles = 16;
-        f64 arcLen = 360.0 / noOfTriangles;
-
-        mage::vec3 position{0.0f, 0.0f, 0.0f};
-            
-        GLuint vao;
-        GLuint positionBuffer;
-        GLuint indexBuffer;
-
         GLint projectionMatrixLocation;
         GLint viewMatrixLocation;
         GLint modelMatrixLocation;
@@ -88,9 +84,6 @@ class rdot : public mage::app {
         glm::mat4 projectionMatrix;
         glm::mat4 viewMatrix;
         glm::mat4 modelMatrix;
-
-        simpleArray<f32, 4> vertexPositions{50};
-        simpleArray<u32, 3> vertexIndices{50};
 };
 
 /* *****************************************************************************************************/

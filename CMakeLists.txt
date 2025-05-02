@@ -9,6 +9,7 @@ set(SOURCE_FILES
     lib/vec.cpp
     lib/particle.cpp
     lib/simpleArray.cpp
+    lib/circle.cpp
 )
 
 find_package(glfw3 REQUIRED)

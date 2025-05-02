@@ -14,6 +14,8 @@ namespace mage {
         mage::vec3 position;
         mage::vec3 velocity;
         mage::vec3 acceleration;
+
+        real drag;
     };
 };
 

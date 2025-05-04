@@ -21,8 +21,8 @@ namespace mage {
             circle(){}
             circle(mage::vec3, f32, u32);
 
+            void prepareForRender();
             void render();
-            u64 indicesCount();
         
         private:
             void initPoints();

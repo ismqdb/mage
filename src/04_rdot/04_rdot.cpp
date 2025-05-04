@@ -45,11 +45,11 @@ void rdot::render(){
 
     glPointSize(10);
 
+    circle1.prepareForRender();
     circle1.render();
-    glDrawElements(GL_TRIANGLES, circle1.indicesCount(), GL_UNSIGNED_INT, 0);
 
+    circle2.prepareForRender();
     circle2.render();
-    glDrawElements(GL_TRIANGLES, circle2.indicesCount(), GL_UNSIGNED_INT, 0);
 }
 
 /* **************************************************************************************************** */

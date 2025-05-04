@@ -51,7 +51,7 @@ void mage::circle::initIndices(){
 
 /* **************************************************************************************************** */
 
-void mage::circle::render(){
+void mage::circle::prepareForRender(){
     glGenVertexArrays(1, vertexPositions.vao());
     glBindVertexArray(*vertexPositions.vao());
 
@@ -70,8 +70,8 @@ void mage::circle::render(){
 
 /* **************************************************************************************************** */
 
-u64 mage::circle::indicesCount(){
-    return vertexIndices.size();
+void mage::circle::render(){
+    glDrawElements(GL_TRIANGLES, vertexIndices.size(), GL_UNSIGNED_INT, 0);
 }
 
 /* **************************************************************************************************** */

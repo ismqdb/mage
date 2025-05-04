@@ -60,10 +60,8 @@ void rdot::render(){
 
     glPointSize(10);
 
-    for(int i = 0; i < objects.size(); i++){
-        (*objects[i])->prepareForRender();
+    for(int i = 0; i < objects.size(); i++)
         (*objects[i])->render();
-    }
 }
 
 /* **************************************************************************************************** */

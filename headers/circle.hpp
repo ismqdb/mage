@@ -16,13 +16,13 @@
 /* **************************************************************************************************** */
 
 namespace mage {
-    class circle {   
+    class circle : public mage::mageObject {   
         public:
             circle(){}
             circle(mage::vec3, f32, u32);
 
-            void prepareForRender();
-            void render();
+            void prepareForRender() override;
+            void render() override;
         
         private:
             void initPoints();

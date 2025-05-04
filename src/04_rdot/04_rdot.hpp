@@ -3,6 +3,8 @@
 #include "../../headers/app.hpp"
 #include "../../headers/errorMacros.hpp"
 
+#include "../../headers/mageObject.hpp"
+
 #include "../../headers/simpleArray.hpp"
 #include "../../headers/vec.hpp"
 
@@ -19,13 +21,6 @@
 #include <cstring>
 #include <array>
 #include <cmath>
-
-/* **************************************************************************************************** */
-
-// Ugly but temporary
-
-mage::circle circle1 = mage::circle(mage::vec3{.x = 0.0f, .y = +0.5f, .z = 0.0f}, 1.0f/4, 16);
-mage::circle circle2 = mage::circle(mage::vec3{.x = 0.0f, .y = -0.5f, .z = 0.0f}, 1.0f/4, 4);
 
 /* **************************************************************************************************** */
 
@@ -68,6 +63,8 @@ class rdot : public mage::app {
             const GLchar*,
             const void*);
 
+        void addObject(mage::mageObject*);
+
     private:
         bool pressed[GLFW_KEY_LAST];
         
@@ -84,6 +81,8 @@ class rdot : public mage::app {
         glm::mat4 projectionMatrix;
         glm::mat4 viewMatrix;
         glm::mat4 modelMatrix;
+
+        simpleArray<mage::mageObject*, sizeof(mage::mageObject)> objects{50};
 };
 
 /* *****************************************************************************************************/

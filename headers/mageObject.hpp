@@ -13,8 +13,8 @@ namespace mage {
         public:
             ~mageObject(){}
 
-            virtual void prepareForRender();
-            virtual void render();
+            virtual void prepareForRender() = 0;
+            virtual void render() = 0;
 
 
         private:

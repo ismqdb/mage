@@ -5,6 +5,7 @@
 /* **************************************************************************************************** */
 
 #include "./types.hpp"
+#include "./mageObject.hpp"
 
 /* **************************************************************************************************** */
 
@@ -31,6 +32,8 @@ template<typename Type, u8 t_stride>
             u32* buf();
             u32* vao();
 
+            Type* operator[](i32);
+
         private:
             void reserve();
 
@@ -51,5 +54,6 @@ template<typename Type, u8 t_stride>
 template class simpleArray<i32, 4>;
 template class simpleArray<u32, 3>;
 template class simpleArray<f32, 4>;
+template class simpleArray<mage::mageObject*, sizeof(mage::mageObject)>;
 
 /* **************************************************************************************************** */

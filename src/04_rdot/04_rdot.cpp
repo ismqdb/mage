@@ -7,6 +7,12 @@
 i32 main(){
     rdot rdotApp;
 
+    mage::circle *circle1 = new mage::circle(mage::vec3{.x = 0.0f, .y = +0.5f, .z = 0.0f}, 1.0f/4, 16);
+    mage::circle *circle2 = new mage::circle(mage::vec3{.x = 0.0f, .y = -0.5f, .z = 0.0f}, 1.0f/4, 4);
+
+    rdotApp.addObject(circle1);
+    rdotApp.addObject(circle2);
+
     rdotApp.gameLoop();
 }
 
@@ -20,6 +26,12 @@ rdot::rdot() : app(){
 
 rdot::~rdot() {
     glfwTeardown();
+}
+
+/* **************************************************************************************************** */
+
+void rdot::addObject(mage::mageObject *obj){
+    objects.insert(obj);
 }
 
 /* **************************************************************************************************** */
@@ -45,11 +57,10 @@ void rdot::render(){
 
     glPointSize(10);
 
-    circle1.prepareForRender();
-    circle1.render();
-
-    circle2.prepareForRender();
-    circle2.render();
+    for(int i = 0; i < objects.size(); i++){
+        (*objects[i])->prepareForRender();
+        (*objects[i])->render();
+    }
 }
 
 /* **************************************************************************************************** */

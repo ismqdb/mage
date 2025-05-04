@@ -15,7 +15,8 @@ namespace mage {
         mage::vec3 velocity;
         mage::vec3 acceleration;
 
-        real drag;
+        real damping;
+        real inverseMass;
     };
 };
 

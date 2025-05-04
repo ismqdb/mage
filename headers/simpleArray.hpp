@@ -14,46 +14,48 @@
 
 /* **************************************************************************************************** */
 
-template<typename Type, u8 t_stride>
-    class simpleArray {
-        public:
-             simpleArray(u32);
-            ~simpleArray();
+namespace mage {
+    template<typename Type, u8 t_stride>
+        class simpleArray {
+            public:
+                simpleArray(u32);
+                ~simpleArray();
 
-            void insert(Type);
-            void insertIndice(Type, Type, Type);
-            void insertPoint(Type, Type, Type, Type);
+                void insert(Type);
+                void insertIndice(Type, Type, Type);
+                void insertPoint(Type, Type, Type, Type);
 
-            Type* raw();
-            u64 size();
-            u64 size_of();
-            u8 stride();
+                Type* raw();
+                u64 size();
+                u64 size_of();
+                u8 stride();
 
-            u32* buf();
-            u32* vao();
+                u32* buf();
+                u32* vao();
 
-            Type* operator[](i32);
+                Type* operator[](i32);
 
-        private:
-            void reserve();
+            private:
+                void reserve();
 
-            Type *m_data = nullptr;
-            u64 m_size = 0;
-            u64 m_capacity = 0;
-            u64 m_currentIdx;
-            u64 m_sizeof;
-            
-            u8 m_stride = t_stride;
-            
-            u32 *m_buffer;
-            u32 *m_vao;
-    };
+                Type *m_data = nullptr;
+                u64 m_size = 0;
+                u64 m_capacity = 0;
+                u64 m_currentIdx;
+                u64 m_sizeof;
+                
+                u8 m_stride = t_stride;
+                
+                u32 *m_buffer;
+                u32 *m_vao;
+        };
+}
 
 /* **************************************************************************************************** */
 
-template class simpleArray<i32, 4>;
-template class simpleArray<u32, 3>;
-template class simpleArray<f32, 4>;
-template class simpleArray<mage::mageObject*, sizeof(mage::mageObject)>;
+template class mage::simpleArray<i32, 4>;
+template class mage::simpleArray<u32, 3>;
+template class mage::simpleArray<f32, 4>;
+template class mage::simpleArray<mage::mageObject*, sizeof(mage::mageObject)>;
 
 /* **************************************************************************************************** */

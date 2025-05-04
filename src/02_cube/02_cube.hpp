@@ -79,8 +79,8 @@ class cubeApp : public mage::app {
         glm::mat4 viewMatrix;
         glm::mat4 modelMatrix;
 
-        simpleArray<f32, 4> vertexPositions{50};
-        simpleArray<u32, 3> vertexIndices{50};
+        mage::simpleArray<f32, 4> vertexPositions{50};
+        mage::simpleArray<u32, 3> vertexIndices{50};
 };
 
 /* *****************************************************************************************************/

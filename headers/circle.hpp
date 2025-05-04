@@ -24,6 +24,7 @@ namespace mage {
             void prepareForRender() override;
             void render() override;
             void onInput() override;
+            void setProgram(i32);
         
         private:
             void initPoints();
@@ -34,6 +35,7 @@ namespace mage {
             f32 m_radius;
             u32 m_noOfTriangles;
             f64 m_arcLen;
+            i32 m_program;
 
             simpleArray<f32, 4> vertexPositions{50};
             simpleArray<u32, 3> vertexIndices{50};

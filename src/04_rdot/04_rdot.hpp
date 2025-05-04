@@ -62,6 +62,7 @@ class rdot : public mage::app {
             const void*);
 
         void addObject(mage::mageObject*);
+        GLint getProgram();
 
     private:
         bool pressed[GLFW_KEY_LAST];

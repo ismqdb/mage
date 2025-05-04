@@ -81,7 +81,7 @@ class rdot : public mage::app {
         glm::mat4 viewMatrix;
         glm::mat4 modelMatrix;
 
-        mage::simpleArray<mage::mageObject*, sizeof(mage::mageObject)> objects{50};
+        mage::simpleArray<mage::mageObject*, sizeof(mage::mageObject*)> objects{50};
 };
 
 /* *****************************************************************************************************/

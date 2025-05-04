@@ -23,6 +23,7 @@ namespace mage {
 
             void prepareForRender() override;
             void render() override;
+            void onInput() override;
         
         private:
             void initPoints();

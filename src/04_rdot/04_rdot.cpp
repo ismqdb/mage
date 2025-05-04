@@ -7,13 +7,16 @@
 i32 main(){
     rdot rdotApp;
 
-    mage::circle *circle1 = new mage::circle(mage::vec3{.x = 0.0f, .y = +0.5f, .z = 0.0f}, 1.0f/4, 16);
-    mage::circle *circle2 = new mage::circle(mage::vec3{.x = 0.0f, .y = -0.5f, .z = 0.0f}, 1.0f/4, 4);
+    mage::circle *circle1 = new mage::circle(mage::vec3{.x = 0.0f, .y = +0.5f, .z = 0.0f}, 1.0f/4, 3);
+    mage::circle *circle2 = new mage::circle(mage::vec3{.x = 0.0f, .y = -0.5f, .z = 0.0f}, 1.0f/4, 16);
 
     rdotApp.addObject(circle1);
     rdotApp.addObject(circle2);
 
     rdotApp.gameLoop();
+
+    delete circle1;
+    delete circle2;
 }
 
 /* **************************************************************************************************** */

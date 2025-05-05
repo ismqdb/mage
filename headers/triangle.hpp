@@ -29,8 +29,8 @@ namespace mage {
         private:;
             i32 m_program;
 
-            simpleArray<mage::vec3, 12> vertexPositions{50};
-            simpleArray<u32, 3> vertexIndices{50};
+            simpleArray<mage::vec3, 3> positionVectors{8};
+            simpleArray<u32, 3> indicesVectors{8};
     };
 }
 

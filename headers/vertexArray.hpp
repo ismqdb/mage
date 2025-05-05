@@ -16,15 +16,23 @@
 /* **************************************************************************************************** */
 
 namespace mage {
-    template<typename Type>
-        class simpleArray {
+    template<typename Type, u8 t_stride>
+        class vertexArray {
             public:
-                simpleArray(u32);
-                ~simpleArray();
+                vertexArray(u32);
+                ~vertexArray();
 
                 void insert(Type);
+                void insertIndice(Type, Type, Type);
+                void insertPoint(Type, Type, Type, Type);
 
+                Type* raw();
                 u64 size();
+                u64 size_of();
+                u8 stride();
+
+                u32* buf();
+                u32* vao();
 
                 Type* operator[](i32);
 
@@ -35,16 +43,22 @@ namespace mage {
                 u64 m_size = 0;
                 u64 m_capacity = 0;
                 u64 m_currentIdx;
+                u64 m_sizeof;
+                
+                u8 m_stride = t_stride;
+                
+                u32 *m_buffer;
+                u32 *m_vao;
         };
 }
 
 /* **************************************************************************************************** */
 
-template class mage::simpleArray<i32>;
-template class mage::simpleArray<u32>;
-template class mage::simpleArray<f32>;
+template class mage::vertexArray<i32, 4>;
+template class mage::vertexArray<u32, 3>;
+template class mage::vertexArray<f32, 4>;
 
-template class mage::simpleArray<mage::vec3>;
-template class mage::simpleArray<mage::mageObject*>;
+template class mage::vertexArray<mage::vec3, 3>;
+template class mage::vertexArray<mage::mageObject*, sizeof(mage::mageObject*)>;
 
 /* **************************************************************************************************** */

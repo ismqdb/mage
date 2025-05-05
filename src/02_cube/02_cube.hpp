@@ -3,7 +3,7 @@
 #include "../../headers/app.hpp"
 #include "../../headers/errorMacros.hpp"
 
-#include "../../headers/simpleArray.hpp"
+#include "../../headers/vertexArray.hpp"
 
 /* **************************************************************************************************** */
 
@@ -79,8 +79,8 @@ class cubeApp : public mage::app {
         glm::mat4 viewMatrix;
         glm::mat4 modelMatrix;
 
-        mage::simpleArray<f32, 4> vertexPositions{50};
-        mage::simpleArray<u32, 3> vertexIndices{50};
+        mage::vertexArray<f32, 4> vertexPositions{50};
+        mage::vertexArray<u32, 3> vertexIndices{50};
 };
 
 /* *****************************************************************************************************/

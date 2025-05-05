@@ -10,7 +10,7 @@
 #include "./app.hpp"
 
 #include "./types.hpp"
-#include "./simpleArray.hpp"
+#include "./vertexArray.hpp"
 #include "./vec.hpp"
 
 /* **************************************************************************************************** */
@@ -29,8 +29,8 @@ namespace mage {
         private:;
             i32 m_program;
 
-            simpleArray<mage::vec3, 3> positionVectors{8};
-            simpleArray<u32, 3> indicesVectors{8};
+            mage::vertexArray<mage::vec3, 3> positionVectors{8};
+            mage::vertexArray<u32, 3> indicesVectors{8};
     };
 }
 

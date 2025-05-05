@@ -10,7 +10,7 @@
 #include "./app.hpp"
 
 #include "./types.hpp"
-#include "./simpleArray.hpp"
+#include "./vertexArray.hpp"
 #include "./vec.hpp"
 
 /* **************************************************************************************************** */
@@ -37,8 +37,8 @@ namespace mage {
             f64 m_arcLen;
             i32 m_program;
 
-            simpleArray<f32, 4> vertexPositions{50};
-            simpleArray<u32, 3> vertexIndices{50};
+            vertexArray<f32, 4> vertexPositions{50};
+            vertexArray<u32, 3> vertexIndices{50};
     };
 }
 

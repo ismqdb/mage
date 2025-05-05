@@ -9,6 +9,7 @@ set(SOURCE_FILES
     lib/vec.cpp
     lib/particle.cpp
     lib/simpleArray.cpp
+    lib/vertexArray.cpp
     lib/circle.cpp
     lib/triangle.cpp
 )

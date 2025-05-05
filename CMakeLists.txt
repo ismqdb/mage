@@ -10,6 +10,7 @@ set(SOURCE_FILES
     lib/particle.cpp
     lib/simpleArray.cpp
     lib/circle.cpp
+    lib/triangle.cpp
 )
 
 find_package(glfw3 REQUIRED)

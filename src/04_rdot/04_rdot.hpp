@@ -9,6 +9,7 @@
 #include "../../headers/vec.hpp"
 
 #include "../../headers/circle.hpp"
+#include "../../headers/triangle.hpp"
 
 /* **************************************************************************************************** */
 

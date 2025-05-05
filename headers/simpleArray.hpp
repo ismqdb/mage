@@ -6,6 +6,7 @@
 
 #include "./types.hpp"
 #include "./mageObject.hpp"
+#include "./vec.hpp"
 
 /* **************************************************************************************************** */
 
@@ -56,6 +57,8 @@ namespace mage {
 template class mage::simpleArray<i32, 4>;
 template class mage::simpleArray<u32, 3>;
 template class mage::simpleArray<f32, 4>;
+
+template class mage::simpleArray<mage::vec3, 12>;
 template class mage::simpleArray<mage::mageObject*, sizeof(mage::mageObject*)>;
 
 /* **************************************************************************************************** */

@@ -18,7 +18,6 @@
 namespace mage {
     class triangle : public mage::mageObject {   
         public:
-            triangle(){}
             triangle(mage::vec3, mage::vec3, mage::vec3);
 
             void prepareForRender() override;
@@ -29,8 +28,7 @@ namespace mage {
         private:;
             i32 m_program;
 
-            mage::vertexArray<mage::vec3, 3> positionVectors{8};
-            mage::vertexArray<u32, 3> indicesVectors{8};
+            mage::vertexArray<3> m_vertexArray;
     };
 }
 

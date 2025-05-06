@@ -23,7 +23,7 @@ void mage::circle::initPoints(){
     f64 angle = 0.0;
     f64 angleRad;
 
-    vertexPositions.insertPoint(m_position.x, m_position.y, 0.0, 1.0);
+    m_vertexArray.insertPoint(mage::vec3{.x = m_position.x, .y = m_position.y, .z = 0.0});
 
     for(int i = 0; i < m_noOfTriangles*2; i++){
         angleRad = (angle * M_PI) / 360;
@@ -31,7 +31,7 @@ void mage::circle::initPoints(){
         f64 x = m_position.x + m_radius * cos(angleRad);
         f64 y = m_position.y + m_radius * sin(angleRad);
 
-        vertexPositions.insertPoint(x, y, 0.0f, 1.0f);
+        m_vertexArray.insertPoint(mage::vec3{.x = x, .y = y, .z = 0.0f});
 
         angle += m_arcLen;
     }
@@ -43,36 +43,36 @@ void mage::circle::initIndices(){
     int i = 0;
     
     for(; i < m_noOfTriangles*2; i++){
-        vertexIndices.insertIndice(0, i, i+1);
+        m_vertexArray.insertIndice(0, i, i+1);
     }
 
-    vertexIndices.insertIndice(0, i, 1);
+    m_vertexArray.insertIndice(0, i, 1);
 }
 
 /* **************************************************************************************************** */
 
 void mage::circle::prepareForRender(){
-    glGenVertexArrays(1, vertexPositions.vao());
-    glBindVertexArray(*vertexPositions.vao());
+    glGenVertexArrays(1, m_vertexArray.vao());
+    glBindVertexArray(*m_vertexArray.vao());
 
-    glGenBuffers(1, vertexPositions.buf());
-    glBindBuffer(GL_ARRAY_BUFFER, *vertexPositions.buf());
-    glBufferData(GL_ARRAY_BUFFER, vertexPositions.size_of(), 
-        vertexPositions.raw(), GL_STATIC_DRAW);
-    glVertexAttribPointer(0, vertexPositions.stride(), GL_FLOAT, GL_FALSE, 0, NULL);
+    glGenBuffers(1, m_vertexArray.vbo());
+    glBindBuffer(GL_ARRAY_BUFFER, *m_vertexArray.vbo());
+    glBufferData(GL_ARRAY_BUFFER, m_vertexArray.vertexSizeof(), 
+        m_vertexArray.vertices_raw(), GL_STATIC_DRAW);
+    glVertexAttribPointer(0, m_vertexArray.stride(), GL_FLOAT, GL_FALSE, 0, NULL);
     glEnableVertexAttribArray(0);
 
-    glGenBuffers(1, vertexIndices.buf());
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *vertexIndices.buf());
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size_of(), 
-        vertexIndices.raw(), GL_STATIC_DRAW);
+    glGenBuffers(1, m_vertexArray.ebo());
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *m_vertexArray.ebo());
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_vertexArray.indiceSizeof(), 
+        m_vertexArray.indices_raw(), GL_STATIC_DRAW);
 }
 
 /* **************************************************************************************************** */
 
 void mage::circle::render(){
     prepareForRender();
-    glDrawElements(GL_TRIANGLES, vertexIndices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, m_vertexArray.indiceCount(), GL_UNSIGNED_INT, 0);
 }
 
 /* **************************************************************************************************** */

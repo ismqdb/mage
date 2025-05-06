@@ -6,6 +6,7 @@
 
 #include "./types.hpp"
 #include "./mageObject.hpp"
+#include "./simpleArray.hpp"
 #include "./vec.hpp"
 
 /* **************************************************************************************************** */
@@ -16,49 +17,48 @@
 /* **************************************************************************************************** */
 
 namespace mage {
-    template<typename Type, u8 t_stride>
+    template<u8 t_stride>
         class vertexArray {
             public:
-                vertexArray(u32);
+                vertexArray();
                 ~vertexArray();
 
-                void insert(Type);
-                void insertIndice(Type, Type, Type);
-                void insertPoint(Type, Type, Type, Type);
+                void insertIndice(u32, u32, u32);
+                void insertPoint(mage::vec3);
 
-                Type* raw();
-                u64 size();
-                u64 size_of();
                 u8 stride();
 
-                u32* buf();
+                u32* vbo();
                 u32* vao();
+                u32* ebo();
 
-                Type* operator[](i32);
+                u64 vertexSizeof();
+                u64 indiceSizeof();
+
+                f64 *vertices_raw();
+                u32 *indices_raw();
+
+                u32 vertexCount();
+                u32 indiceCount();
 
             private:
-                void reserve();
-
-                Type *m_data = nullptr;
-                u64 m_size = 0;
-                u64 m_capacity = 0;
-                u64 m_currentIdx;
-                u64 m_sizeof;
+                mage::simpleArray<f64> points{8};
+                mage::simpleArray<u32> indices{8};
                 
                 u8 m_stride = t_stride;
+
+                u8 m_eboSizeof;
+                u8 m_vboSizeof;
                 
-                u32 *m_buffer;
                 u32 *m_vao;
+                u32 *m_vbo;
+                u32 *m_ebo;
         };
 }
 
 /* **************************************************************************************************** */
 
-template class mage::vertexArray<i32, 4>;
-template class mage::vertexArray<u32, 3>;
-template class mage::vertexArray<f32, 4>;
-
-template class mage::vertexArray<mage::vec3, 3>;
-template class mage::vertexArray<mage::mageObject*, sizeof(mage::mageObject*)>;
+template class mage::vertexArray<4>;
+template class mage::vertexArray<3>;
 
 /* **************************************************************************************************** */

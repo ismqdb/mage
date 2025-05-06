@@ -27,6 +27,8 @@ namespace mage {
                 u64 size();
 
                 Type* operator[](i32);
+                Type* raw();
+            
 
             private:
                 void reserve();
@@ -43,6 +45,7 @@ namespace mage {
 template class mage::simpleArray<i32>;
 template class mage::simpleArray<u32>;
 template class mage::simpleArray<f32>;
+template class mage::simpleArray<f64>;
 
 template class mage::simpleArray<mage::vec3>;
 template class mage::simpleArray<mage::mageObject*>;

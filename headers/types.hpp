@@ -21,6 +21,6 @@ using u64   = u_int64_t;
 using f32   = float;
 using f64   = double;
 
-using real  = float;
+using real  = double;
 
 /* **************************************************************************************************** */

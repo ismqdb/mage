@@ -37,8 +37,7 @@ namespace mage {
             f64 m_arcLen;
             i32 m_program;
 
-            vertexArray<f32, 4> vertexPositions{50};
-            vertexArray<u32, 3> vertexIndices{50};
+            mage::vertexArray<3> m_vertexArray;
     };
 }
 

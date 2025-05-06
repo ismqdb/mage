@@ -25,12 +25,17 @@ template<u8 t_stride>
 
 template<u8 t_stride>
     void mage::vertexArray<t_stride>::insertIndice(u32 a, u32 b, u32 c){
-
+        indices.insert(a);
+        indices.insert(b);
+        indices.insert(c);
         m_eboSizeof += (3 * sizeof(u32));
     }
 
 template<u8 t_stride>
     void mage::vertexArray<t_stride>::insertPoint(mage::vec3 point){
+        points.insert(point.x);
+        points.insert(point.y);
+        points.insert(point.z);
         m_vboSizeof += (3 * sizeof(f64));
     }
 

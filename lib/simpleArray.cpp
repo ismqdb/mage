@@ -11,6 +11,7 @@ template<typename Type>
         m_data = (Type*)malloc(startSize * sizeof(Type));
         m_capacity = startSize;
         m_currentIdx = 0;
+        m_sizeof = 0;
     }
 
 template<typename Type>
@@ -18,6 +19,7 @@ template<typename Type>
         free(m_data);
         m_size = 0;
         m_currentIdx = 0;
+        m_sizeof = 0;
     }
 
 /* **************************************************************************************************** */
@@ -29,6 +31,7 @@ template<typename Type>
 
         m_data[m_currentIdx++] = newValue;
         m_size++;
+        m_sizeof += sizeof(Type);
     }
 
 /* **************************************************************************************************** */
@@ -61,6 +64,13 @@ template<typename Type>
 template<typename Type>
     Type* mage::simpleArray<Type>::raw(){
         return m_data;
+    }
+
+/* **************************************************************************************************** */
+
+template<typename Type>
+    u64 mage::simpleArray<Type>::size_of(){
+        return m_sizeof;
     }
 
 /* **************************************************************************************************** */

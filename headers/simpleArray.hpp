@@ -28,7 +28,7 @@ namespace mage {
 
                 Type* operator[](i32);
                 Type* raw();
-            
+                u64 size_of();
 
             private:
                 void reserve();
@@ -37,6 +37,7 @@ namespace mage {
                 u64 m_size = 0;
                 u64 m_capacity = 0;
                 u64 m_currentIdx;
+                u64 m_sizeof;
         };
 }
 

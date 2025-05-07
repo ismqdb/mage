@@ -35,7 +35,7 @@ void mage::triangle::prepareForRender(){
 
 void mage::triangle::render(){
     prepareForRender();
-    glDrawElements(GL_TRIANGLES, m_vertexArray.indiceCount(), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_POINTS, m_vertexArray.indiceCount(), GL_UNSIGNED_INT, 0);
 }
 
 /* **************************************************************************************************** */

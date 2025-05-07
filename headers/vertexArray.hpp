@@ -46,9 +46,6 @@ namespace mage {
                 mage::simpleArray<u32> indices{8};
                 
                 u8 m_stride = t_stride;
-
-                u8 m_eboSizeof;
-                u8 m_vboSizeof;
                 
                 u32 *m_vao;
                 u32 *m_vbo;

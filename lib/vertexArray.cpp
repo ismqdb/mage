@@ -6,9 +6,6 @@
 
 template<u8 t_stride>
     mage::vertexArray<t_stride>::vertexArray(){
-        m_vboSizeof = 0;
-        m_eboSizeof = 0;
-
         m_vbo = new u32{};
         m_vao = new u32{};
         m_ebo = new u32{};
@@ -28,7 +25,6 @@ template<u8 t_stride>
         indices.insert(a);
         indices.insert(b);
         indices.insert(c);
-        m_eboSizeof += (3 * sizeof(u32));
     }
 
 template<u8 t_stride>
@@ -36,7 +32,6 @@ template<u8 t_stride>
         points.insert(point.x);
         points.insert(point.y);
         points.insert(point.z);
-        m_vboSizeof += (3 * sizeof(f64));
     }
 
 /* **************************************************************************************************** */
@@ -71,14 +66,14 @@ template<u8 t_stride>
 
 template<u8 t_stride>
     u64 mage::vertexArray<t_stride>::vertexSizeof(){
-        return m_vboSizeof;
+        return points.size_of();
     }
 
 /* **************************************************************************************************** */
 
 template<u8 t_stride>
     u64 mage::vertexArray<t_stride>::indiceSizeof(){
-        return m_eboSizeof;
+        return indices.size_of();
     }
 
 /* **************************************************************************************************** */

@@ -10,13 +10,13 @@ i32 main(){
     //mage::circle *circle1 = new mage::circle(mage::vec3{.x = 0.0f, .y = +0.5f, .z = 0.0f}, 1.0f/4, 3);
 
     mage::triangle *triangle1 = new mage::triangle{
-        mage::vec3{.x = +0.00, .y = +0.30, .z = 0.0},
-        mage::vec3{.x = -0.50, .y = -0.30, .z = 0.0},
-        mage::vec3{.x = +0.50, .y = +0.50, .z = 0.0}
+        mage::vec3{.x = +0.00, .y = +0.10, .z = 0.0},
+        mage::vec3{.x = +0.00, .y = +0.20, .z = 0.0},
+        mage::vec3{.x = +0.00, .y = +0.30, .z = 0.0}
     };
 
     //circle1->setProgram(rdotApp.getProgram());
-    triangle1->setProgram(rdotApp.getProgram());
+    //triangle1->setProgram(rdotApp.getProgram());
 
     //rdotApp.addObject(circle1);
     rdotApp.addObject(triangle1);
@@ -31,6 +31,8 @@ i32 main(){
 
 rdot::rdot() : app(){
     memset(this->pressed, 0, GLFW_KEY_LAST);
+
+    m_program = -1;
 
     glfwSetup();
 }
@@ -48,13 +50,15 @@ void rdot::addObject(mage::mageObject *obj){
 /* **************************************************************************************************** */
 
 GLint rdot::getProgram(){
-    return program;
+    return m_program;
 }
 
 /* **************************************************************************************************** */
 
 void rdot::openglSetup(){
-    
+    for(int i = 0; i < objects.size(); i++){
+        (*objects[i])->setProgram(m_program);
+    }
 }
 
 /* **************************************************************************************************** */
@@ -66,7 +70,7 @@ void rdot::render(){
     glClearBufferfv(GL_COLOR, 0, green);
     glClearBufferfv(GL_DEPTH, 0, &one);
 
-    glUseProgram(program);
+    glUseProgram(m_program);
 
     glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
     glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
@@ -74,8 +78,9 @@ void rdot::render(){
 
     glPointSize(10);
 
-    for(int i = 0; i < objects.size(); i++)
+    for(int i = 0; i < objects.size(); i++){
         (*objects[i])->render();
+    }
 }
 
 /* **************************************************************************************************** */
@@ -110,12 +115,12 @@ void rdot::gameLoop(){
 
     modelMatrix = glm::mat4(1.0f);
 
-    program = mage::loadShader(shaders);
-    glUseProgram(program);
+    m_program = mage::loadShader(shaders);
+    glUseProgram(m_program);
 
-    projectionMatrixLocation = glGetUniformLocation(program, "projection");
-    viewMatrixLocation = glGetUniformLocation(program, "view");
-    modelMatrixLocation = glGetUniformLocation(program, "model");
+    projectionMatrixLocation = glGetUniformLocation(m_program, "projection");
+    viewMatrixLocation = glGetUniformLocation(m_program, "view");
+    modelMatrixLocation = glGetUniformLocation(m_program, "model");
 
     glEnable(GL_DEPTH_TEST);
     glFrontFace(GL_CCW);

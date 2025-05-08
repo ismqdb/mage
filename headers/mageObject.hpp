@@ -16,6 +16,7 @@ namespace mage {
             virtual void prepareForRender() = 0;
             virtual void render() = 0;
             virtual void onInput() = 0;
+            virtual void setProgram(i32) = 0;
 
         private:
     };

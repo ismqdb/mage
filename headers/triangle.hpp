@@ -23,7 +23,7 @@ namespace mage {
             void prepareForRender() override;
             void render() override;
             void onInput() override;
-            void setProgram(i32);
+            void setProgram(i32) override;
         
         private:;
             i32 m_program;

@@ -69,7 +69,7 @@ class rdot : public mage::app {
         bool pressed[GLFW_KEY_LAST];
         
         f32 aspectRatio;
-        GLuint program;
+        GLuint m_program;
         i32 fov = 45.0f;
 
         i32 currentTime;

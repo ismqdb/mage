@@ -43,10 +43,10 @@ void mage::circle::initIndices(){
     int i = 0;
     
     for(; i < m_noOfTriangles*2; i++){
-        m_vertexArray.insertIndice(0, i, i+1);
+        m_vertexArray.insertTriIndices(0, i, i+1);
     }
 
-    m_vertexArray.insertIndice(0, i, 1);
+    m_vertexArray.insertTriIndices(0, i, 1);
 }
 
 /* **************************************************************************************************** */

@@ -9,7 +9,7 @@ mage::triangle::triangle(mage::vec3 a, mage::vec3 b, mage::vec3 c){
     m_vertexArray.insertPoint(b);
     m_vertexArray.insertPoint(c);
 
-    m_vertexArray.insertIndice(0, 1, 2);
+    m_vertexArray.insertTriIndices(0, 1, 2);
 }
 
 /* **************************************************************************************************** */

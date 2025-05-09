@@ -23,7 +23,9 @@ namespace mage {
                 vertexArray();
                 ~vertexArray();
 
-                void insertIndice(u32, u32, u32);
+                void insertTriIndices(u32, u32, u32);
+                void insertIndice(u32);
+
                 void insertPoint(mage::vec3);
 
                 u8 stride();

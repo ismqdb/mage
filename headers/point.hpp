@@ -28,7 +28,6 @@ namespace mage {
         
         private:
             i32 m_program;
-            mage::vec3 m_position;
 
             mage::vertexArray<3> m_vertexArray;
     };

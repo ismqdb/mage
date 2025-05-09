@@ -10,6 +10,7 @@
 
 #include "../../headers/circle.hpp"
 #include "../../headers/triangle.hpp"
+#include "../../headers/point.hpp"
 
 /* **************************************************************************************************** */
 

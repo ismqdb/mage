@@ -7,24 +7,15 @@
 i32 main(){
     rdot rdotApp;
 
-    //mage::circle *circle1 = new mage::circle(mage::vec3{.x = 0.0f, .y = +0.5f, .z = 0.0f}, 1.0f/4, 3);
+    mage::point *point = new mage::point{mage::vec3{.x = 0.0f, .y = 0.0f, .z = 0.0f}};
 
-    mage::triangle *triangle1 = new mage::triangle{
-        mage::vec3{.x = +0.00, .y = +0.10, .z = 0.0},
-        mage::vec3{.x = +0.00, .y = +0.20, .z = 0.0},
-        mage::vec3{.x = +0.00, .y = +0.30, .z = 0.0}
-    };
+    point->setProgram(rdotApp.getProgram());
 
-    //circle1->setProgram(rdotApp.getProgram());
-    //triangle1->setProgram(rdotApp.getProgram());
-
-    //rdotApp.addObject(circle1);
-    rdotApp.addObject(triangle1);
+    rdotApp.addObject(point);
 
     rdotApp.gameLoop();
 
-    //delete circle1;
-    delete triangle1;
+    delete point;
 }
 
 /* **************************************************************************************************** */

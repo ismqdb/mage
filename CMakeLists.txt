@@ -12,6 +12,7 @@ set(SOURCE_FILES
     lib/vertexArray.cpp
     lib/circle.cpp
     lib/triangle.cpp
+    lib/point.cpp
 )
 
 find_package(glfw3 REQUIRED)
